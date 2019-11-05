@@ -10,7 +10,7 @@ namespace SkoleProjekt_GodtNavn
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Gameworld : Game
+    public class GameWorld : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -25,7 +25,7 @@ namespace SkoleProjekt_GodtNavn
         public Camera camera = new Camera();
         public static Player player = new Player();
 
-        public Gameworld()
+        public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

@@ -19,8 +19,8 @@ namespace SkoleProjekt_GodtNavn
                0);
 
             var offset = Matrix.CreateTranslation(
-                Gameworld.ScreenSize.X / 2,
-                Gameworld.ScreenSize.Y / 2,
+                GameWorld.ScreenSize.X / 2,
+                GameWorld.ScreenSize.Y / 2,
                 0);
 
             Transform = position * offset;

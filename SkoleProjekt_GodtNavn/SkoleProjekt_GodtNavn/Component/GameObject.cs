@@ -36,7 +36,7 @@ namespace SkoleProjekt_GodtNavn
 
         public virtual void Initialize()
         {
-            screenSize = Gameworld.ScreenSize;
+            screenSize = GameWorld.ScreenSize;
         }
 
         public abstract void Update(GameTime gameTime);

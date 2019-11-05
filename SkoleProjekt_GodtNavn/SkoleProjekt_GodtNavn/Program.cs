@@ -14,7 +14,7 @@ namespace SkoleProjekt_GodtNavn
         [STAThread]
         static void Main()
         {
-            using (var game = new Gameworld())
+            using (var game = new GameWorld())
                 game.Run();
         }
     }
