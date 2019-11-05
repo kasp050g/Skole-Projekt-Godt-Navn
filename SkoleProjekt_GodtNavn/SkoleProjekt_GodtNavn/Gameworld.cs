@@ -19,6 +19,8 @@ namespace SkoleProjekt_GodtNavn
 
 
         public List<GameObject> gameObjects = new List<GameObject>();
+        List<GameObject> gameObjectsToBeDeleted = new List<GameObject>();
+        List<GameObject> newGameObjects = new List<GameObject>();
         public static Vector2 ScreenSize { get; private set; }
         public Camera camera = new Camera();
         public static Player player = new Player();
@@ -130,6 +132,16 @@ namespace SkoleProjekt_GodtNavn
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void Instantiate(GameObject go)
+        {
+
+        }
+
+        public void Destroy(GameObject go)
+        {
+
         }
 
         private void DrawCollisionBox(GameObject go)
