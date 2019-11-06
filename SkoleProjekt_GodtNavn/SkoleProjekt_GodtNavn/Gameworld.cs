@@ -23,7 +23,7 @@ namespace SkoleProjekt_GodtNavn
         List<GameObject> newGameObjects = new List<GameObject>();
         public static Vector2 ScreenSize { get; private set; }
         public Camera camera = new Camera();
-        public static Player player = new Player();
+        public static Player Player = new Player();
 
         public GameWorld()
         {
@@ -50,7 +50,7 @@ namespace SkoleProjekt_GodtNavn
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            gameObjects.Add(player);
+            gameObjects.Add(Player);
             foreach (GameObject go in gameObjects)
             {
                 go.Initialize();
@@ -101,7 +101,7 @@ namespace SkoleProjekt_GodtNavn
                 go.Update(gameTime);
             }
 
-            camera.Follow(player);
+            camera.Follow(Player);
 
             base.Update(gameTime);
         }
@@ -167,7 +167,7 @@ namespace SkoleProjekt_GodtNavn
 
             foreach (GameObject go in gameObjects)
             {
-                spriteBatch.DrawString(font, go.transform.position.ToString(), new Vector2(10, ySpace), Color.Black);
+                spriteBatch.DrawString(font, go.Transform.Position.ToString(), new Vector2(10, ySpace), Color.Black);
                 ySpace += 20;
             }
 #endif

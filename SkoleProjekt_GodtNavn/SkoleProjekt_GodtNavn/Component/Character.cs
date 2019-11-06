@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SkoleProjekt_GodtNavn
 {
 
-    abstract class Character : GameObject
+    public abstract class Character : GameObject
     {
         protected string name;
 
@@ -34,19 +34,23 @@ namespace SkoleProjekt_GodtNavn
         /// <param name="damage"></param>
         public void TakeDamage(float damage)
         {
-
+            health.LowerValue(damage);
         }
 
+        /// <summary>
+        /// When the character recieves healing.
+        /// </summary>
+        /// <param name="heal"></param>
         public void Heal(float heal)
         {
-
+            health.AddValue(heal);
         }
 
         protected void Move(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            transform.Position += ((speed * velocity) * deltaTime);
+            Transform.Position += ((speed * velocity) * deltaTime);
         }
     }
 }

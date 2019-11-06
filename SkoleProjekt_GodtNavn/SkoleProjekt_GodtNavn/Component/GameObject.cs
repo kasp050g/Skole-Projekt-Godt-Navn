@@ -17,7 +17,7 @@ namespace SkoleProjekt_GodtNavn
         protected Texture2D sprite;
         protected Texture2D[] sprites;
 
-        protected Transform transform;
+        public Transform Transform { get; set; }
 
         protected Vector2 velocity;
         protected Vector2 origin;
@@ -47,7 +47,7 @@ namespace SkoleProjekt_GodtNavn
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, transform.Position, rectangle, Color.White, transform.Rotation, origin, transform.Scale, SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(sprite, Transform.Position, rectangle, Color.White, Transform.Rotation, origin, Transform.Scale, SpriteEffects.None, layerDepth);
         }
 
         protected void Animate(GameTime gameTime)
@@ -83,10 +83,10 @@ namespace SkoleProjekt_GodtNavn
             get
             {
                 return new Rectangle(
-                    (int)transform.Position.X - (int)(origin.X * transform.Scale),
-                    (int)transform.Position.Y - (int)(origin.Y  *transform.Scale),
-                    (int)(sprite.Width * transform.Scale),
-                    (int)(sprite.Height * transform.Scale)
+                    (int)Transform.Position.X - (int)(origin.X * Transform.Scale),
+                    (int)Transform.Position.Y - (int)(origin.Y  * Transform.Scale),
+                    (int)(sprite.Width * Transform.Scale),
+                    (int)(sprite.Height * Transform.Scale)
                     );
             }
         }
