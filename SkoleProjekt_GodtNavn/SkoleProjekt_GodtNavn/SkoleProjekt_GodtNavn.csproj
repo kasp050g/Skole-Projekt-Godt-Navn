@@ -46,6 +46,10 @@
     <Compile Include="Component\Camera.cs" />
     <Compile Include="Component\Character.cs" />
     <Compile Include="Component\GameObject.cs" />
+    <Compile Include="Component\Inventory\Equipment.cs" />
+    <Compile Include="Component\Inventory\Inventory.cs" />
+    <Compile Include="Component\Inventory\Item.cs" />
+    <Compile Include="Component\Inventory\ItemType.cs" />
     <Compile Include="Component\Stat.cs" />
     <Compile Include="Component\Transform.cs" />
     <Compile Include="Enemy\Enemy.cs" />
