@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using SkoleProjekt_GodtNavn.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,41 @@ using System.Threading.Tasks;
 
 namespace SkoleProjekt_GodtNavn
 {
-    public abstract class Character : GameObject
-    {
-        public float speed = 250;
-        public Vector2 velocity;
-        public virtual void Move(GameTime gameTime)
-        {
-            // Calculates deltaTime based on the gameTime.
-            float deltatime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Move the GameObject based on the result from HandleInput, speed and deltaTime.
-            transform.position += ((velocity * speed) * deltatime);
+    abstract class Character : GameObject
+    {
+        protected string name;
+
+        protected Stat health;
+        protected Stat armor;
+        protected Stat mana;
+
+        protected bool isAttackable = true;
+        protected bool isAlive = true;
+
+        public Character(Stat health, Stat armor, Stat mana, bool isAttackable)
+        {
+            this.health = health;
+            this.armor = armor;
+            this.mana = mana;
+            this.isAttackable = isAttackable;
+        }
+
+        public void TakeDamage(float damage)
+        {
+
+        }
+
+        public void Heal(float heal)
+        {
+
+        }
+
+        protected void Move(GameTime gameTime)
+        {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            transform.Position += ((speed * velocity) * deltaTime);
         }
     }
 }

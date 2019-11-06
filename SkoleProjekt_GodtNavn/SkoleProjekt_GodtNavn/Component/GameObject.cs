@@ -14,20 +14,22 @@ namespace SkoleProjekt_GodtNavn
 {
     public abstract class GameObject
     {
-        public Transform transform = new Transform();
-        public Vector2 origin;
-        public Texture2D sprite;
-        public float layerDepth = 0;
-        
+        protected Texture2D sprite;
+        protected Texture2D[] sprites;
+
+        protected Transform transform;
+
+        protected Vector2 velocity;
+        protected Vector2 origin;
+
+        protected float fps;
+        protected float speed;
+        protected float layerDepth = 0;
+
+        private float animateTimeElasped;
+        private int animationCurrentIndex;
 
         public Vector2 screenSize;
-
-        #region Animate Value's
-        public Texture2D[] sprites;
-        protected float fps = 10;
-        protected float timeElapsed;
-        protected int currentIndex;
-        #endregion
 
         public virtual void Awake()
         {
@@ -39,32 +41,28 @@ namespace SkoleProjekt_GodtNavn
             screenSize = GameWorld.ScreenSize;
         }
 
-        public abstract void Update(GameTime gameTime);
-
         public abstract void LoadContent(ContentManager content);
+
+        public abstract void Update(GameTime gameTime);
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, transform.position, rectangle, Color.White, transform.rotation, origin, transform.scale, SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(sprite, transform.Position, rectangle, Color.White, transform.Rotation, origin, transform.Scale, SpriteEffects.None, layerDepth);
         }
 
-        public virtual void Animate(GameTime gameTime)
+        protected void Animate(GameTime gameTime)
         {
-            // Adds time that has passed since last update.
-            timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            animateTimeElasped += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Calculates the curent index.
-            currentIndex = (int)(timeElapsed * fps);
+            animationCurrentIndex = (int)(animateTimeElasped * fps);
 
-            sprite = sprites[currentIndex];
-
-            // Check if we need to restart the animation
-            if (currentIndex >= sprites.Length)
+            if (animationCurrentIndex >= sprites.Length)
             {
-                // Resets the animation
-                timeElapsed = 0;
-                currentIndex = 0;
+                animateTimeElasped = 0;
+                animationCurrentIndex = 0;
             }
+
+            sprite = sprites[animationCurrentIndex];
         }
 
         public virtual Rectangle rectangle
@@ -85,10 +83,10 @@ namespace SkoleProjekt_GodtNavn
             get
             {
                 return new Rectangle(
-                    (int)transform.position.X - (int)(origin.X * transform.scale),
-                    (int)transform.position.Y - (int)(origin.Y  *transform.scale),
-                    (int)(sprite.Width * transform.scale),
-                    (int)(sprite.Height * transform.scale)
+                    (int)transform.Position.X - (int)(origin.X * transform.Scale),
+                    (int)transform.Position.Y - (int)(origin.Y  *transform.Scale),
+                    (int)(sprite.Width * transform.Scale),
+                    (int)(sprite.Height * transform.Scale)
                     );
             }
         }
