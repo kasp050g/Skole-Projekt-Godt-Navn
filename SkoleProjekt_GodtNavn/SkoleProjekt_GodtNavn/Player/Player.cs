@@ -20,7 +20,7 @@ namespace SkoleProjekt_GodtNavn
         public override void Initialize()
         {
             base.Initialize();
-            transform.scale = 1.0f;
+            Transform.Scale = 1.0f;
         }
 
         public override void LoadContent(ContentManager content)

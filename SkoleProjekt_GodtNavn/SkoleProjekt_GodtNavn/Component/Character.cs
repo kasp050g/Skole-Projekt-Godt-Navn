@@ -20,6 +20,10 @@ namespace SkoleProjekt_GodtNavn
         protected bool isAttackable = true;
         protected bool isAlive = true;
 
+        public Character()
+        {
+        }
+
         public Character(Stat health, Stat armor, Stat mana, bool isAttackable)
         {
             this.health = health;

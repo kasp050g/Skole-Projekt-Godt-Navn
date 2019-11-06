@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Bundles\EnemyBundle.cs" />
     <Compile Include="Component\Facing.cs" />
     <Compile Include="Component\AudioPlayer.cs" />
     <Compile Include="Component\Camera.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Component\Stat.cs" />
     <Compile Include="Component\Transform.cs" />
     <Compile Include="Enemy\Enemy.cs" />
+    <Compile Include="Enemy\EnemyType.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Program.cs" />

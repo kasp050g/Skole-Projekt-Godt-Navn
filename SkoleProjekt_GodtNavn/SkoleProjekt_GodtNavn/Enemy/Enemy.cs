@@ -19,6 +19,10 @@ namespace SkoleProjekt_GodtNavn
             this.isAttackable = isAttackable;
         }
 
+        public Enemy()
+        {
+        }
+
         public override void LoadContent(ContentManager content)
         {
         }
@@ -32,7 +36,7 @@ namespace SkoleProjekt_GodtNavn
             FollowPlayer(GameWorld.Player);
         }
 
-        private void FollowPlayer(GameObject player)
+        public void FollowPlayer(GameObject player)
         {
             if(player is Player)
             {
