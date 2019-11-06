@@ -28,6 +28,10 @@ namespace SkoleProjekt_GodtNavn
             this.isAttackable = isAttackable;
         }
 
+        /// <summary>
+        /// When the character takes damage.
+        /// </summary>
+        /// <param name="damage"></param>
         public void TakeDamage(float damage)
         {
 

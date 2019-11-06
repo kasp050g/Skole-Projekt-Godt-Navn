@@ -10,6 +10,7 @@ namespace SkoleProjekt_GodtNavn.Bundles
 {
     class EnemyBundle
     {
+        // Animation array list for skeletons.
         public Texture2D[] SkeletonSprites { get; set; }
         public Texture2D[] GoblinSprites { get; set; }
         public Texture2D[] WolfSprites { get; set; }
