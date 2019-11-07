@@ -14,7 +14,7 @@ namespace SkoleProjekt_GodtNavn
 {
     public class Player : Character
     {
-
+        public GUI_Inventory GUI_Inventory = new GUI_Inventory();
         Facing facing = Facing.Down;
 
         public override void Initialize()

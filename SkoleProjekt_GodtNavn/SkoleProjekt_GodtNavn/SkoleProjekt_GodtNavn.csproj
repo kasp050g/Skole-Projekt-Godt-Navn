@@ -46,6 +46,12 @@
     <Compile Include="Component\Camera.cs" />
     <Compile Include="Component\Character.cs" />
     <Compile Include="Component\GameObject.cs" />
+    <Compile Include="Component\GUI Component\GUI_Button.cs" />
+    <Compile Include="Component\GUI Component\GUI_Component.cs" />
+    <Compile Include="Component\GUI Component\GUI_Font.cs" />
+    <Compile Include="Component\GUI Component\GUI_Inventory.cs" />
+    <Compile Include="Component\GUI Component\GUI_OriginPosition.cs" />
+    <Compile Include="Component\GUI Component\GUI_Panel.cs" />
     <Compile Include="Component\Inventory\Equipment.cs" />
     <Compile Include="Component\Inventory\Inventory.cs" />
     <Compile Include="Component\Inventory\Item.cs" />

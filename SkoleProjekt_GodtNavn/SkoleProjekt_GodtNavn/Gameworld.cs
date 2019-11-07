@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
+using System;
 
 namespace SkoleProjekt_GodtNavn
 {
@@ -16,9 +17,12 @@ namespace SkoleProjekt_GodtNavn
         SpriteBatch spriteBatch;
         SpriteFont font;
         Texture2D collisionTexture;
+        public static Color backgroundColour = Color.CornflowerBlue;
+
 
 
         public List<GameObject> gameObjects = new List<GameObject>();
+        static private List<GUI_Component> uiList = new List<GUI_Component>();
         public static Vector2 ScreenSize { get; private set; }
         public Camera camera = new Camera();
         public static Player player = new Player();
@@ -39,6 +43,11 @@ namespace SkoleProjekt_GodtNavn
             ScreenSize = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
         }
 
+
+        public static void AddGUI(GUI_Component gui_Component)
+        {
+            uiList.Add(gui_Component);
+        }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -48,6 +57,7 @@ namespace SkoleProjekt_GodtNavn
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            IsMouseVisible = true;
             gameObjects.Add(player);
             foreach (GameObject go in gameObjects)
             {
@@ -62,6 +72,8 @@ namespace SkoleProjekt_GodtNavn
         /// </summary>
         protected override void LoadContent()
         {
+            player.GUI_Inventory.LoadContent(Content);
+            player.GUI_Inventory.GUI_Setup();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Font/NormalFont");
@@ -72,7 +84,11 @@ namespace SkoleProjekt_GodtNavn
                 go.LoadContent(Content);
             }
             // TODO: use this.Content to load your game content here
+
+
+      
         }
+
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -93,10 +109,19 @@ namespace SkoleProjekt_GodtNavn
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+
+            //var random = new Random();
+            //backgroundColour = new Color(random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
+
+
             // TODO: Add your update logic here
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
+            }
+            foreach (GUI_Component ui in uiList)
+            {
+                ui.Update(gameTime);
             }
 
             camera.Follow(player);
@@ -110,7 +135,7 @@ namespace SkoleProjekt_GodtNavn
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(backgroundColour);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: camera.Transform);
@@ -127,7 +152,18 @@ namespace SkoleProjekt_GodtNavn
 #endif
             }
 
+
             spriteBatch.End();
+
+            // UI
+            spriteBatch.Begin();
+            foreach (GUI_Component ui in uiList)
+            {
+                ui.Draw(gameTime, spriteBatch);
+            }
+            spriteBatch.End();
+
+
 
             base.Draw(gameTime);
         }
