@@ -40,42 +40,41 @@ namespace SkoleProjekt_GodtNavn
         {
             if(player is Player)
             {
-                int distanceX = 0;
-                int distanceY = 0;
+                int distanceX = (int)(player.Transform.Position.X - Transform.Position.X);
+                int distanceY = (int)(player.Transform.Position.Y - Transform.Position.Y);
                 bool positiveX = distanceX > 0;
                 bool positiveY = distanceY > 0;
 
-                if(Transform.Position.X != player.Transform.Position.X)
+                if (Math.Abs(distanceX) <= 50 && Math.Abs(distanceY) <= 50)
                 {
-                    distanceX = (int)(player.Transform.Position.X - Transform.Position.X);
+                    if (Transform.Position.X != player.Transform.Position.X)
+                    {
+                        if (positiveX)
+                        {
+                            velocity.X += 1;
+                        }
+                        else
+                        {
+                            velocity.X -= 1;
+                        }
+                    }
 
-                    if (positiveX)
+                    if (Transform.Position.Y != player.Transform.Position.Y)
                     {
-                        velocity.X += 1;
+                        if (positiveY)
+                        {
+                            velocity.Y += 1;
+                        }
+                        else
+                        {
+                            velocity.Y -= 1;
+                        }
                     }
-                    else
-                    {
-                        velocity.X -= 1;
-                    }
-                }
-                
-                if(Transform.Position.Y != player.Transform.Position.Y)
-                {
-                    distanceY = (int)(player.Transform.Position.Y - Transform.Position.Y);
 
-                    if (positiveY)
+                    if (velocity != Vector2.Zero)
                     {
-                        velocity.Y += 1;
+                        velocity.Normalize();
                     }
-                    else
-                    {
-                        velocity.Y -= 1;
-                    }
-                }
-
-                if (velocity != Vector2.Zero)
-                {
-                    velocity.Normalize();
                 }
             }
         }
