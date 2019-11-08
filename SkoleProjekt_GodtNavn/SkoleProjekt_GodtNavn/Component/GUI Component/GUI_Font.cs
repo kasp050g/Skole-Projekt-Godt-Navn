@@ -23,7 +23,7 @@ namespace SkoleProjekt_GodtNavn
 
         public float layerDepth;
         public Vector2 Position { get; set; }
-        public float FontScale { get; set; }
+        public Vector2 FontScale { get; set; }
 
         public string Text { get; set; }
 

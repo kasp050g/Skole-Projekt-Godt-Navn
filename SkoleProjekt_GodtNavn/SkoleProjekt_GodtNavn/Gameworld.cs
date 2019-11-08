@@ -72,8 +72,13 @@ namespace SkoleProjekt_GodtNavn
         /// </summary>
         protected override void LoadContent()
         {
+            // UI Inventory
             player.GUI_Inventory.LoadContent(Content);
             player.GUI_Inventory.GUI_Setup();
+            // UI Equipment
+            player.GUI_Equipment.LoadContent(Content);
+            player.GUI_Equipment.GUI_Setup();
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Font/NormalFont");

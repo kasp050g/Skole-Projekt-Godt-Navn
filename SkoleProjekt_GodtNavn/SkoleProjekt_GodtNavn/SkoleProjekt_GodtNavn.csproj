@@ -48,6 +48,8 @@
     <Compile Include="Component\GameObject.cs" />
     <Compile Include="Component\GUI Component\GUI_Button.cs" />
     <Compile Include="Component\GUI Component\GUI_Component.cs" />
+    <Compile Include="Component\GUI Component\GUI_EquipButton.cs" />
+    <Compile Include="Component\GUI Component\GUI_Equipment.cs" />
     <Compile Include="Component\GUI Component\GUI_Font.cs" />
     <Compile Include="Component\GUI Component\GUI_Inventory.cs" />
     <Compile Include="Component\GUI Component\GUI_OriginPosition.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Component\Inventory\Inventory.cs" />
     <Compile Include="Component\Inventory\Item.cs" />
     <Compile Include="Component\Inventory\ItemType.cs" />
+    <Compile Include="Component\Inventory\Rarity.cs" />
     <Compile Include="Component\Stat.cs" />
     <Compile Include="Component\Transform.cs" />
     <Compile Include="Enemy\Enemy.cs" />
@@ -74,6 +77,25 @@
   <ItemGroup>
     <Content Include="Content\Texture\Component\CollisionTexture.png" />
     <Content Include="Content\Texture\Player\tmp.PNG" />
+    <Content Include="Content\Texture\UI\Button.png" />
+    <Content Include="Content\Texture\UI\delete_button.png" />
+    <Content Include="Content\Texture\UI\Equipment\boots.png" />
+    <Content Include="Content\Texture\UI\Equipment\boots_slot.png" />
+    <Content Include="Content\Texture\UI\Equipment\character_panel.png" />
+    <Content Include="Content\Texture\UI\Equipment\chest.png" />
+    <Content Include="Content\Texture\UI\Equipment\chest_slot.png" />
+    <Content Include="Content\Texture\UI\Equipment\equipment_1.png" />
+    <Content Include="Content\Texture\UI\Equipment\gloves.png" />
+    <Content Include="Content\Texture\UI\Equipment\gloves_slot.png" />
+    <Content Include="Content\Texture\UI\Equipment\helmet.png" />
+    <Content Include="Content\Texture\UI\Equipment\helmet_slot.png" />
+    <Content Include="Content\Texture\UI\Equipment\pants.png" />
+    <Content Include="Content\Texture\UI\Equipment\pants_slot.png" />
+    <Content Include="Content\Texture\UI\Equipment\slot_1.png" />
+    <Content Include="Content\Texture\UI\load_button.png" />
+    <Content Include="Content\Texture\UI\MenuBackground.png" />
+    <Content Include="Content\Texture\UI\TitleStats.png" />
+    <Content Include="Content\Texture\UI\TooltipBackground.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -95,7 +117,6 @@
     <Folder Include="Content\Texture\Enemy\" />
     <Folder Include="Content\Texture\Environment\" />
     <Folder Include="Content\Texture\NPC\" />
-    <Folder Include="Content\Texture\UI\" />
     <Folder Include="Environment\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

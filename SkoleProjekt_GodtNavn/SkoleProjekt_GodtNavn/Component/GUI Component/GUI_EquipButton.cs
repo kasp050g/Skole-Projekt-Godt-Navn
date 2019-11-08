@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace SkoleProjekt_GodtNavn
 {
-    public class GUI_Button : GUI_Component
+    public class GUI_EquipButton : GUI_Component
     {
         #region Fields
 
@@ -20,11 +20,11 @@ namespace SkoleProjekt_GodtNavn
         private MouseState previousMouse;
         private bool isHovering;
 
-        private SpriteFont font;
-        private Texture2D sprite;
-        private Color hoverColor = Color.Gray;
+        private Texture2D sprite_NoEquip;
+        private Texture2D sprite_GotEquip;
+
+        private Color hoverColor = Color.LightGray;
         private Color defaultColor = Color.White;
-        private Color fontColor = Color.Black;
 
         #endregion
 
@@ -36,9 +36,9 @@ namespace SkoleProjekt_GodtNavn
         public event EventHandler Click;
         public GUI_OriginPosition Origin { get; set; }
         public bool Clicked { get; private set; }
+        public bool IsEquip { get; set; }
         public Vector2 Position { get; set; }
-        public Vector2 FontScale { get; set; }
-        public Vector2 ButtonScale { get; set; }
+        public Vector2 Scale { get; set; }
         public Rectangle Rectangle
         {
             get
@@ -46,8 +46,8 @@ namespace SkoleProjekt_GodtNavn
                 return new Rectangle(
                     (int)Position.X,
                     (int)Position.Y,
-                    (int)(sprite.Width * ButtonScale.X),
-                    (int)(sprite.Height * ButtonScale.Y));
+                    (int)(sprite_NoEquip.Width * Scale.X),
+                    (int)(sprite_NoEquip.Height * Scale.Y));
             }
         }
 
@@ -57,16 +57,16 @@ namespace SkoleProjekt_GodtNavn
 
         #region Methods
 
-        public GUI_Button(Texture2D sprite, SpriteFont font)
+        public GUI_EquipButton(Texture2D sprite, Texture2D itemSprite)
         {
-            this.sprite = sprite;
-            this.font = font;
+            this.sprite_NoEquip = sprite;
+            this.sprite_GotEquip = itemSprite;
         }
-        public GUI_Button(Texture2D sprite, SpriteFont font, Color fontColor, Color defaultColor, Color hoverColor)
+
+        public GUI_EquipButton(Texture2D sprite,Texture2D itemSprite, Color defaultColor, Color hoverColor)
         {
-            this.sprite = sprite;
-            this.font = font;
-            this.fontColor = fontColor;
+            this.sprite_NoEquip = sprite;
+            this.sprite_GotEquip = itemSprite;
             this.defaultColor = defaultColor;
             this.hoverColor = hoverColor;
         }
@@ -82,18 +82,13 @@ namespace SkoleProjekt_GodtNavn
                     colour = hoverColor;
                 }
 
-                spriteBatch.Draw(sprite, Position, null, colour, 0f, Vector2.Zero, ButtonScale, SpriteEffects.None, layerDepth);
-                //spriteBatch.Draw(sprite, Rectangle, colour);
-                //spriteBatch.Draw(sprite, Position, Rectangle, colour, 0, new Vector2(0, 0), 1, SpriteEffects.None, layerDepth);
-
-                if (!string.IsNullOrEmpty(Text))
+                if (IsEquip == true)
                 {
-                    var x = (Rectangle.X + (Rectangle.Width / 2)) - (font.MeasureString(Text).X / 2) * FontScale.X;
-                    var y = (Rectangle.Y + (Rectangle.Height / 2)) - (font.MeasureString(Text).Y / 2) * FontScale.Y;
-
-                    //spriteBatch.DrawString(font, Text, new Vector2(x, y), fontColor);
-                    spriteBatch.DrawString(font, Text, new Vector2(x, y), fontColor, 0f, Vector2.Zero, FontScale, SpriteEffects.None, layerDepth);
-                    //spriteBatch.DrawString(font, Text, new Vector2(x, y), Color.White, 0, new Vector2(0, 0), 1, SpriteEffects.None, layerDepth + 0.001f);
+                    spriteBatch.Draw(sprite_GotEquip, Position, null, colour, 0f, Vector2.Zero, Scale, SpriteEffects.None, layerDepth);
+                }
+                else
+                {
+                    spriteBatch.Draw(sprite_NoEquip, Position, null, colour, 0f, Vector2.Zero, Scale, SpriteEffects.None, layerDepth);
                 }
             }
         }
@@ -113,7 +108,7 @@ namespace SkoleProjekt_GodtNavn
                 {
                     isHovering = true;
 
-                    if (currentMouse.LeftButton == ButtonState.Released && previousMouse.LeftButton == ButtonState.Pressed)
+                    if (currentMouse.RightButton == ButtonState.Released && previousMouse.RightButton == ButtonState.Pressed)
                     {
                         Click?.Invoke(this, new EventArgs());
                     }
@@ -123,4 +118,5 @@ namespace SkoleProjekt_GodtNavn
 
         #endregion
     }
+
 }

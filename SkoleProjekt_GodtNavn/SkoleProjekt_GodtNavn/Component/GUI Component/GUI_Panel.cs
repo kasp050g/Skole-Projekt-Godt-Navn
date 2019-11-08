@@ -25,7 +25,7 @@ namespace SkoleProjekt_GodtNavn
         public Texture2D Sprite { get { return sprite; } set { sprite = value; } }
         public Vector2 Position { get; set; }
         public GUI_OriginPosition Origin { get; set; }
-        public float Scale { get; set; }
+        public Vector2 Scale { get; set; }
         public Rectangle Rectangle
         {
             get
