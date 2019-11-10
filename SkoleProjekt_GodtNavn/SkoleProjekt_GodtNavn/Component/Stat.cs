@@ -4,10 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SkoleProjekt_GodtNavn.Component
+namespace SkoleProjekt_GodtNavn
 {
     public class Stat
     {
+        /// <summary>
+        /// How most we start with
+        /// </summary>
+        public int baseValue;
+        /// <summary>
+        /// How most we get per level
+        /// </summary>
+        public int levelValue;
+
         /// <summary>
         /// Max value.
         /// </summary>

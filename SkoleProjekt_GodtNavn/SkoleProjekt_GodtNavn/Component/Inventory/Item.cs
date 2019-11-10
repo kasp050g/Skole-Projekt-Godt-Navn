@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +10,10 @@ namespace SkoleProjekt_GodtNavn
 {
     public class Item
     {
-        public ItemType ItemType;
+        public Texture2D itemSprite;
+        public ItemType itemType;
         public Rarity rarity;
+        public Color rarityColor;
         public int health;
         public int mana;
         public float armor;
@@ -27,11 +31,46 @@ namespace SkoleProjekt_GodtNavn
         {
             playerLevel = Gameworld.player.level;
             Array itemValues = Enum.GetValues(typeof(ItemType));
-            ItemType = (ItemType)itemValues.GetValue(random.Next(itemValues.Length));
+            itemType = (ItemType)itemValues.GetValue(random.Next(itemValues.Length));
+            AddSprite(itemType);
 
             rarity = RarityItem();
             AddRandomStat();
             GoldValue();
+        }
+
+        public void AddSprite(ItemType _itemType)
+        {
+
+            switch (_itemType)
+            {
+                case ItemType.Helmet:
+                    itemSprite = Gameworld.spriteContainer.soleSprite["helmet"];
+                    break;
+                case ItemType.Chest:
+                    itemSprite = Gameworld.spriteContainer.soleSprite["chest"];
+                    break;
+                case ItemType.Leg:
+                    itemSprite = Gameworld.spriteContainer.soleSprite["pants"];
+                    break;
+                case ItemType.Gloves:
+                    itemSprite = Gameworld.spriteContainer.soleSprite["gloves"];
+                    break;
+                case ItemType.Boots:
+                    itemSprite = Gameworld.spriteContainer.soleSprite["boots"];
+                    break;
+                case ItemType.WeaponRange:
+                    itemSprite = Gameworld.spriteContainer.soleSprite["staff"];
+                    break;
+                case ItemType.WeaponMelee:
+                    itemSprite = Gameworld.spriteContainer.soleSprite["sword"];
+                    break;
+                case ItemType.Consumable:
+                    itemSprite = Gameworld.spriteContainer.soleSprite["healthPotion"];
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void GoldValue()
@@ -39,24 +78,28 @@ namespace SkoleProjekt_GodtNavn
             if (Rarity.common == rarity)
             {
                 goldValue = 1 * playerLevel;
+                rarityColor = Color.White;
             }
             if (Rarity.uncommon == rarity)
             {
                 goldValue = 2 * playerLevel;
+                rarityColor = Color.Green;
             }
             if (Rarity.rare == rarity)
             {
                 goldValue = 3 * playerLevel;
+                rarityColor = Color.Blue;
             }
             if (Rarity.epic == rarity)
             {
                 goldValue = 4 * playerLevel;
+                rarityColor = Color.Red;
             }
         }
 
         public void AddRandomStat()
         {
-            if (ItemType.WeaponMelee == ItemType || ItemType.WeaponRange == ItemType)
+            if (ItemType.WeaponMelee == itemType || ItemType.WeaponRange == itemType)
             {
                 weaponDamage = (int)(RarityStatNumber(rarity, "Weapon") * playerLevel);
             }
@@ -71,7 +114,7 @@ namespace SkoleProjekt_GodtNavn
             }
             if (Rarity.uncommon == rarity)
             {
-                int randomS = random.Next(1, 2);
+                int randomS = random.Next(1, 3);
                 if (randomS == 1)
                 {
                     AddHealthMana(RarityStatNumber(rarity,"Stat"));
@@ -96,7 +139,7 @@ namespace SkoleProjekt_GodtNavn
 
         public void AddStat(float add)
         {
-            int _stat = random.Next(1, 3);
+            int _stat = random.Next(1, 4);
             if (_stat == 1)
             {
                 strength = (int)add * playerLevel;
@@ -112,7 +155,7 @@ namespace SkoleProjekt_GodtNavn
         }
         public void AddHealthMana(float add)
         {
-            int _healthMana = random.Next(1, 2);
+            int _healthMana = random.Next(1, 3);
             if (_healthMana == 1)
             {
                 health = (int)add * playerLevel;

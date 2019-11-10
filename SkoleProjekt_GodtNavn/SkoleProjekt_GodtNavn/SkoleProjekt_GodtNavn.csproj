@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Component\Container\SpriteContainer.cs" />
     <Compile Include="Component\Facing.cs" />
     <Compile Include="Component\AudioPlayer.cs" />
     <Compile Include="Component\Camera.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Component\GUI Component\GUI_Inventory.cs" />
     <Compile Include="Component\GUI Component\GUI_OriginPosition.cs" />
     <Compile Include="Component\GUI Component\GUI_Panel.cs" />
+    <Compile Include="Component\GUI Component\GUI_Slot_Inventory.cs" />
     <Compile Include="Component\Inventory\Equipment.cs" />
     <Compile Include="Component\Inventory\Inventory.cs" />
     <Compile Include="Component\Inventory\Item.cs" />
@@ -77,25 +79,55 @@
   <ItemGroup>
     <Content Include="Content\Texture\Component\CollisionTexture.png" />
     <Content Include="Content\Texture\Player\tmp.PNG" />
-    <Content Include="Content\Texture\UI\Button.png" />
-    <Content Include="Content\Texture\UI\delete_button.png" />
-    <Content Include="Content\Texture\UI\Equipment\boots.png" />
-    <Content Include="Content\Texture\UI\Equipment\boots_slot.png" />
-    <Content Include="Content\Texture\UI\Equipment\character_panel.png" />
-    <Content Include="Content\Texture\UI\Equipment\chest.png" />
-    <Content Include="Content\Texture\UI\Equipment\chest_slot.png" />
-    <Content Include="Content\Texture\UI\Equipment\equipment_1.png" />
-    <Content Include="Content\Texture\UI\Equipment\gloves.png" />
-    <Content Include="Content\Texture\UI\Equipment\gloves_slot.png" />
-    <Content Include="Content\Texture\UI\Equipment\helmet.png" />
-    <Content Include="Content\Texture\UI\Equipment\helmet_slot.png" />
-    <Content Include="Content\Texture\UI\Equipment\pants.png" />
-    <Content Include="Content\Texture\UI\Equipment\pants_slot.png" />
-    <Content Include="Content\Texture\UI\Equipment\slot_1.png" />
-    <Content Include="Content\Texture\UI\load_button.png" />
-    <Content Include="Content\Texture\UI\MenuBackground.png" />
-    <Content Include="Content\Texture\UI\TitleStats.png" />
-    <Content Include="Content\Texture\UI\TooltipBackground.png" />
+    <Content Include="Content\Texture\UI\Character panel\boots.png" />
+    <Content Include="Content\Texture\UI\Character panel\boots_slot.png" />
+    <Content Include="Content\Texture\UI\Character panel\character_panel.png" />
+    <Content Include="Content\Texture\UI\Character panel\chest.png" />
+    <Content Include="Content\Texture\UI\Character panel\chest_slot.png" />
+    <Content Include="Content\Texture\UI\Character panel\close_button.png" />
+    <Content Include="Content\Texture\UI\Character panel\frame.png" />
+    <Content Include="Content\Texture\UI\Character panel\gloves.png" />
+    <Content Include="Content\Texture\UI\Character panel\gloves_slot.png" />
+    <Content Include="Content\Texture\UI\Character panel\helmet.png" />
+    <Content Include="Content\Texture\UI\Character panel\helmet_slot.png" />
+    <Content Include="Content\Texture\UI\Character panel\orb.png" />
+    <Content Include="Content\Texture\UI\Character panel\orb_slot.png" />
+    <Content Include="Content\Texture\UI\Character panel\pants.png" />
+    <Content Include="Content\Texture\UI\Character panel\pants_slot.png" />
+    <Content Include="Content\Texture\UI\Character panel\play_button.png" />
+    <Content Include="Content\Texture\UI\Character panel\staff.png" />
+    <Content Include="Content\Texture\UI\Character panel\staff_slot.png" />
+    <Content Include="Content\Texture\UI\Character panel\sword.png" />
+    <Content Include="Content\Texture\UI\Character panel\sword_slot.png" />
+    <Content Include="Content\Texture\UI\Inventory\apple.png" />
+    <Content Include="Content\Texture\UI\Inventory\background_bag.png" />
+    <Content Include="Content\Texture\UI\Inventory\bag.png" />
+    <Content Include="Content\Texture\UI\Inventory\empty_slot.png" />
+    <Content Include="Content\Texture\UI\Inventory\empty_slot_bagbar.png" />
+    <Content Include="Content\Texture\UI\Inventory\epmtyFrame.png" />
+    <Content Include="Content\Texture\UI\Inventory\full_slot_bag.png" />
+    <Content Include="Content\Texture\UI\Inventory\healthPotion.png" />
+    <Content Include="Content\Texture\UI\Inventory\key.png" />
+    <Content Include="Content\Texture\UI\Menus\delete_button.png" />
+    <Content Include="Content\Texture\UI\Menus\load_button.png" />
+    <Content Include="Content\Texture\UI\Menus\MenuBackground.png" />
+    <Content Include="Content\Texture\UI\Menus\MenuButtons.png" />
+    <Content Include="Content\Texture\UI\Menus\save_button.png" />
+    <Content Include="Content\Texture\UI\Menus\TitleStats.png" />
+    <Content Include="Content\Texture\UI\Menus\TooltipBackground.png" />
+    <Content Include="Content\Texture\UI\Quest log\arrow_down.png" />
+    <Content Include="Content\Texture\UI\Quest log\arrow_up.png" />
+    <Content Include="Content\Texture\UI\Quest log\button_1.png" />
+    <Content Include="Content\Texture\UI\Quest log\button_2.png" />
+    <Content Include="Content\Texture\UI\Quest log\close_button_.png" />
+    <Content Include="Content\Texture\UI\Quest log\frame_1.png" />
+    <Content Include="Content\Texture\UI\Quest log\frame_2.png" />
+    <Content Include="Content\Texture\UI\Quest log\frame_3.png" />
+    <Content Include="Content\Texture\UI\Quest log\quest_log.png" />
+    <Content Include="Content\Texture\UI\Quest log\slider.png" />
+    <Content Include="Content\Texture\UI\Quest log\slider_bar.png" />
+    <Content Include="Content\Texture\UI\Quest log\text_frame_1.png" />
+    <Content Include="Content\Texture\UI\Quest log\text_frame_2.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

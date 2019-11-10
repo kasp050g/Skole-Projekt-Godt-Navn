@@ -8,11 +8,23 @@ namespace SkoleProjekt_GodtNavn
 {
     public class Inventory
     {
-        public List<Item> items = new List<Item>();
+        public Item[] items = new Item[20];
+
+        public void SetUp()
+        {
+
+        }
 
         public void AddItem(Item item)
         {
-            items.Add(item);
+            for (int i = 0; i < items.Length; i++)
+            {
+                if(items[i] == null)
+                {
+                    items[i] = item;
+                    break;
+                }                
+            }
         }
 
         public void GetItem()

@@ -26,6 +26,7 @@ namespace SkoleProjekt_GodtNavn
         public static Vector2 ScreenSize { get; private set; }
         public Camera camera = new Camera();
         public static Player player = new Player();
+        public static SpriteContainer spriteContainer = new SpriteContainer();
 
         public Gameworld()
         {
@@ -56,6 +57,8 @@ namespace SkoleProjekt_GodtNavn
         /// </summary>
         protected override void Initialize()
         {
+            spriteContainer.LoadContent(Content);
+
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
             gameObjects.Add(player);
@@ -71,7 +74,7 @@ namespace SkoleProjekt_GodtNavn
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
-        {
+        {        
             // UI Inventory
             player.GUI_Inventory.LoadContent(Content);
             player.GUI_Inventory.GUI_Setup();
@@ -90,8 +93,6 @@ namespace SkoleProjekt_GodtNavn
             }
             // TODO: use this.Content to load your game content here
 
-
-      
         }
 
 

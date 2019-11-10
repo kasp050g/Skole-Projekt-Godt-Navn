@@ -14,13 +14,16 @@ namespace SkoleProjekt_GodtNavn
 {
     public class GUI_Inventory
     {
-        Texture2D buttonImage;
+        private int slotOffSetX = 125;
+        private int slotOffSetY = 100;
         Texture2D panel;
         SpriteFont spriteFont;
 
+        GUI_Slot_Inventory[] slot_Inventory = new GUI_Slot_Inventory[20];
+
         // Show Item
-        Texture2D itemPanel;
-        Texture2D tmpItemIcon;
+        Texture2D itemSlot;
+        Texture2D itemSlotFram;
 
         private int itemShowOffset = 0;
         private bool showGUI;
@@ -30,11 +33,9 @@ namespace SkoleProjekt_GodtNavn
 
         public void LoadContent(ContentManager content)
         {
-            // Load in Image
-            buttonImage = content.Load<Texture2D>("Texture/UI/Button");
-            panel = content.Load<Texture2D>("Texture/UI/MenuBackground");
-            itemPanel = content.Load<Texture2D>("Texture/UI/Equipment/TitleStats");
-            tmpItemIcon = content.Load<Texture2D>("Texture/UI/Equipment/staff");
+            panel = Gameworld.spriteContainer.soleSprite["quest_log"];
+            itemSlot = Gameworld.spriteContainer.soleSprite["empty_slot"];
+            itemSlotFram = Gameworld.spriteContainer.soleSprite["epmtyFrame"];
             // Load in Font
             spriteFont = content.Load<SpriteFont>("Font/NormalFont");
         }
@@ -45,7 +46,7 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(Gameworld.ScreenSize.X - 50, 150),
                 Origin = GUI_OriginPosition.TopRigth,
-                Scale = new Vector2(0.5f, 0.5f)
+                Scale = new Vector2(0.5f, 0.71f)
             };
             panel01.SetOrigin();
             gui_inventory.Add(panel01);
@@ -61,9 +62,29 @@ namespace SkoleProjekt_GodtNavn
 
 
 
+            for (int i = 0; i < slot_Inventory.Length; i++)
+            {
+                var jamen = new GUI_Slot_Inventory(itemSlot, itemSlotFram)
+                {
+                    Position = new Vector2(panel01.Position.X - slotOffSetX, panel01.Position.Y + slotOffSetY),
+                    Scale = new Vector2(1.0f, 1.0f)
+                };
+
+                slot_Inventory[i] = jamen;
+                gui_inventory.Add(jamen);
+
+                slotOffSetX += 100;
+
+                if(slotOffSetX > 600)
+                {
+                    slotOffSetX = 125;
+                    slotOffSetY += 100;
+                }
+            }
+
             foreach (Item x in Gameworld.player.inventory.items)
             {
-                ShowItemGUI(panel01.Position, x, itemShowOffset);
+                ShowItemGUI02(panel01.Position, x, itemShowOffset);
                 itemShowOffset += 100;
             }
 
@@ -88,11 +109,27 @@ namespace SkoleProjekt_GodtNavn
             {
                 x.ShowGUI = showGUI;
             }
+            UpdateGUI01();
         }
+
+        public void UpdateGUI01()
+        {
+
+            for (int i = 0; i < slot_Inventory.Length; i++)
+            {
+                slot_Inventory[i].item = Gameworld.player.inventory.items[i];
+            }
+        }
+
+        public void ShowItemGUI02(Vector2 mainPanel, Item item, int offset)
+        {
+
+        }
+
 
         public void ShowItemGUI(Vector2 mainPanel, Item item, int offset)
         {
-            var _itemPanel = new GUI_Panel(itemPanel)
+            var _itemPanel = new GUI_Panel(itemSlot)
             {
                 Position = new Vector2(mainPanel.X - 505, mainPanel.Y + (100 + offset)),
                 Origin = GUI_OriginPosition.TopLeft,
@@ -104,7 +141,7 @@ namespace SkoleProjekt_GodtNavn
             var panelTitle01 = new GUI_Font(spriteFont)
             {
                 Position = new Vector2(_itemPanel.Position.X + 10, _itemPanel.Position.Y + 20),
-                Text = " Item: " + item.ItemType.ToString() + " - Rarity: " + item.rarity.ToString() + "\n Damage: " + item.weaponDamage.ToString() + " -  Armor: " + item.armor.ToString(),
+                Text = " Item: " + item.itemType.ToString() + " - Rarity: " + item.rarity.ToString() + "\n Damage: " + item.weaponDamage.ToString() + " -  Armor: " + item.armor.ToString(),
                 FontScale = new Vector2(0.5f, 0.5f)
             };
             gui_inventory.Add(panelTitle01);
