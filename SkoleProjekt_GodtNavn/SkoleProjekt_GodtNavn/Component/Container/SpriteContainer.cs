@@ -66,6 +66,14 @@ namespace SkoleProjekt_GodtNavn
             AddSoleSprite(content.Load<Texture2D>("Texture/UI/Quest log/slider_bar"), "slider_bar");
             AddSoleSprite(content.Load<Texture2D>("Texture/UI/Quest log/text_frame_1"), "text_frame_1");
             AddSoleSprite(content.Load<Texture2D>("Texture/UI/Quest log/text_frame_2"), "text_frame_2");
+
+            // Player UI
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/Player UI/Health bar Empty"), "HealthBar");
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/Player UI/Mana Bar Empty"), "ManaBar");
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/Player UI/Circle white"), "CircleWhite");
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/Player UI/Circle white _ 4 timer"), "CircleWhite4");
+
+
         }
 
 

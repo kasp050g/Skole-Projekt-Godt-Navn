@@ -137,15 +137,17 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 40, panel01.Position.Y + 380),
                 Text = $"Health: {Gameworld.player.health.currentValue}/{Gameworld.player.health.maxValue}",
-                FontScale = new Vector2(0.5f, 0.5f)
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.9f
             };
             gui_equipment.Add(showHealth);
             // Mana
-            showMana = new GUI_Font(spriteFont, Color.Blue)
+            showMana = new GUI_Font(spriteFont, Color.DodgerBlue)
             {
                 Position = new Vector2(panel01.Position.X + 40, panel01.Position.Y + 410),
                 Text = $"Mana: {Gameworld.player.mana.currentValue}/{Gameworld.player.mana.maxValue}",
-                FontScale = new Vector2(0.5f, 0.5f)
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.9f
             };
             gui_equipment.Add(showMana);
 
@@ -154,7 +156,8 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 40, panel01.Position.Y + 440),
                 Text = $"Armor: {Gameworld.player.armor}/{Gameworld.player.armor / (Gameworld.player.level * 10 * 100)}",
-                FontScale = new Vector2(0.5f, 0.5f)
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.9f
             };
             gui_equipment.Add(showArmor);
             // Weapon Damage
@@ -162,7 +165,8 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 40, panel01.Position.Y + 470),
                 Text = $"Weapon Damage: {Gameworld.player.weaponDamage}",
-                FontScale = new Vector2(0.5f, 0.5f)
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.9f
             };
             gui_equipment.Add(showWeaponDamage);
 
@@ -171,7 +175,8 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 380),
                 Text = $"Strength: {Gameworld.player.strength}",
-                FontScale = new Vector2(0.5f, 0.5f)
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.9f
             };
             gui_equipment.Add(showStrength);
             // showAgility
@@ -179,7 +184,8 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 410),
                 Text = $"Agility: {Gameworld.player.agility}",
-                FontScale = new Vector2(0.5f, 0.5f)
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.9f
             };
             gui_equipment.Add(showAgility);
             // showStrength
@@ -187,7 +193,8 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 440),
                 Text = $"Intelligence: {Gameworld.player.intelligence}",
-                FontScale = new Vector2(0.5f, 0.5f)
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.9f
             };
             gui_equipment.Add(showIntelligence);
             #endregion

@@ -18,5 +18,6 @@ namespace SkoleProjekt_GodtNavn
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
         public abstract void Update(GameTime gameTime);
+
     }
 }

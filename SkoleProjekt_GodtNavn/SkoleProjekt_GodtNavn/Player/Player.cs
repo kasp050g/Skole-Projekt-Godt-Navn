@@ -18,12 +18,17 @@ namespace SkoleProjekt_GodtNavn
         public Equipment equipment = new Equipment();
         public GUI_Inventory GUI_Inventory = new GUI_Inventory();
         public GUI_Equipment GUI_Equipment = new GUI_Equipment();
+        public GUI_HealthAndMana healthAndMana = new GUI_HealthAndMana();
         private bool canOpenUI;
 
         public int level = 5;
+        public int gold = 0;
+        public bool isSell = false;
 
-
-        // --- Player Stats ---
+        #region --- Player Stats ---
+        // XP
+        int maxXP = 100;
+        int currentXP = 0;
         // Health And Mana
         public Stat health = new Stat();
         public Stat mana = new Stat();
@@ -34,6 +39,7 @@ namespace SkoleProjekt_GodtNavn
         public int agility;
         public int intelligence;
 
+        #endregion
 
         public float moveSpeed = 5;
 
@@ -45,7 +51,7 @@ namespace SkoleProjekt_GodtNavn
             transform.scale = 1.0f;
             canOpenUI = true;
 
-
+            #region Set Up player stats
             // level up stats
             health.baseValue = 100;
             mana.baseValue = 25;
@@ -55,19 +61,7 @@ namespace SkoleProjekt_GodtNavn
             mana.levelValue = 5;
 
             UpdatePlayerStatOnLevelUp();
-
-            // Add item 01
-            Item item01 = new Item();
-            item01.RandomStats();
-            inventory.AddItem(item01);
-
-            Item item02 = new Item();
-            item02.RandomStats();
-            inventory.AddItem(item02);
-
-            Item item03 = new Item();
-            item03.RandomStats();
-            inventory.AddItem(item03);
+            #endregion
         }
 
         public override void LoadContent(ContentManager content)
@@ -122,6 +116,16 @@ namespace SkoleProjekt_GodtNavn
             mana.currentValue = mana.maxValue;
         }
 
+        public void GetXP(int newXP)
+        {
+            currentXP += newXP;
+            if(currentXP >= maxXP)
+            {
+                maxXP = (int)(maxXP * 1.2f);
+                level += 1;
+                currentXP = 0;
+            }
+        }
 
         public override void OnCollision(GameObject other)
         {
@@ -133,6 +137,7 @@ namespace SkoleProjekt_GodtNavn
             HandleInput();
             UpdatePlayerStats();
             GUI_Equipment.UpdateGUI03();
+            GUI_Inventory.UpdateGUI01();
         }
 
         public void HandleInput()
@@ -160,7 +165,13 @@ namespace SkoleProjekt_GodtNavn
                 inventory.AddItem(tmpItem);
             }
 
-            if (keyState.IsKeyUp(Keys.I) && keyState.IsKeyUp(Keys.P) && keyState.IsKeyUp(Keys.L))
+            if (keyState.IsKeyDown(Keys.K) && canOpenUI == true)
+            {
+                isSell = !isSell;
+                canOpenUI = false;
+            }
+
+            if (keyState.IsKeyUp(Keys.I) && keyState.IsKeyUp(Keys.P) && keyState.IsKeyUp(Keys.L) && keyState.IsKeyUp(Keys.K))
             {
                 canOpenUI = true;
             }

@@ -81,6 +81,8 @@ namespace SkoleProjekt_GodtNavn
             // UI Equipment
             player.GUI_Equipment.LoadContent(Content);
             player.GUI_Equipment.GUI_Setup();
+            // Player UI
+            player.healthAndMana.GUI_Setup();
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -162,7 +164,7 @@ namespace SkoleProjekt_GodtNavn
             spriteBatch.End();
 
             // UI
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.FrontToBack);
             foreach (GUI_Component ui in uiList)
             {
                 ui.Draw(gameTime, spriteBatch);

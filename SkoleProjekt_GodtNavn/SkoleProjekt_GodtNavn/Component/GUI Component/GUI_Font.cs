@@ -13,14 +13,14 @@ namespace SkoleProjekt_GodtNavn
         #region Fields
 
         private SpriteFont font;
-        private Color fontColor = Color.Black;
+        public Color fontColor = Color.Black;
 
         #endregion
 
 
 
         #region Properties
-
+        public SpriteFont Font { get { return font; } set { font = value; } }
         public float layerDepth;
         public Vector2 Position { get; set; }
         public Vector2 FontScale { get; set; }
@@ -31,6 +31,10 @@ namespace SkoleProjekt_GodtNavn
 
         #region Methods
 
+        public GUI_Font()
+        {
+
+        }
         public GUI_Font(SpriteFont font)
         {
             this.font = font;

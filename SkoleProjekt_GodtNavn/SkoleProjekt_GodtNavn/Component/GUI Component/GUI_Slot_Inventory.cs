@@ -25,9 +25,16 @@ namespace SkoleProjekt_GodtNavn
         private Color hoverColor = Color.LightGray;
         private Color defaultColor = Color.White;
 
+        private GUI_ShowItemInfo showItemInfo = new GUI_ShowItemInfo()
+        {
+            Scale = new Vector2(0.5f, 0.25f),
+            Origin = GUI_OriginPosition.TopRigth,
+            OffSetPositin = new Vector2(-235, 0)
+        };
 
         public event EventHandler Click;
-        public float layerDepth;
+
+        public float layerDepth = 0.9f;
         public Item item;
         public Vector2 Position { get; set; }
         public Vector2 Scale { get; set; }
@@ -66,6 +73,15 @@ namespace SkoleProjekt_GodtNavn
                 if (isHovering)
                 {
                     colour = hoverColor;
+
+                    if (item != null)
+                    {
+                        if (showItemInfo.item == null)
+                        {
+                            showItemInfo.item = item;                            
+                        }
+                        showItemInfo.Draw(gameTime, spriteBatch);                        
+                    }
                 }
 
                 if (item != null)
@@ -96,17 +112,36 @@ namespace SkoleProjekt_GodtNavn
                 {
                     isHovering = true;
 
+                    showItemInfo.Position = new Vector2(currentMouse.X, currentMouse.Y);
+                    showItemInfo.Update(gameTime);
+
                     if (currentMouse.RightButton == ButtonState.Released && previousMouse.RightButton == ButtonState.Pressed)
                     {
                         Click?.Invoke(this, new EventArgs());
                         if (item != null)
                         {
-                            Gameworld.player.equipment.EquipItem(item);
+                            if(Gameworld.player.isSell == true)
+                            {
+                                Gameworld.player.inventory.SellItem(item);
+                            }
+                            else
+                            {
+                                Gameworld.player.equipment.EquipItem(item);                                
+                            }
                             Gameworld.player.GUI_Inventory.UpdateGUI01();
                             Gameworld.player.GUI_Equipment.UpdateGUI02();
+                            showItemInfo.item = null;
                         }
                     }
                 }
+            }
+            if (isHovering)
+            {
+                showItemInfo.ShowGUI = true;
+            }
+            else
+            {
+                showItemInfo.ShowGUI = false;
             }
         }
     }

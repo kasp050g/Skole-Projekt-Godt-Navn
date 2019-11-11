@@ -31,5 +31,17 @@ namespace SkoleProjekt_GodtNavn
         {
             // Donno how to do for now.
         }
+
+        public void SellItem(Item item)
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
+                if(item == items[i])
+                {
+                    Gameworld.player.gold += items[i].goldValue;
+                    items[i] = null;
+                }
+            }
+        }
     }
 }

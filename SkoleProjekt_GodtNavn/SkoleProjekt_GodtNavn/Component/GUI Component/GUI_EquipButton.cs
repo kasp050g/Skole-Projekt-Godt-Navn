@@ -26,13 +26,18 @@ namespace SkoleProjekt_GodtNavn
         private Color hoverColor = Color.LightGray;
         private Color defaultColor = Color.White;
 
+        private GUI_ShowItemInfo showItemInfo = new GUI_ShowItemInfo()
+        {
+            Scale = new Vector2(0.5f, 0.25f),
+            Origin = GUI_OriginPosition.TopLeft
+        };
         #endregion
 
 
 
         #region Properties
 
-        public float layerDepth;
+        public float layerDepth = 0.9f;
         public event EventHandler Click;
         public GUI_OriginPosition Origin { get; set; }
 
@@ -62,7 +67,7 @@ namespace SkoleProjekt_GodtNavn
             this.sprite_GotEquip = itemSprite;
         }
 
-        public GUI_EquipButton(Texture2D sprite,Texture2D itemSprite, Color defaultColor, Color hoverColor)
+        public GUI_EquipButton(Texture2D sprite, Texture2D itemSprite, Color defaultColor, Color hoverColor)
         {
             this.sprite_NoEquip = sprite;
             this.sprite_GotEquip = itemSprite;
@@ -79,12 +84,21 @@ namespace SkoleProjekt_GodtNavn
                 if (isHovering)
                 {
                     colour = hoverColor;
+
+                    if (item != null)
+                    {
+                        if (showItemInfo.item == null || item != showItemInfo.item)
+                        {
+                            showItemInfo.item = item;
+                        }
+                        showItemInfo.Draw(gameTime, spriteBatch);
+                    }
                 }
 
                 if (item != null)
                 {
-                    if(item.itemSprite != null)
-                    spriteBatch.Draw(item.itemSprite, Position, null, item.rarityColor, 0f, Vector2.Zero, Scale, SpriteEffects.None, layerDepth);
+                    if (item.itemSprite != null)
+                        spriteBatch.Draw(item.itemSprite, Position, null, item.rarityColor, 0f, Vector2.Zero, Scale, SpriteEffects.None, layerDepth);
                 }
                 else
                 {
@@ -108,17 +122,29 @@ namespace SkoleProjekt_GodtNavn
                 {
                     isHovering = true;
 
+                    showItemInfo.Position = new Vector2(currentMouse.X, currentMouse.Y);
+                    showItemInfo.Update(gameTime);
+
                     if (currentMouse.RightButton == ButtonState.Released && previousMouse.RightButton == ButtonState.Pressed)
                     {
                         Click?.Invoke(this, new EventArgs());
-                        if(item != null)
+                        if (item != null)
                         {
                             Gameworld.player.equipment.UnEquipItem(item);
                             Gameworld.player.GUI_Inventory.UpdateGUI01();
                             Gameworld.player.GUI_Equipment.UpdateGUI02();
+                            showItemInfo.item = null;
                         }
                     }
                 }
+            }
+            if (isHovering)
+            {
+                showItemInfo.ShowGUI = true;
+            }
+            else
+            {
+                showItemInfo.ShowGUI = false;
             }
         }
 

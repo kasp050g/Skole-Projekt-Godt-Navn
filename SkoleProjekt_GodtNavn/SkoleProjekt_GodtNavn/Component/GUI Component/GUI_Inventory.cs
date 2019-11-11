@@ -25,6 +25,8 @@ namespace SkoleProjekt_GodtNavn
         Texture2D itemSlot;
         Texture2D itemSlotFram;
 
+        GUI_Font goldText;
+
         private int itemShowOffset = 0;
         private bool showGUI;
         public bool ShowGUI { get { return showGUI; } set { showGUI = value; } }
@@ -46,7 +48,8 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(Gameworld.ScreenSize.X - 50, 150),
                 Origin = GUI_OriginPosition.TopRigth,
-                Scale = new Vector2(0.5f, 0.71f)
+                Scale = new Vector2(0.5f, 0.76f),
+                layerDepth = 0.8f
             };
             panel01.SetOrigin();
             gui_inventory.Add(panel01);
@@ -54,12 +57,24 @@ namespace SkoleProjekt_GodtNavn
             // Title
             var panelTitle01 = new GUI_Font(spriteFont)
             {
-                Position = new Vector2(panel01.Position.X - 400, panel01.Position.Y + 20),
+                Position = new Vector2(panel01.Position.X - 360, panel01.Position.Y + 40),
                 Text = "Inventory",
-                FontScale = new Vector2(1, 1)
+                FontScale = new Vector2(1, 1),
+                layerDepth = 0.9f,
+                fontColor = Color.BlueViolet
             };
             gui_inventory.Add(panelTitle01);
 
+            // Title
+            goldText = new GUI_Font(spriteFont)
+            {
+                Position = new Vector2(panel01.Position.X - 520, panel01.Position.Y + 505),
+                Text = "Inventory",
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.90f,
+                fontColor = Color.Gold
+            };
+            gui_inventory.Add(goldText);
 
 
             for (int i = 0; i < slot_Inventory.Length; i++)
@@ -67,7 +82,8 @@ namespace SkoleProjekt_GodtNavn
                 var jamen = new GUI_Slot_Inventory(itemSlot, itemSlotFram)
                 {
                     Position = new Vector2(panel01.Position.X - slotOffSetX, panel01.Position.Y + slotOffSetY),
-                    Scale = new Vector2(1.0f, 1.0f)
+                    Scale = new Vector2(1.0f, 1.0f),
+                    layerDepth = 0.9f
                 };
 
                 slot_Inventory[i] = jamen;
@@ -114,10 +130,13 @@ namespace SkoleProjekt_GodtNavn
 
         public void UpdateGUI01()
         {
-
-            for (int i = 0; i < slot_Inventory.Length; i++)
+            if(showGUI == true)
             {
-                slot_Inventory[i].item = Gameworld.player.inventory.items[i];
+                for (int i = 0; i < slot_Inventory.Length; i++)
+                {
+                    slot_Inventory[i].item = Gameworld.player.inventory.items[i];
+                }
+                goldText.Text = $"Gold: {Gameworld.player.gold}";
             }
         }
 
@@ -142,7 +161,8 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(_itemPanel.Position.X + 10, _itemPanel.Position.Y + 20),
                 Text = " Item: " + item.itemType.ToString() + " - Rarity: " + item.rarity.ToString() + "\n Damage: " + item.weaponDamage.ToString() + " -  Armor: " + item.armor.ToString(),
-                FontScale = new Vector2(0.5f, 0.5f)
+                FontScale = new Vector2(0.1f, 0.1f),
+                fontColor = Color.Gold
             };
             gui_inventory.Add(panelTitle01);
 

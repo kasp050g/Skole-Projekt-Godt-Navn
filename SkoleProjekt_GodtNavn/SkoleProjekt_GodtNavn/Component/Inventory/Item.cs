@@ -142,15 +142,15 @@ namespace SkoleProjekt_GodtNavn
             int _stat = random.Next(1, 4);
             if (_stat == 1)
             {
-                strength = (int)add * playerLevel;
+                strength += (int)add * playerLevel;
             }
             if (_stat == 2)
             {
-                intelligence = (int)add * playerLevel;
+                intelligence += (int)add * playerLevel;
             }
             if (_stat == 3)
             {
-                agility = (int)add * playerLevel;
+                agility += (int)add * playerLevel;
             }
         }
         public void AddHealthMana(float add)
@@ -206,7 +206,7 @@ namespace SkoleProjekt_GodtNavn
                 }
                 if (Rarity.epic == RarityNumber)
                 {
-                    return ((float)random.Next(1, 15) / 10);
+                    return ((float)random.Next(10, 15) / 10);
                 }
             }
             if (type == "Weapon")

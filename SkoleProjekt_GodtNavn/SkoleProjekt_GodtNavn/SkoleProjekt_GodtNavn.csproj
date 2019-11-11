@@ -52,9 +52,12 @@
     <Compile Include="Component\GUI Component\GUI_EquipButton.cs" />
     <Compile Include="Component\GUI Component\GUI_Equipment.cs" />
     <Compile Include="Component\GUI Component\GUI_Font.cs" />
+    <Compile Include="Component\GUI Component\GUI_HealthAndMana.cs" />
+    <Compile Include="Component\GUI Component\GUI_healthManaImage.cs" />
     <Compile Include="Component\GUI Component\GUI_Inventory.cs" />
     <Compile Include="Component\GUI Component\GUI_OriginPosition.cs" />
     <Compile Include="Component\GUI Component\GUI_Panel.cs" />
+    <Compile Include="Component\GUI Component\GUI_ShowItemInfo.cs" />
     <Compile Include="Component\GUI Component\GUI_Slot_Inventory.cs" />
     <Compile Include="Component\Inventory\Equipment.cs" />
     <Compile Include="Component\Inventory\Inventory.cs" />
@@ -115,6 +118,9 @@
     <Content Include="Content\Texture\UI\Menus\save_button.png" />
     <Content Include="Content\Texture\UI\Menus\TitleStats.png" />
     <Content Include="Content\Texture\UI\Menus\TooltipBackground.png" />
+    <Content Include="Content\Texture\UI\Player UI\Circle white _ 4 timer.png" />
+    <Content Include="Content\Texture\UI\Player UI\Circle white.png" />
+    <Content Include="Content\Texture\UI\Player UI\Mana Bar Empty.png" />
     <Content Include="Content\Texture\UI\Quest log\arrow_down.png" />
     <Content Include="Content\Texture\UI\Quest log\arrow_up.png" />
     <Content Include="Content\Texture\UI\Quest log\button_1.png" />
