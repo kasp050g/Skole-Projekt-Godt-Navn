@@ -22,6 +22,11 @@ namespace SkoleProjekt_GodtNavn
 
 
         public List<GameObject> gameObjects = new List<GameObject>();
+        static public List<GameObject> gameObjectsToBeDelete = new List<GameObject>();
+        static public List<GameObject> newGameObjects = new List<GameObject>();
+
+
+
         static private List<GUI_Component> uiList = new List<GUI_Component>();
         public static Vector2 ScreenSize { get; private set; }
         public Camera camera = new Camera();
@@ -33,6 +38,29 @@ namespace SkoleProjekt_GodtNavn
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             ScreenSetting();
+        }
+
+        public static void Instatiate(GameObject gameObject)
+        {
+            newGameObjects.Add(gameObject);
+        }
+        private void CallInstatiate()
+        {
+            gameObjects.AddRange(newGameObjects);
+            newGameObjects.Clear();
+        }
+        // Destroy
+        public static void Destroy(GameObject gameObject)
+        {
+            gameObjectsToBeDelete.Add(gameObject);
+        }
+        private void CallDestroy()
+        {
+            foreach (GameObject go in gameObjectsToBeDelete)
+            {
+                gameObjects.Remove(go);
+            }
+            gameObjectsToBeDelete.Clear();
         }
 
         public void ScreenSetting()
@@ -74,7 +102,7 @@ namespace SkoleProjekt_GodtNavn
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
-        {        
+        {
             // UI Inventory
             player.GUI_Inventory.LoadContent(Content);
             player.GUI_Inventory.GUI_Setup();
@@ -135,6 +163,10 @@ namespace SkoleProjekt_GodtNavn
             camera.Follow(player);
 
             base.Update(gameTime);
+
+
+            CallDestroy();
+            CallInstatiate();
         }
 
         /// <summary>

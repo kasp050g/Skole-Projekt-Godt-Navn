@@ -24,6 +24,7 @@ namespace SkoleProjekt_GodtNavn
         public int level = 5;
         public int gold = 0;
         public bool isSell = false;
+        public bool isAttacking = false;
 
         #region --- Player Stats ---
         // XP
@@ -88,7 +89,7 @@ namespace SkoleProjekt_GodtNavn
 
             foreach (Item x in equipment.RetrunEquipItems())
             {
-                if(x != null)
+                if (x != null)
                 {
                     health.maxValue += x.health;
                     mana.maxValue += x.mana;
@@ -120,17 +121,17 @@ namespace SkoleProjekt_GodtNavn
         public void GetXP(int newXP)
         {
             currentXP += newXP;
-            if(currentXP >= maxXP)
+            if (currentXP >= maxXP)
             {
-                maxXP = (int)(maxXP * 1.2f);
-                level += 1;
+                maxXP = (int)(maxXP * 1.25f);
                 currentXP = 0;
+                level += 1;
             }
         }
 
         public override void OnCollision(GameObject other)
         {
-            
+
         }
 
         public override void Update(GameTime gameTime)
@@ -139,9 +140,17 @@ namespace SkoleProjekt_GodtNavn
             UpdatePlayerStats();
             GUI_Equipment.UpdateGUI03();
             GUI_Inventory.UpdateGUI01();
+            Move(gameTime);
         }
 
         public void HandleInput()
+        {
+            MoveInput();
+            UI_Input();
+
+        }
+
+        public void UI_Input()
         {
             KeyboardState keyState = Keyboard.GetState();
 
@@ -175,6 +184,56 @@ namespace SkoleProjekt_GodtNavn
             if (keyState.IsKeyUp(Keys.I) && keyState.IsKeyUp(Keys.P) && keyState.IsKeyUp(Keys.L) && keyState.IsKeyUp(Keys.K))
             {
                 canOpenUI = true;
+            }
+        }
+
+        public void MoveInput()
+        {
+            velocity = Vector2.Zero;
+
+            KeyboardState keyState = Keyboard.GetState();
+            // make sure we cant move befor the attack is done.
+            if (isAttacking == false)
+            {
+                // if we move, move player and play run Animate
+                if (keyState.IsKeyDown(Keys.W))
+                {
+                    velocity += new Vector2(0, -1);
+
+                    facing = Facing.Up;
+                }
+                if (keyState.IsKeyDown(Keys.S))
+                {
+                    velocity += new Vector2(0, 1);
+
+                    facing = Facing.Down;
+                }
+
+                if (keyState.IsKeyDown(Keys.A))
+                {
+                    velocity += new Vector2(-1, 0);
+                    // dont play if we move Up or Down
+                    if (velocity.Y == 0)
+                    {
+
+                    }
+                    facing = Facing.Left;
+                }
+                if (keyState.IsKeyDown(Keys.D))
+                {
+                    velocity += new Vector2(1, 0);
+                    // dont play if we move Up or Down
+                    if (velocity.Y == 0)
+                    {
+
+                    }
+                    facing = Facing.Rigth;
+                }
+            }
+
+            if (velocity != Vector2.Zero)
+            {
+                velocity.Normalize();
             }
         }
     }
