@@ -120,6 +120,7 @@
     <Content Include="Content\Texture\UI\Menus\TooltipBackground.png" />
     <Content Include="Content\Texture\UI\Player UI\Circle white _ 4 timer.png" />
     <Content Include="Content\Texture\UI\Player UI\Circle white.png" />
+    <Content Include="Content\Texture\UI\Player UI\Health bar Empty.png" />
     <Content Include="Content\Texture\UI\Player UI\Mana Bar Empty.png" />
     <Content Include="Content\Texture\UI\Quest log\arrow_down.png" />
     <Content Include="Content\Texture\UI\Quest log\arrow_up.png" />

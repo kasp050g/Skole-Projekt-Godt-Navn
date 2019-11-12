@@ -61,6 +61,7 @@ namespace SkoleProjekt_GodtNavn
             mana.levelValue = 5;
 
             UpdatePlayerStatOnLevelUp();
+
             #endregion
         }
 
