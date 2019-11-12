@@ -15,10 +15,15 @@ namespace SkoleProjekt_GodtNavn
     public class SpriteContainer
     {
         public Dictionary<string, Texture2D> soleSprite = new Dictionary<string, Texture2D>();
+        public Dictionary<string, Texture2D> spriteSheet = new Dictionary<string, Texture2D>();
         public SpriteFont spriteFont;
 
         public void LoadContent(ContentManager content)
         {
+            AddSpriteSheet(content.Load<Texture2D>("Texture/Enemy/Goblin/Enemy_Goblin_Sheet"), "Enemy_Goblin_Sheet");
+            AddSpriteSheet(content.Load<Texture2D>("Texture/Enemy/Golem/Enemy_Golem_Walk_Sheet"), "Enemy_Golem_Walk_Sheet");
+            AddSpriteSheet(content.Load<Texture2D>("Texture/Enemy/Golem/Enemy_Golem_Attack_Sheet"), "Enemy_Golem_Attack_Sheet");
+
 
             // Font
             spriteFont = content.Load<SpriteFont>("Font/NormalFont");
@@ -80,6 +85,11 @@ namespace SkoleProjekt_GodtNavn
         public void AddSoleSprite(Texture2D texture2D, string name)
         {
             soleSprite.Add(name, texture2D);
+        }
+
+        public void AddSpriteSheet(Texture2D texture2D, string name)
+        {
+            spriteSheet.Add(name, texture2D);
         }
     }
 }
