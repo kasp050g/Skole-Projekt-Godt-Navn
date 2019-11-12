@@ -16,6 +16,8 @@ namespace SkoleProjekt_GodtNavn
     {
         public Dictionary<string, Texture2D> soleSprite = new Dictionary<string, Texture2D>();
         public Dictionary<string, Texture2D> spriteSheet = new Dictionary<string, Texture2D>();
+        public Dictionary<string, List<Texture2D>> spriteList = new Dictionary<string, List<Texture2D>>();
+
         public SpriteFont spriteFont;
 
         public void LoadContent(ContentManager content)
@@ -79,6 +81,158 @@ namespace SkoleProjekt_GodtNavn
             AddSoleSprite(content.Load<Texture2D>("Texture/UI/Player UI/Circle white _ 4 timer"), "CircleWhite4");
 
 
+            /// ---Player Image---
+            List<Texture2D> tmpList = new List<Texture2D>();
+            #region Walk
+            // Walk Down
+            for (int i = 0; i < 11; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/down/down_walk/down_walk_00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Walk_Down");
+            tmpList = new List<Texture2D>();
+            // Walk Up
+            for (int i = 0; i < 11; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/up/up_walk/UP walk00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Walk_Up");
+            tmpList = new List<Texture2D>();
+            // Walk Left
+            for (int i = 0; i < 13; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/left/left_walk/left_walk00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Walk_Left");
+            tmpList = new List<Texture2D>();
+            // Walk Rigth
+            for (int i = 0; i < 13; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/right/right_walk/right_walk00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Walk_Rigth");
+            tmpList = new List<Texture2D>();
+            #endregion
+            #region Attack
+            // Attack Down
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/down/down_attack_sword/down_attack_sword00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Attack_Down");
+            tmpList = new List<Texture2D>();
+            // Attack Up
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/up/up_attack_sword/UP attack_sword00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Attack_Up");
+            tmpList = new List<Texture2D>();
+            // Attack Left
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/left/left_attack_sword/left_attack_sword00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Attack_Left");
+            tmpList = new List<Texture2D>();
+            // Attack Rigth
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/right/right_attack_sword/right_attack_sword00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Attack_Rigth");
+            tmpList = new List<Texture2D>();
+            #endregion
+            #region Cast
+            // Cast Down
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/down/down_attack_shield/down_attack_shield00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Cast_Down");
+            tmpList = new List<Texture2D>();
+            // Cast Up
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/up/up_attack_shield/UP attack_shield00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Cast_Up");
+            tmpList = new List<Texture2D>();
+            // Cast Left
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/left/left_attack_shield/left_attack_shield00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Cast_Left");
+            tmpList = new List<Texture2D>();
+            // Cast Rigth
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/right/right_attack_shield/right_attack_shield00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Cast_Rigth");
+            tmpList = new List<Texture2D>();
+            #endregion
+            #region Idle
+            // Idle Down
+            for (int i = 0; i < 9; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/down/down_idle/down_idle00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Idle_Down");
+            tmpList = new List<Texture2D>();
+            // Idle Up
+            for (int i = 0; i < 9; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/up/up_idle/UP idle00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Idle_Up");
+            tmpList = new List<Texture2D>();
+            // Idle Left
+            for (int i = 0; i < 9; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/left/left_idle/left_idle00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Idle_Left");
+            tmpList = new List<Texture2D>();
+            // Idle Rigth
+            for (int i = 0; i < 9; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/right/right_idle/right_idle00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Idle_Rigth");
+            tmpList = new List<Texture2D>();
+            #endregion
+            #region Death
+            // Death Down
+            for (int i = 0; i < 9; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/down/down_death/down_death00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Death_Down");
+            tmpList = new List<Texture2D>();
+            // Death Up
+            for (int i = 0; i < 9; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/up/up_death/UP death00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Death_Up");
+            tmpList = new List<Texture2D>();
+            // Death Left
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/left/left_death/left_death00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Death_Left");
+            tmpList = new List<Texture2D>();
+            // Death Rigth
+            for (int i = 0; i < 8; i++)
+            {
+                tmpList.Add(content.Load<Texture2D>($"Texture/Player/right/right_death/right_death00{(i + 1 >= 10 ? "" : "0")}{i + 1}"));
+            }
+            AddSpriteSheet(tmpList, "Player_Death_Rigth");
+            tmpList = new List<Texture2D>();
+            #endregion
         }
 
 
@@ -90,6 +244,11 @@ namespace SkoleProjekt_GodtNavn
         public void AddSpriteSheet(Texture2D texture2D, string name)
         {
             spriteSheet.Add(name, texture2D);
+        }
+
+        public void AddSpriteSheet(List<Texture2D> texture2D, string name)
+        {
+            spriteList.Add(name, texture2D);
         }
     }
 }

@@ -14,6 +14,15 @@ namespace SkoleProjekt_GodtNavn
 {
     public class Player : Character
     {
+        // Animation
+        AnimationContainer_Array animation_walk;
+        AnimationContainer_Array animation_attack;
+        AnimationContainer_Array animation_cast;
+        AnimationContainer_Array animation_idle;
+        AnimationContainer_Array animation_death;
+
+        DoAnimation_Array doAnimation_Array = new DoAnimation_Array(10);
+
         public Inventory inventory = new Inventory();
         public Equipment equipment = new Equipment();
         public GUI_Inventory GUI_Inventory = new GUI_Inventory();
@@ -49,8 +58,48 @@ namespace SkoleProjekt_GodtNavn
         public override void Initialize()
         {
             base.Initialize();
-            transform.scale = 1.0f;
+            transform.scale = 0.2f;
             canOpenUI = true;
+
+            #region Set Animation
+            animation_walk = new AnimationContainer_Array()
+            {
+                up = Gameworld.spriteContainer.spriteList["Player_Walk_Up"],
+                down = Gameworld.spriteContainer.spriteList["Player_Walk_Down"],
+                left = Gameworld.spriteContainer.spriteList["Player_Walk_Left"],
+                rigth = Gameworld.spriteContainer.spriteList["Player_Walk_Rigth"]
+            };
+            animation_attack = new AnimationContainer_Array()
+            {
+                up = Gameworld.spriteContainer.spriteList["Player_Attack_Up"],
+                down = Gameworld.spriteContainer.spriteList["Player_Attack_Down"],
+                left = Gameworld.spriteContainer.spriteList["Player_Attack_Left"],
+                rigth = Gameworld.spriteContainer.spriteList["Player_Attack_Rigth"]
+            };
+            animation_cast = new AnimationContainer_Array()
+            {
+                up = Gameworld.spriteContainer.spriteList["Player_Cast_Up"],
+                down = Gameworld.spriteContainer.spriteList["Player_Cast_Down"],
+                left = Gameworld.spriteContainer.spriteList["Player_Cast_Left"],
+                rigth = Gameworld.spriteContainer.spriteList["Player_Cast_Rigth"]
+            };
+            animation_idle = new AnimationContainer_Array()
+            {
+                up = Gameworld.spriteContainer.spriteList["Player_Idle_Up"],
+                down = Gameworld.spriteContainer.spriteList["Player_Idle_Down"],
+                left = Gameworld.spriteContainer.spriteList["Player_Idle_Left"],
+                rigth = Gameworld.spriteContainer.spriteList["Player_Idle_Rigth"]
+            };
+            animation_death = new AnimationContainer_Array()
+            {
+                up = Gameworld.spriteContainer.spriteList["Player_Death_Up"],
+                down = Gameworld.spriteContainer.spriteList["Player_Death_Down"],
+                left = Gameworld.spriteContainer.spriteList["Player_Death_Left"],
+                rigth = Gameworld.spriteContainer.spriteList["Player_Death_Rigth"]
+            };
+            #endregion
+
+            doAnimation_Array.SetAnimation(animation_walk, facing);
 
             #region Set Up player stats
             // level up stats
@@ -141,6 +190,7 @@ namespace SkoleProjekt_GodtNavn
             GUI_Equipment.UpdateGUI03();
             GUI_Inventory.UpdateGUI01();
             Move(gameTime);
+            sprite = doAnimation_Array.Animate(gameTime, facing);
         }
 
         public void HandleInput()
@@ -196,20 +246,20 @@ namespace SkoleProjekt_GodtNavn
             if (isAttacking == false)
             {
                 // if we move, move player and play run Animate
-                if (keyState.IsKeyDown(Keys.W))
+                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.Up))
                 {
                     velocity += new Vector2(0, -1);
 
                     facing = Facing.Up;
                 }
-                if (keyState.IsKeyDown(Keys.S))
+                if (keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.Down))
                 {
                     velocity += new Vector2(0, 1);
 
                     facing = Facing.Down;
                 }
 
-                if (keyState.IsKeyDown(Keys.A))
+                if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.Left))
                 {
                     velocity += new Vector2(-1, 0);
                     // dont play if we move Up or Down
@@ -219,7 +269,7 @@ namespace SkoleProjekt_GodtNavn
                     }
                     facing = Facing.Left;
                 }
-                if (keyState.IsKeyDown(Keys.D))
+                if (keyState.IsKeyDown(Keys.D) || keyState.IsKeyDown(Keys.Right))
                 {
                     velocity += new Vector2(1, 0);
                     // dont play if we move Up or Down
@@ -233,7 +283,12 @@ namespace SkoleProjekt_GodtNavn
 
             if (velocity != Vector2.Zero)
             {
+                doAnimation_Array.SetAnimation(animation_walk, facing);
                 velocity.Normalize();
+            }
+            else
+            {
+                doAnimation_Array.SetAnimation(animation_idle, facing);
             }
         }
     }

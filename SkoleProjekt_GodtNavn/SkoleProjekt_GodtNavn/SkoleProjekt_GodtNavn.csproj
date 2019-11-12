@@ -41,7 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Component\Animation\AnimationContainer_Array.cs" />
     <Compile Include="Component\Animation\AnimationContainer_Sheet.cs" />
+    <Compile Include="Component\Animation\DoAnimation_Array.cs" />
     <Compile Include="Component\Animation\DoAnimation_sheet.cs" />
     <Compile Include="Component\Container\SpriteContainer.cs" />
     <Compile Include="Component\Facing.cs" />

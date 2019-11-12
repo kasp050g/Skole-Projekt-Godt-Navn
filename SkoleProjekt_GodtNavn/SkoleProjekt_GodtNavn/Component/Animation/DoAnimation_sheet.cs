@@ -69,8 +69,10 @@ namespace SkoleProjekt_GodtNavn
                 }
             }
         }
-        public void Animate(GameTime gameTime)
+        public void Animate(GameTime gameTime, Facing facing)
         {
+            FacingRightWay(facing);
+
             timerElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             currentIndex = (int)(timerElapsed * fps);
