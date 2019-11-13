@@ -26,6 +26,7 @@ namespace SkoleProjekt_GodtNavn
         public Texture2D currentSprite;
 
         private bool runOnetime = false;
+        public bool isDead = false;
         //public AnimationContainer_Sheet lastAnimationContainer;
 
         public DoAnimation_Array(float fps)
@@ -76,7 +77,7 @@ namespace SkoleProjekt_GodtNavn
             currentIndex = (int)(timeElapsed * fps);
 
             // Check if we need to restart the animation
-            if (currentIndex >= currentSprites.Length - 1)
+            if (currentIndex >= currentSprites.Length - 1 && !isDead)
             {
                 // Resets the animation
                 timeElapsed = 0;
@@ -85,7 +86,18 @@ namespace SkoleProjekt_GodtNavn
                 return false;
             }
 
+            if (!isDead)
+            {
             currentSprite = currentSprites[currentIndex];
+            }
+            else if (currentIndex < currentSprites.Length -1)
+            {
+                currentSprite = currentSprites[currentIndex];
+            }
+            else
+            {
+                currentSprite = currentSprites[currentSprites.Length - 1];
+            }
 
             if (runOnetime)
             {

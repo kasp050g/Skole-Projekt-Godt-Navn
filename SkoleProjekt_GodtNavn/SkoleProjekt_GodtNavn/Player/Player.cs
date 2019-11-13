@@ -22,6 +22,7 @@ namespace SkoleProjekt_GodtNavn
         AnimationContainer_Array animation_death;
 
         DoAnimation_Array doAnimation_Array = new DoAnimation_Array(10);
+        private bool playDeadAnimationOnes = true;
 
         public Inventory inventory = new Inventory();
         public Equipment equipment = new Equipment();
@@ -40,7 +41,7 @@ namespace SkoleProjekt_GodtNavn
         int maxXP = 100;
         int currentXP = 0;
         // Health And Mana
-        public Stat health = new Stat();
+
         public Stat mana = new Stat();
         public float armor;
         public int weaponDamage;
@@ -81,27 +82,6 @@ namespace SkoleProjekt_GodtNavn
             }
         }
 
-        //private int RetrunOriginPositionFixOnCollisionBox()
-        //{
-        //    switch (facing)
-        //    {
-        //        case Facing.Up:
-        //            return 25;
-
-        //        case Facing.Down:
-        //            return 40;
-
-        //        case Facing.Left:
-        //            return 40;
-
-        //        case Facing.Rigth:
-        //            return 5;
-
-        //        default:
-        //            return 0;
-
-        //    }
-        //}
 
         public override void Initialize()
         {
@@ -352,12 +332,22 @@ namespace SkoleProjekt_GodtNavn
 
         public void HandleInput()
         {
-
+            if (isAlive)
+            {
                 MoveInput();
-            
-            UI_Input();
-            Attack_Input();
-
+                UI_Input();
+                Attack_Input();
+            }
+            else
+            {
+                if (playDeadAnimationOnes)
+                {
+                    playDeadAnimationOnes = false;
+                    doAnimation_Array.isDead = true;
+                    doAnimation_Array.SetAnimation(animation_death, facing);
+                }
+                velocity = Vector2.Zero;
+            }
         }
 
         public void Attack_Input()
@@ -379,10 +369,7 @@ namespace SkoleProjekt_GodtNavn
                 isAttacking = true;
                 doAnimation_Array.SetAnimation(animation_cast, facing);
             }
-            if (keyState.IsKeyDown(Keys.G))
-            {
-                isAttacking = false;
-            }
+
         }
 
         public void UI_Input()

@@ -86,7 +86,7 @@ namespace SkoleProjekt_GodtNavn
         protected override void Initialize()
         {
             spriteContainer.LoadContent(Content);
-
+            MakeWorld();
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
             gameObjects.Add(player);
@@ -125,6 +125,11 @@ namespace SkoleProjekt_GodtNavn
 
         }
 
+        public void MakeWorld()
+        {
+            World world = new World();
+            gameObjects.Add(world);
+        }
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload

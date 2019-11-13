@@ -30,6 +30,10 @@ namespace SkoleProjekt_GodtNavn
             // Font
             spriteFont = content.Load<SpriteFont>("Font/NormalFont");
 
+            // BackGround
+            AddSoleSprite(content.Load<Texture2D>("Texture/Background/Background1"), "Background1");
+
+
             // Load in Image
             AddSoleSprite(content.Load<Texture2D>("Texture/UI/Character panel/helmet_slot"), "helmet_slot");
             AddSoleSprite(content.Load<Texture2D>("Texture/UI/Character panel/chest_slot"), "chest_slot");
