@@ -18,7 +18,8 @@ namespace SkoleProjekt_GodtNavn
         public Vector2 origin;
         public Texture2D sprite;
         public float layerDepth = 0;
-        
+
+        public Vector2 spritePositionOffset = new Vector2(0, 0);
 
         public Vector2 screenSize;
 
@@ -45,7 +46,7 @@ namespace SkoleProjekt_GodtNavn
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, transform.position, rectangle, Color.White, transform.rotation, origin, transform.scale, SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(sprite, transform.position + spritePositionOffset, rectangle, Color.White, transform.rotation, origin, transform.scale, SpriteEffects.None, layerDepth);
         }
 
         public virtual void Animate(GameTime gameTime)
@@ -78,6 +79,7 @@ namespace SkoleProjekt_GodtNavn
                     sprite.Height
                     );
             }
+            set { }
         }
 
         public virtual Rectangle CollisionBox

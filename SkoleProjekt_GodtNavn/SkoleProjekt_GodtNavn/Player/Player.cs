@@ -68,18 +68,18 @@ namespace SkoleProjekt_GodtNavn
             }
         }
 
-        //public override Rectangle CollisionBox
-        //{
-        //    get
-        //    {
-        //        return new Rectangle(
-        //            (int)transform.position.X - (int)(origin.X * transform.scale) + 0,
-        //            (int)transform.position.Y - (int)(origin.Y * transform.scale) + 30,
-        //            (int)(250 * transform.scale),
-        //            (int)(350 * transform.scale)
-        //            );
-        //    }
-        //}
+        public override Rectangle CollisionBox
+        {
+            get
+            {
+                return new Rectangle(
+                    (int)transform.position.X - (int)(0) + 20,
+                    (int)transform.position.Y - (int)(0) + 30,
+                    (int)(350 * transform.scale),
+                    (int)(350 * transform.scale)
+                    );
+            }
+        }
 
         //private int RetrunOriginPositionFixOnCollisionBox()
         //{
@@ -87,19 +87,19 @@ namespace SkoleProjekt_GodtNavn
         //    {
         //        case Facing.Up:
         //            return 25;
-                   
+
         //        case Facing.Down:
         //            return 40;
-                    
+
         //        case Facing.Left:
         //            return 40;
-                    
+
         //        case Facing.Rigth:
         //            return 5;
-                    
+
         //        default:
         //            return 0;
-                    
+
         //    }
         //}
 
@@ -115,35 +115,40 @@ namespace SkoleProjekt_GodtNavn
                 up = Gameworld.spriteContainer.spriteList["Player_Walk_Up"],
                 down = Gameworld.spriteContainer.spriteList["Player_Walk_Down"],
                 left = Gameworld.spriteContainer.spriteList["Player_Walk_Left"],
-                rigth = Gameworld.spriteContainer.spriteList["Player_Walk_Rigth"]
+                rigth = Gameworld.spriteContainer.spriteList["Player_Walk_Rigth"],
+                stopAtEnd = false
             };
             animation_attack = new AnimationContainer_Array()
             {
                 up = Gameworld.spriteContainer.spriteList["Player_Attack_Up"],
                 down = Gameworld.spriteContainer.spriteList["Player_Attack_Down"],
                 left = Gameworld.spriteContainer.spriteList["Player_Attack_Left"],
-                rigth = Gameworld.spriteContainer.spriteList["Player_Attack_Rigth"]
+                rigth = Gameworld.spriteContainer.spriteList["Player_Attack_Rigth"],
+                stopAtEnd = true
             };
             animation_cast = new AnimationContainer_Array()
             {
                 up = Gameworld.spriteContainer.spriteList["Player_Cast_Up"],
                 down = Gameworld.spriteContainer.spriteList["Player_Cast_Down"],
                 left = Gameworld.spriteContainer.spriteList["Player_Cast_Left"],
-                rigth = Gameworld.spriteContainer.spriteList["Player_Cast_Rigth"]
+                rigth = Gameworld.spriteContainer.spriteList["Player_Cast_Rigth"],
+                stopAtEnd = true
             };
             animation_idle = new AnimationContainer_Array()
             {
                 up = Gameworld.spriteContainer.spriteList["Player_Idle_Up"],
                 down = Gameworld.spriteContainer.spriteList["Player_Idle_Down"],
                 left = Gameworld.spriteContainer.spriteList["Player_Idle_Left"],
-                rigth = Gameworld.spriteContainer.spriteList["Player_Idle_Rigth"]
+                rigth = Gameworld.spriteContainer.spriteList["Player_Idle_Rigth"],
+                stopAtEnd = false
             };
             animation_death = new AnimationContainer_Array()
             {
                 up = Gameworld.spriteContainer.spriteList["Player_Death_Up"],
                 down = Gameworld.spriteContainer.spriteList["Player_Death_Down"],
                 left = Gameworld.spriteContainer.spriteList["Player_Death_Left"],
-                rigth = Gameworld.spriteContainer.spriteList["Player_Death_Rigth"]
+                rigth = Gameworld.spriteContainer.spriteList["Player_Death_Rigth"],
+                stopAtEnd = true
             };
             #endregion
 
@@ -166,7 +171,7 @@ namespace SkoleProjekt_GodtNavn
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Texture/Player/tmp");
-            this.origin = new Vector2(100, 100);
+            this.origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
             layerDepth = 0.5f;
         }
 
@@ -238,17 +243,146 @@ namespace SkoleProjekt_GodtNavn
             GUI_Equipment.UpdateGUI03();
             GUI_Inventory.UpdateGUI01();
             Move(gameTime);
-            sprite = doAnimation_Array.Animate(gameTime, facing);
+            isAttacking = doAnimation_Array.Animate(gameTime, facing);
+            sprite = doAnimation_Array.currentSprite;
+            ImagePositionSet();
+        }
+
+        private void ImagePositionSet()
+        {
+            switch (facing)
+            {
+                case Facing.Up:
+                    if (doAnimation_Array.animationContainer == animation_attack)
+                    {
+                        spritePositionOffset = new Vector2(10, -20);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_walk)
+                    {
+                        spritePositionOffset = new Vector2(10, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_idle)
+                    {
+                        spritePositionOffset = new Vector2(10, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_cast)
+                    {
+                        spritePositionOffset = new Vector2(-3, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_death)
+                    {
+                        spritePositionOffset = new Vector2(-10, -20);
+                    }
+                    break;
+
+                case Facing.Down:
+                    if(doAnimation_Array.animationContainer == animation_attack)
+                    {
+                        spritePositionOffset = new Vector2(-33, -20);
+                    }
+                    if(doAnimation_Array.animationContainer == animation_walk)
+                    {
+                        spritePositionOffset = new Vector2(0, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_idle)
+                    {
+                        spritePositionOffset = new Vector2(0, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_cast)
+                    {
+                        spritePositionOffset = new Vector2(+2, -5);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_death)
+                    {
+                        spritePositionOffset = new Vector2(-30, -10);
+                    }
+                    break;
+
+                case Facing.Left:
+                    if (doAnimation_Array.animationContainer == animation_attack)
+                    {
+                        spritePositionOffset = new Vector2(-10, -5);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_walk)
+                    {
+                        spritePositionOffset = new Vector2(0, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_idle)
+                    {
+                        spritePositionOffset = new Vector2(0, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_cast)
+                    {
+                        spritePositionOffset = new Vector2(0, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_death)
+                    {
+                        spritePositionOffset = new Vector2(-10, 0);
+                    }
+                    break;
+
+                case Facing.Rigth:
+                    if (doAnimation_Array.animationContainer == animation_attack)
+                    {
+                        spritePositionOffset = new Vector2(-20, -5);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_walk)
+                    {
+                        spritePositionOffset = new Vector2(30, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_idle)
+                    {
+                        spritePositionOffset = new Vector2(30, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_cast)
+                    {
+                        spritePositionOffset = new Vector2(20, 0);
+                    }
+                    if (doAnimation_Array.animationContainer == animation_death)
+                    {
+                        spritePositionOffset = new Vector2(-15, 0);
+                    }
+                    break;
+
+                default:
+                    break;
+
+            }
         }
 
         public void HandleInput()
         {
-            if (!isAttacking)
-            {
-                MoveInput();
-            }
-            UI_Input();
 
+                MoveInput();
+            
+            UI_Input();
+            Attack_Input();
+
+        }
+
+        public void Attack_Input()
+        {
+            KeyboardState keyState = Keyboard.GetState();
+
+            if (keyState.IsKeyDown(Keys.Space))
+            {
+                isAttacking = true;
+                doAnimation_Array.SetAnimation(animation_attack, facing);
+            }
+            if (keyState.IsKeyDown(Keys.X))
+            {
+                isAttacking = true;
+                doAnimation_Array.SetAnimation(animation_death, facing);
+            }
+            if (keyState.IsKeyDown(Keys.Z))
+            {
+                isAttacking = true;
+                doAnimation_Array.SetAnimation(animation_cast, facing);
+            }
+            if (keyState.IsKeyDown(Keys.G))
+            {
+                isAttacking = false;
+            }
         }
 
         public void UI_Input()
@@ -330,16 +464,16 @@ namespace SkoleProjekt_GodtNavn
                     }
                     facing = Facing.Rigth;
                 }
-            }
 
-            if (velocity != Vector2.Zero)
-            {
-                doAnimation_Array.SetAnimation(animation_walk, facing);
-                velocity.Normalize();
-            }
-            else
-            {
-                doAnimation_Array.SetAnimation(animation_idle, facing);
+                if (velocity != Vector2.Zero)
+                {
+                    doAnimation_Array.SetAnimation(animation_walk, facing);
+                    velocity.Normalize();
+                }
+                else
+                {
+                    doAnimation_Array.SetAnimation(animation_idle, facing);
+                }
             }
         }
     }

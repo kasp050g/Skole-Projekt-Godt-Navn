@@ -18,5 +18,6 @@ namespace SkoleProjekt_GodtNavn
         public List<Texture2D> down = new List<Texture2D>();
         public List<Texture2D> left = new List<Texture2D>();
         public List<Texture2D> rigth = new List<Texture2D>();
+        public bool stopAtEnd = false;
     }
 }

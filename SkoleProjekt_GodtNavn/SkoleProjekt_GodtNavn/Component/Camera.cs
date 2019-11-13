@@ -14,8 +14,8 @@ namespace SkoleProjekt_GodtNavn
         public void Follow(GameObject target)
         {
             var position = Matrix.CreateTranslation(
-               -target.transform.position.X - (target.origin.X),
-               -target.transform.position.Y - (target.origin.Y),
+               -target.transform.position.X - /*(target.CollisionBox.Width / 2)*/ 100,
+               -target.transform.position.Y - /*(target.CollisionBox.Height / 2)*/ 100,
                0);
 
             var offset = Matrix.CreateTranslation(

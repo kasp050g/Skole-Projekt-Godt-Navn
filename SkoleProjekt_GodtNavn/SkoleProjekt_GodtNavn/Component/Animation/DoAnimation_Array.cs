@@ -22,7 +22,10 @@ namespace SkoleProjekt_GodtNavn
 
         public AnimationContainer_Array animationContainer;
 
-        private Texture2D[] currentSprite;
+        private Texture2D[] currentSprites;
+        public Texture2D currentSprite;
+
+        private bool runOnetime = false;
         //public AnimationContainer_Sheet lastAnimationContainer;
 
         public DoAnimation_Array(float fps)
@@ -43,23 +46,26 @@ namespace SkoleProjekt_GodtNavn
                 switch (facing)
                 {
                     case Facing.Up:
-                        currentSprite = animationContainer.up.ToArray();
+                        currentSprites = animationContainer.up.ToArray();
                         break;
                     case Facing.Down:
-                        currentSprite = animationContainer.down.ToArray();
+                        currentSprites = animationContainer.down.ToArray();
                         break;
                     case Facing.Left:
-                        currentSprite = animationContainer.left.ToArray();
+                        currentSprites = animationContainer.left.ToArray();
                         break;
                     case Facing.Rigth:
-                        currentSprite = animationContainer.rigth.ToArray();
+                        currentSprites = animationContainer.rigth.ToArray();
                         break;
                     default:
                         break;
                 }
+                runOnetime = animationContainer.stopAtEnd;
+                timeElapsed = 0;
+                currentIndex = 0;
             }
         }
-        public Texture2D Animate(GameTime gameTime, Facing facing)
+        public bool Animate(GameTime gameTime, Facing facing)
         {
             FacingRightWay(facing);
 
@@ -70,14 +76,25 @@ namespace SkoleProjekt_GodtNavn
             currentIndex = (int)(timeElapsed * fps);
 
             // Check if we need to restart the animation
-            if (currentIndex >= currentSprite.Length -1)
+            if (currentIndex >= currentSprites.Length - 1)
             {
                 // Resets the animation
                 timeElapsed = 0;
                 currentIndex = 0;
+
+                return false;
             }
 
-            return currentSprite[currentIndex];
+            currentSprite = currentSprites[currentIndex];
+
+            if (runOnetime)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void FacingRightWay(Facing facing)
@@ -88,16 +105,16 @@ namespace SkoleProjekt_GodtNavn
                 switch (facing)
                 {
                     case Facing.Up:
-                        currentSprite = animationContainer.up.ToArray();
+                        currentSprites = animationContainer.up.ToArray();
                         break;
                     case Facing.Down:
-                        currentSprite = animationContainer.down.ToArray();
+                        currentSprites = animationContainer.down.ToArray();
                         break;
                     case Facing.Left:
-                        currentSprite = animationContainer.left.ToArray();
+                        currentSprites = animationContainer.left.ToArray();
                         break;
                     case Facing.Rigth:
-                        currentSprite = animationContainer.rigth.ToArray();
+                        currentSprites = animationContainer.rigth.ToArray();
                         break;
                     default:
                         break;
