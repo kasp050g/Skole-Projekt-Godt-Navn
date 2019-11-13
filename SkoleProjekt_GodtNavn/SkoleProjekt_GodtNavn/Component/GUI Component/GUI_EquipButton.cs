@@ -28,7 +28,7 @@ namespace SkoleProjekt_GodtNavn
 
         private GUI_ShowItemInfo showItemInfo = new GUI_ShowItemInfo()
         {
-            Scale = new Vector2(0.5f, 0.25f),
+            Scale = new Vector2(0.65f, 0.28f),
             Origin = GUI_OriginPosition.TopLeft
         };
         #endregion

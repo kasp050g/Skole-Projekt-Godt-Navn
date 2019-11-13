@@ -28,6 +28,19 @@ namespace SkoleProjekt_GodtNavn
             
         }
 
+        public override Rectangle CollisionBox
+        {
+            get
+            {
+                return new Rectangle(
+                    (int)transform.position.X ,
+                    (int)transform.position.Y ,
+                    (int)(0),
+                    (int)(0)
+                    );
+            }
+        }
+
         public override void OnCollision(GameObject other)
         {
             

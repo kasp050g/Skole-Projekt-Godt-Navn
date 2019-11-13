@@ -45,6 +45,7 @@
     <Compile Include="Component\Animation\AnimationContainer_Sheet.cs" />
     <Compile Include="Component\Animation\DoAnimation_Array.cs" />
     <Compile Include="Component\Animation\DoAnimation_sheet.cs" />
+    <Compile Include="Component\Container\AudioContainer.cs" />
     <Compile Include="Component\Container\SpriteContainer.cs" />
     <Compile Include="Component\Facing.cs" />
     <Compile Include="Component\AudioPlayer.cs" />
@@ -63,6 +64,8 @@
     <Compile Include="Component\GUI Component\GUI_Panel.cs" />
     <Compile Include="Component\GUI Component\GUI_ShowItemInfo.cs" />
     <Compile Include="Component\GUI Component\GUI_Slot_Inventory.cs" />
+    <Compile Include="Component\GUI World\GUI_Font_World.cs" />
+    <Compile Include="Component\GUI World\GUI_Panel_World.cs" />
     <Compile Include="Component\Inventory\Equipment.cs" />
     <Compile Include="Component\Inventory\Inventory.cs" />
     <Compile Include="Component\Inventory\Item.cs" />
@@ -71,10 +74,13 @@
     <Compile Include="Component\Stat.cs" />
     <Compile Include="Component\Transform.cs" />
     <Compile Include="Component\World\World.cs" />
+    <Compile Include="Effect\BloodEffect.cs" />
     <Compile Include="Enemy\Enemy.cs" />
     <Compile Include="Enemy\Goblin.cs" />
     <Compile Include="Gameworld.cs" />
+    <Compile Include="Loot\LootDrop.cs" />
     <Compile Include="Player\Player.cs" />
+    <Compile Include="Player\PlayerAttackZone.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -94,6 +100,7 @@
     <Content Include="Content\Texture\Background\Background1.png" />
     <Content Include="Content\Texture\Background\Background2.png" />
     <Content Include="Content\Texture\Component\CollisionTexture.png" />
+    <Content Include="Content\Texture\Effect\bloodBoom.png" />
     <Content Include="Content\Texture\Enemy\Bat\Enemy_Bat_sheet.png" />
     <Content Include="Content\Texture\Enemy\Beetle\Enemy_Beetle_Sheet.png" />
     <Content Include="Content\Texture\Enemy\Goblin\Enemy_Goblin_Sheet.png" />

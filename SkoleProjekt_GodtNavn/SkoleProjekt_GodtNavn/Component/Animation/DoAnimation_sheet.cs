@@ -79,6 +79,11 @@ namespace SkoleProjekt_GodtNavn
 
             if (currentIndex >= currentEnd)
             {
+                if (runOnetime)
+                {
+                    currentIndex = currentEnd;
+                    return false;
+                }
                 timerElapsed = currentStart / fps;
                 currentIndex = currentStart;
 

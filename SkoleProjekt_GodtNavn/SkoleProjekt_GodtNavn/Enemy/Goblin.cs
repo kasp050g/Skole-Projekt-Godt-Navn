@@ -52,8 +52,47 @@ namespace SkoleProjekt_GodtNavn
             end_Right = 10,
             row_Right = 3,
         };
+        public AnimationContainer_Sheet animationContainer_Sheet_Death = new AnimationContainer_Sheet()
+        {
+            stopAtEnd = true,
+
+            spriteHeightOffset = 0,
+            spriteWidthOffset = 0,
+
+            start_Up = 0,
+            end_Up = 4,
+            row_Up = 4,
+
+            start_Down = 0,
+            end_Down = 4,
+            row_Down = 4,
+
+            start_Left = 0,
+            end_Left = 4,
+            row_Left = 4,
+
+            start_Right = 0,
+            end_Right = 4,
+            row_Right = 4,
+        };
 
         public DoAnimation_sheet doAnimation = new DoAnimation_sheet(5);
+        public bool doDeathAnimationOneTime = true;
+        public Goblin()
+        {
+            health.maxValue = 20;
+            health.currentValue = 20;
+            meleeRange = 80;
+        }
+        public Goblin(int _health,Color _color,float _scale)
+        {
+            health.maxValue = _health;
+            health.currentValue = _health;
+            color = _color;
+            transform.scale = _scale;
+        }
+
+
         public override void Initialize()
         {
             base.Initialize();
@@ -62,25 +101,46 @@ namespace SkoleProjekt_GodtNavn
             layerDepth = 0.2f;
             speed = 120f;
             transform.scale = 2f;
+            bloodColor = Color.CornflowerBlue;
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime); 
-            AttackCheck();
-            isAttack = doAnimation.Animate(gameTime, facing);
+
+            if (isAlive)
+            {
+                base.Update(gameTime);
+                AnimationState();
+                isAttack = doAnimation.Animate(gameTime, facing);
+
+            }
+            else if(doDeathAnimationOneTime)
+            {
+                AnimationState();
+                isAttack = doAnimation.Animate(gameTime, facing);
+                doDeathAnimationOneTime = doAnimation.Animate(gameTime, facing);
+            }
+
         }
 
-        public void AttackCheck()
+        public void AnimationState()
         {
-            if(isAttack == true)
+            if (isAlive)
             {
-                doAnimation.SetAnimation(animationContainer_Sheet_Attack, facing);
+                if (isAttack == true)
+                {
+                    doAnimation.SetAnimation(animationContainer_Sheet_Attack, facing);
+                }
+                else
+                {
+                    doAnimation.SetAnimation(animationContainer_Sheet_Walk, facing);
+                }
             }
             else
             {
-                doAnimation.SetAnimation(animationContainer_Sheet_Walk, facing);
+                 doAnimation.SetAnimation(animationContainer_Sheet_Death, facing);
             }
+
         }
 
         public override Rectangle rectangle

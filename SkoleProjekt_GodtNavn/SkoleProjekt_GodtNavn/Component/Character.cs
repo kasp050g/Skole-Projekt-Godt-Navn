@@ -13,6 +13,7 @@ namespace SkoleProjekt_GodtNavn
         public Vector2 velocity;
         public bool isAlive = true;
         public Stat health = new Stat();
+        public Color bloodColor = Color.White;
         public virtual void Move(GameTime gameTime)
         {
             // Calculates deltaTime based on the gameTime.
@@ -22,9 +23,21 @@ namespace SkoleProjekt_GodtNavn
             transform.position += ((velocity * speed) * deltatime);
         }
 
-        public void TakeDamage(int damage)
+        public virtual void TakeDamage(int damage)
         {
-            isAlive = health.LowerValueBool(damage);
+            if (isAlive)
+            {
+                isAlive = health.LowerValueBool(damage);
+                BloodEffect bloodEffect = new BloodEffect(this,bloodColor);
+                bloodEffect.Initialize();
+                Gameworld.Instatiate(bloodEffect);
+                Gameworld.audioPlayer.SoundEffect_Play("SoundEffect_Hit", 0.1f);
+
+                if (isAlive == false && this is Enemy)
+                {
+                    (this as Enemy).Death(Gameworld.Player);
+                }
+            }
         }
     }
 }

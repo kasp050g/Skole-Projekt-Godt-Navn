@@ -47,6 +47,11 @@ namespace SkoleProjekt_GodtNavn
         }
         private void CallInstatiate()
         {
+            for (int i = 0; i < newGameObjects.Count; i++)
+            {
+                newGameObjects[i].Initialize();
+                newGameObjects[i].LoadContent(Content);
+            }
             gameObjects.AddRange(newGameObjects);
             newGameObjects.Clear();
         }
@@ -129,7 +134,7 @@ namespace SkoleProjekt_GodtNavn
 
         public void MakeWorld()
         {
-            audioPlayer.Song_Play("Song_Adventure");
+            audioPlayer.Song_Play("Song_Adventure",0.1f);
             World world = new World();
             gameObjects.Add(world);
 
@@ -164,10 +169,17 @@ namespace SkoleProjekt_GodtNavn
 
 
             // TODO: Add your update logic here
+            audioPlayer.allSound(gameTime);
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
+
+                foreach (GameObject other in gameObjects)
+                {
+                    go.CheckCollision(other);
+                }
             }
+
             foreach (GUI_Component ui in uiList)
             {
                 ui.Update(gameTime);

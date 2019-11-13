@@ -96,7 +96,10 @@ namespace SkoleProjekt_GodtNavn
 
         public void MakeTextToShow()
         {
-            string tmp = "";
+            string tmp = ""; 
+
+            tmp += $"{item.name} \n";
+     
             if (item.itemType == ItemType.WeaponMelee || item.itemType == ItemType.WeaponRange)
             {
                 tmp += $"Weapon Damage: {item.weaponDamage} \n";

@@ -10,6 +10,7 @@ namespace SkoleProjekt_GodtNavn
 {
     public class Item
     {
+        public string name;
         public Texture2D itemSprite;
         public ItemType itemType;
         public Rarity rarity;
@@ -37,6 +38,19 @@ namespace SkoleProjekt_GodtNavn
             rarity = RarityItem();
             AddRandomStat();
             GoldValue();
+            MakeName();
+        }
+
+        public void MakeName()
+        {
+            if (itemType == ItemType.Consumable)
+            {
+                name = $"Potion";
+            }
+            else
+            {
+                name = $"{rarity.ToString()} {itemType.ToString()}";
+            }
         }
 
         public void AddSprite(ItemType _itemType)
@@ -117,7 +131,7 @@ namespace SkoleProjekt_GodtNavn
                 int randomS = random.Next(1, 3);
                 if (randomS == 1)
                 {
-                    AddHealthMana(RarityStatNumber(rarity,"Stat"));
+                    AddHealthMana(RarityStatNumber(rarity, "Stat"));
                 }
                 if (randomS == 2)
                 {
@@ -168,24 +182,32 @@ namespace SkoleProjekt_GodtNavn
 
         public Rarity RarityItem()
         {
-            float rarityRandom = random.Next(0, 10000) / 100;
-
-            if (rarityRandom <= 60)
+            if (itemType == ItemType.Consumable)
             {
                 return Rarity.common;
             }
-            else if (rarityRandom <= 80)
-            {
-                return Rarity.uncommon;
-            }
-            else if (rarityRandom <= 95)
-            {
-                return Rarity.rare;
-            }
             else
             {
-                return Rarity.epic;
+                float rarityRandom = random.Next(0, 10000) / 100;
+
+                if (rarityRandom <= 60)
+                {
+                    return Rarity.common;
+                }
+                else if (rarityRandom <= 80)
+                {
+                    return Rarity.uncommon;
+                }
+                else if (rarityRandom <= 95)
+                {
+                    return Rarity.rare;
+                }
+                else
+                {
+                    return Rarity.epic;
+                }
             }
+
         }
 
         public float RarityStatNumber(Rarity RarityNumber, string type)

@@ -170,10 +170,29 @@ namespace SkoleProjekt_GodtNavn
             };
             gui_equipment.Add(showWeaponDamage);
 
+            // Level
+            showLevel = new GUI_Font(spriteFont, Color.White)
+            {
+                Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 380),
+                Text = $"Health: {Gameworld.Player.health.currentValue}/{Gameworld.Player.health.maxValue}",
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.9f
+            };
+            gui_equipment.Add(showLevel);
+            // XP
+            showXP = new GUI_Font(spriteFont, Color.White)
+            {
+                Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 410),
+                Text = $"Mana: {Gameworld.Player.mana.currentValue}/{Gameworld.Player.mana.maxValue}",
+                FontScale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.9f
+            };
+            gui_equipment.Add(showXP);
+
             // showStrength
             showStrength = new GUI_Font(spriteFont, Color.OrangeRed)
             {
-                Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 380),
+                Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 440),
                 Text = $"Strength: {Gameworld.Player.strength}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
@@ -182,7 +201,7 @@ namespace SkoleProjekt_GodtNavn
             // showAgility
             showAgility = new GUI_Font(spriteFont, Color.LightGreen)
             {
-                Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 410),
+                Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 470),
                 Text = $"Agility: {Gameworld.Player.agility}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
@@ -191,7 +210,7 @@ namespace SkoleProjekt_GodtNavn
             // showStrength
             showIntelligence = new GUI_Font(spriteFont, Color.BlueViolet)
             {
-                Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 440),
+                Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 500),
                 Text = $"Intelligence: {Gameworld.Player.intelligence}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
@@ -206,6 +225,9 @@ namespace SkoleProjekt_GodtNavn
                 Gameworld.AddGUI(x);
             }
         }
+
+        GUI_Font showLevel;
+        GUI_Font showXP;
 
         GUI_Font showHealth;
         GUI_Font showMana;
@@ -241,10 +263,13 @@ namespace SkoleProjekt_GodtNavn
         {
             if (ShowGUI == true)
             {
+                showLevel.Text = $"Level: {Gameworld.Player.level}";
+                showXP.Text = $"XP: {Gameworld.Player.currentXP}/{Gameworld.Player.maxXP}";
+
                 showHealth.Text = $"Health: {Gameworld.Player.health.currentValue}/{Gameworld.Player.health.maxValue}";
                 showMana.Text = $"Mana: {Gameworld.Player.mana.currentValue}/{Gameworld.Player.mana.maxValue}";
 
-                showArmor.Text = $"Armor: {(int)Gameworld.Player.armor}/ {(Gameworld.Player.armor) / (float)(Gameworld.Player.level * 10) * 100}%";
+                showArmor.Text = $"Armor: {(int)Gameworld.Player.armor} / {(Gameworld.Player.armor) / (float)(Gameworld.Player.level * 10) * 100}%";
                 showWeaponDamage.Text = $"Weapon Damage: {Gameworld.Player.weaponDamage}";
 
                 showStrength.Text = $"Strength: {Gameworld.Player.strength}";

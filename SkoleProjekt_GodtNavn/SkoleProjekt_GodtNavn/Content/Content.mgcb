@@ -22,7 +22,7 @@
 
 #begin Sound/Song/Song_Adventure.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sound/Song/Song_Adventure.wav
 
@@ -85,6 +85,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Texture/Component/CollisionTexture.png
+
+#begin Texture/Effect/bloodBoom.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Texture/Effect/bloodBoom.png
 
 #begin Texture/Enemy/Bat/Enemy_Bat_sheet.png
 /importer:TextureImporter

@@ -38,8 +38,8 @@ namespace SkoleProjekt_GodtNavn
 
         #region --- Player Stats ---
         // XP
-        int maxXP = 100;
-        int currentXP = 0;
+        public int maxXP = 100;
+        public int currentXP = 0;
         // Health And Mana
 
         public Stat mana = new Stat();
@@ -54,7 +54,7 @@ namespace SkoleProjekt_GodtNavn
 
         public float moveSpeed = 5;
 
-
+        PlayerAttackZone attackZone = new PlayerAttackZone();
 
         public override Rectangle rectangle
         {
@@ -88,6 +88,10 @@ namespace SkoleProjekt_GodtNavn
             base.Initialize();
             transform.scale = 0.2f;
             canOpenUI = true;
+            attackZone.canDamage = isAttacking;
+            attackZone.sprite = Gameworld.spriteContainer.soleSprite["CollisionTexture"];
+            Gameworld.Instatiate(attackZone);
+
 
             #region Set Animation
             animation_walk = new AnimationContainer_Array()
@@ -154,6 +158,63 @@ namespace SkoleProjekt_GodtNavn
             this.origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
             layerDepth = 0.5f;
         }
+        public override void Update(GameTime gameTime)
+        {
+            HandleInput();
+            UpdatePlayerStats();
+            GUI_Equipment.UpdateGUI03();
+            GUI_Inventory.UpdateGUI01();
+            Move(gameTime);
+            isAttacking = doAnimation_Array.Animate(gameTime, facing);
+            sprite = doAnimation_Array.currentSprite;
+            ImagePositionSet();
+            SetPositionOfAttackZone();
+        }
+
+        public override void TakeDamage(int damage)
+        {
+            if (isAlive)
+            {
+                isAlive = health.LowerValueBool(ArmorPercentCalculation(damage));
+                BloodEffect bloodEffect = new BloodEffect(this, bloodColor);
+                bloodEffect.Initialize();
+                Gameworld.Instatiate(bloodEffect);
+                Gameworld.audioPlayer.SoundEffect_Play("SoundEffect_Hit", 0.1f);
+            }
+        }
+
+        public int ArmorPercentCalculation(int damage)
+        {
+            float armorPercent = armor / level * 10;
+            int newDamage = (int)(damage * (armorPercent / 100));
+            return damage - newDamage;
+        }
+
+        public void SetPositionOfAttackZone()
+        {
+            switch (facing)
+            {
+                case Facing.Up:
+                    attackZone.transform.position = transform.position + (new Vector2(-10,-40));
+                    attackZone.CollisionBoxSize = (new Vector2(120, 70));
+                    break;
+                case Facing.Down:
+                    attackZone.transform.position = transform.position + (new Vector2(0, 100));
+                    attackZone.CollisionBoxSize = (new Vector2(120, 70));
+                    break;
+                case Facing.Left:
+                    attackZone.transform.position = transform.position + (new Vector2(-50, 0));
+                    attackZone.CollisionBoxSize = (new Vector2(70, 120));
+                    break;
+                case Facing.Rigth:
+                    attackZone.transform.position = transform.position + (new Vector2(90, 0));
+                    attackZone.CollisionBoxSize = (new Vector2(70, 120));
+                    break;
+                default:
+                    break;
+            }
+            
+        }
 
         public void UpdatePlayerStats()
         {
@@ -161,7 +222,7 @@ namespace SkoleProjekt_GodtNavn
             UpdatePlayerStat(mana);
 
             armor = 0;
-            weaponDamage = 0;
+            weaponDamage = 2;
 
             strength = 1;
             agility = 1;
@@ -213,20 +274,16 @@ namespace SkoleProjekt_GodtNavn
 
         public override void OnCollision(GameObject other)
         {
-
+            KeyboardState keyState = Keyboard.GetState();
+            if (other is LootDrop && keyState.IsKeyDown(Keys.B))
+            {
+                LootDrop tmp = (other as LootDrop);
+                inventory.AddItem(tmp.item);
+                tmp.Destroy();
+            }
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            HandleInput();
-            UpdatePlayerStats();
-            GUI_Equipment.UpdateGUI03();
-            GUI_Inventory.UpdateGUI01();
-            Move(gameTime);
-            isAttacking = doAnimation_Array.Animate(gameTime, facing);
-            sprite = doAnimation_Array.currentSprite;
-            ImagePositionSet();
-        }
+
 
         private void ImagePositionSet()
         {
@@ -354,22 +411,34 @@ namespace SkoleProjekt_GodtNavn
         {
             KeyboardState keyState = Keyboard.GetState();
 
-            if (keyState.IsKeyDown(Keys.Space))
+            if(isAttacking == false)
             {
-                isAttacking = true;
-                doAnimation_Array.SetAnimation(animation_attack, facing);
-            }
-            if (keyState.IsKeyDown(Keys.X))
-            {
-                isAttacking = true;
-                doAnimation_Array.SetAnimation(animation_death, facing);
-            }
-            if (keyState.IsKeyDown(Keys.Z))
-            {
-                isAttacking = true;
-                doAnimation_Array.SetAnimation(animation_cast, facing);
-            }
+                if (keyState.IsKeyDown(Keys.Space))
+                {
+                    attackZone.ClearAttackList();
+                    isAttacking = true;
+                    doAnimation_Array.SetAnimation(animation_attack, facing);
+                    Gameworld.audioPlayer.SoundEffect_Play("SoundEffect_sword_swing",0.5f);
+                    attackZone.canDamage = true;
+                    attackZone.damage = weaponDamage;
+                }
 
+                if (keyState.IsKeyDown(Keys.E))
+                {
+                    isAttacking = true;
+                    doAnimation_Array.SetAnimation(animation_cast, facing);
+                }
+                if (keyState.IsKeyDown(Keys.Q))
+                {
+                    isAttacking = true;
+                    doAnimation_Array.SetAnimation(animation_cast, facing);
+                }
+
+                if (isAttacking == false)
+                {
+                    attackZone.canDamage = false;
+                }
+            }
         }
 
         public void UI_Input()

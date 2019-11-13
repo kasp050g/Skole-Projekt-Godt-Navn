@@ -24,13 +24,12 @@ namespace SkoleProjekt_GodtNavn
             AddSongs(content.Load<Song>("Sound/Song/Song_Adventure"), "Song_Adventure");
 
             // Sound Effects
-            AddSongs(content.Load<Song>("Sound/Song/SoundEffect/Enemy/SoundEffect_Goblin"), "SoundEffect_Goblin");
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Enemy/SoundEffect_Goblin"), "SoundEffect_Goblin");
 
-            AddSongs(content.Load<Song>("Sound/Song/SoundEffect/Player/SoundEffect_Hit"), "SoundEffect_Hit");
-            AddSongs(content.Load<Song>("Sound/Song/SoundEffect/Player/SoundEffect_level_up"), "SoundEffect_level_up");
-            AddSongs(content.Load<Song>("Sound/Song/SoundEffect/Player/SoundEffect_sword_swing"), "SoundEffect_sword_swing");
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/SoundEffect_Hit"), "SoundEffect_Hit");
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/SoundEffect_level_up"), "SoundEffect_level_up");
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/SoundEffect_sword_swing"), "SoundEffect_sword_swing");
         }
-
 
         private void AddSoundEffects(SoundEffect soundEffect, string name)
         {
@@ -42,16 +41,49 @@ namespace SkoleProjekt_GodtNavn
             songs.Add(name, song);
         }
 
-        public void Song_Play(string name)
+        public void Song_Play(string name,float volume)
         {
             Song tmp = songs[name];
+            
             MediaPlayer.Play(tmp);
+            MediaPlayer.Volume = volume;
+            MediaPlayer.IsRepeating = true;
         }
 
-        public void SoundEffect_Play(string name)
+        public void SoundEffect_Play(string name,float timeDelay)
+        {
+            AudioContainer tmp = new AudioContainer();
+            tmp.name = name;
+            tmp.timeDelay = timeDelay;
+
+            audioContainers.Add(tmp);
+        }
+        private void SoundEffect(string name)
         {
             SoundEffect tmp = soundEffects[name];
             tmp.Play();
+        }
+
+        List<AudioContainer> audioContainers = new List<AudioContainer>();
+        List<AudioContainer> removeList = new List<AudioContainer>();
+
+
+        public void allSound(GameTime gameTime)
+        {
+            foreach (AudioContainer x in audioContainers)
+            {
+                x.timeDelay -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (x.timeDelay <= 0)
+                {
+                    SoundEffect(x.name);
+                    removeList.Add(x);
+                }
+            }
+
+            foreach (AudioContainer x in removeList)
+            {
+                audioContainers.Remove(x);
+            }
         }
     }
 }

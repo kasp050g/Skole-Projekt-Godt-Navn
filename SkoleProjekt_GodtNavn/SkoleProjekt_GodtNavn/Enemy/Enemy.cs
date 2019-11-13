@@ -12,9 +12,9 @@ namespace SkoleProjekt_GodtNavn
     {
         private float deltaTime;
 
-        private int xpAmount;
+        private int xpAmount = 10;
 
-        private float maxAggroRange = 450;
+        private float maxAggroRange = 850;
 
         public float meleeRange = 90;
 
@@ -24,7 +24,7 @@ namespace SkoleProjekt_GodtNavn
 
         public bool isAttack = false;
 
-        public Enemy(Stat health, bool isAttackable) 
+        public Enemy(Stat health, bool isAttackable)
         {
             this.health = health;
 
@@ -35,15 +35,10 @@ namespace SkoleProjekt_GodtNavn
         {
         }
 
-        public Enemy(int positionX, int positionY)
-        {
-            transform.position = new Vector2(positionX, positionY);
-            speed = 50f;
-        }
 
         public override void LoadContent(ContentManager content)
         {
-            
+
         }
 
         public override void OnCollision(GameObject other)
@@ -60,7 +55,7 @@ namespace SkoleProjekt_GodtNavn
                 AttackPlayer(gameTime);
             }
             Move(gameTime);
-            Death(Gameworld.Player);
+            //Death(Gameworld.Player);
         }
 
         public void FollowPlayer(GameObject player)
@@ -73,9 +68,9 @@ namespace SkoleProjekt_GodtNavn
                 bool positiveX = distanceX > 0;
                 bool positiveY = distanceY > 0;
 
-                if(Math.Abs(distanceY) > Math.Abs(distanceX))
+                if (Math.Abs(distanceY) > Math.Abs(distanceX))
                 {
-                    if(distanceY > 0)
+                    if (distanceY > 0)
                     {
                         facing = Facing.Up;
                     }
@@ -96,7 +91,7 @@ namespace SkoleProjekt_GodtNavn
                     }
                 }
 
-                if ((Math.Abs(distanceX) < maxAggroRange || Math.Abs(distanceY) < maxAggroRange) && (Math.Abs(distanceX) > meleeRange || Math.Abs(distanceY) > meleeRange))
+                if ((Math.Abs(distanceX) < maxAggroRange && Math.Abs(distanceY) < maxAggroRange) && (Math.Abs(distanceX) > meleeRange || Math.Abs(distanceY) > meleeRange))
                 {
                     if (transform.position.X != player.transform.position.X)
                     {
@@ -125,7 +120,7 @@ namespace SkoleProjekt_GodtNavn
                     if (velocity != Vector2.Zero)
                     {
                         velocity.Normalize();
-                    }                    
+                    }
                 }
             }
         }
@@ -137,9 +132,9 @@ namespace SkoleProjekt_GodtNavn
             bool positiveX = distanceX > 0;
             bool positiveY = distanceY > 0;
 
-            if (Math.Abs(distanceX) < meleeRange +5 && Math.Abs(distanceY) < meleeRange +5 && isAttack == false)
+            if (Math.Abs(distanceX) < meleeRange + 5 && Math.Abs(distanceY) < meleeRange + 5 && isAttack == false)
             {
-                               
+
                 velocity = new Vector2(0, 0);
                 if (deltaTime > meleeAttackSpeed)
                 {
@@ -147,20 +142,21 @@ namespace SkoleProjekt_GodtNavn
                 }
                 if (deltaTime > (meleeAttackSpeed + 1.0f))
                 {
-                    if(Math.Abs(distanceX) < meleeRange + 5 && Math.Abs(distanceY) < meleeRange + 5)
-                    Gameworld.Player.TakeDamage(meleeDamage);
+                    if (Math.Abs(distanceX) < meleeRange + 5 && Math.Abs(distanceY) < meleeRange + 5)
+                        Gameworld.Player.TakeDamage(meleeDamage);
                     deltaTime = 0.0f;
                 }
             }
         }
 
-        private void Death(Player player)
+        public void Death(Player player)
         {
-            if (health.currentValue <= 0)
-            {
-                isAlive = false;
-                player.GetXP(xpAmount);
-            }
+            LootDrop lootDrop = new LootDrop(this.transform.position);
+            Gameworld.Instatiate(lootDrop);
+
+            isAlive = false;
+            player.GetXP(xpAmount);
+
         }
     }
 }
