@@ -32,6 +32,7 @@ namespace SkoleProjekt_GodtNavn
 
             // BackGround
             AddSoleSprite(content.Load<Texture2D>("Texture/Background/Background1"), "Background1");
+            AddSoleSprite(content.Load<Texture2D>("Texture/Background/Background2"), "Background2");
 
 
             // Load in Image

@@ -11,6 +11,10 @@ namespace SkoleProjekt_GodtNavn
         //public int start;
         //public int end;
         //public int row;
+        public bool stopAtEnd = false;
+
+        public int spriteHeightOffset;
+        public int spriteWidthOffset;
 
         public int start_Up;
         public int end_Up;

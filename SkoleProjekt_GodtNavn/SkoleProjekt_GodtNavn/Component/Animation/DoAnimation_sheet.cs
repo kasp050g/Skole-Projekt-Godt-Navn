@@ -18,10 +18,10 @@ namespace SkoleProjekt_GodtNavn
         float fps = 10;
         float timerElapsed;
         public int currentIndex;
-        public bool returnToOldAnimation;
+        private bool runOnetime = false;
 
         public AnimationContainer_Sheet animationContainer;
-        //public AnimationContainer_Sheet lastAnimationContainer;
+        public AnimationContainer_Sheet lastAnimationContainer;
 
         public DoAnimation_sheet(float fps)
         {
@@ -36,8 +36,8 @@ namespace SkoleProjekt_GodtNavn
                 {
                     //lastAnimationContainer = this.animationContainer;
                 }
-
                 this.animationContainer = animationContainer_Sheet;
+                runOnetime = animationContainer.stopAtEnd;
                 switch (facing)
                 {
                     case Facing.Up:
@@ -69,7 +69,7 @@ namespace SkoleProjekt_GodtNavn
                 }
             }
         }
-        public void Animate(GameTime gameTime, Facing facing)
+        public bool Animate(GameTime gameTime, Facing facing)
         {
             FacingRightWay(facing);
 
@@ -81,6 +81,17 @@ namespace SkoleProjekt_GodtNavn
             {
                 timerElapsed = currentStart / fps;
                 currentIndex = currentStart;
+
+                return false;
+            }
+
+            if (runOnetime)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

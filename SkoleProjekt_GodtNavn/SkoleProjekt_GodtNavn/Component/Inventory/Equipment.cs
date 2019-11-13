@@ -19,11 +19,11 @@ namespace SkoleProjekt_GodtNavn
 
         public void EquipItem(Item item)
         {
-            for (int i = 0; i < Gameworld.player.inventory.items.Length; i++)
+            for (int i = 0; i < Gameworld.Player.inventory.items.Length; i++)
             {
-                if(Gameworld.player.inventory.items[i] == item)
+                if(Gameworld.Player.inventory.items[i] == item)
                 {
-                    Gameworld.player.inventory.items[i] = null;
+                    Gameworld.Player.inventory.items[i] = null;
                 }
             }
 
@@ -51,8 +51,8 @@ namespace SkoleProjekt_GodtNavn
                     SwitchItem(item, ItemType.WeaponMelee);
                     break;
                 case ItemType.Consumable:
-                    Gameworld.player.health.AddValue(50);
-                    Gameworld.player.mana.AddValue(50);
+                    Gameworld.Player.health.AddValue(50);
+                    Gameworld.Player.mana.AddValue(50);
                     break;
                 default:
                     Console.WriteLine("Equipment Error");
@@ -70,7 +70,7 @@ namespace SkoleProjekt_GodtNavn
             }
             else
             {
-                Gameworld.player.inventory.AddItem(helmet);
+                Gameworld.Player.inventory.AddItem(helmet);
                 helmet = item;
             }
             #endregion
@@ -82,7 +82,7 @@ namespace SkoleProjekt_GodtNavn
                 }
                 else
                 {
-                    Gameworld.player.inventory.AddItem(chest);
+                    Gameworld.Player.inventory.AddItem(chest);
                     chest = item;
                 }
             #endregion
@@ -94,7 +94,7 @@ namespace SkoleProjekt_GodtNavn
                 }
                 else
                 {
-                    Gameworld.player.inventory.AddItem(leg);
+                    Gameworld.Player.inventory.AddItem(leg);
                     leg = item;
                 }
             #endregion
@@ -106,7 +106,7 @@ namespace SkoleProjekt_GodtNavn
                 }
                 else
                 {
-                    Gameworld.player.inventory.AddItem(gloves);
+                    Gameworld.Player.inventory.AddItem(gloves);
                     gloves = item;
                 }
             #endregion
@@ -118,7 +118,7 @@ namespace SkoleProjekt_GodtNavn
                 }
                 else
                 {
-                    Gameworld.player.inventory.AddItem(boots);
+                    Gameworld.Player.inventory.AddItem(boots);
                     boots = item;
                 }
             #endregion
@@ -130,7 +130,7 @@ namespace SkoleProjekt_GodtNavn
                 }
                 else
                 {
-                    Gameworld.player.inventory.AddItem(weapon);
+                    Gameworld.Player.inventory.AddItem(weapon);
                     weapon = item;
                 }
             #endregion
@@ -141,31 +141,31 @@ namespace SkoleProjekt_GodtNavn
             switch (item.itemType)
             {
                 case ItemType.Helmet:
-                    Gameworld.player.inventory.AddItem(helmet);
+                    Gameworld.Player.inventory.AddItem(helmet);
                     helmet = null;
                     break;
                 case ItemType.Chest:
-                    Gameworld.player.inventory.AddItem(chest);
+                    Gameworld.Player.inventory.AddItem(chest);
                     chest = null;
                     break;
                 case ItemType.Leg:
-                    Gameworld.player.inventory.AddItem(leg);
+                    Gameworld.Player.inventory.AddItem(leg);
                     leg = null;
                     break;
                 case ItemType.Gloves:
-                    Gameworld.player.inventory.AddItem(gloves);
+                    Gameworld.Player.inventory.AddItem(gloves);
                     gloves = null;
                     break;
                 case ItemType.Boots:
-                    Gameworld.player.inventory.AddItem(boots);
+                    Gameworld.Player.inventory.AddItem(boots);
                     boots = null;
                     break;
                 case ItemType.WeaponRange:
-                    Gameworld.player.inventory.AddItem(weapon);
+                    Gameworld.Player.inventory.AddItem(weapon);
                     weapon = null;
                     break;
                 case ItemType.WeaponMelee:
-                    Gameworld.player.inventory.AddItem(weapon);
+                    Gameworld.Player.inventory.AddItem(weapon);
                     weapon = null;
                     break;
                 default:

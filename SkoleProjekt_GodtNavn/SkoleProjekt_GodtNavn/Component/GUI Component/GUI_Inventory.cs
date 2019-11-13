@@ -98,7 +98,7 @@ namespace SkoleProjekt_GodtNavn
                 }
             }
 
-            foreach (Item x in Gameworld.player.inventory.items)
+            foreach (Item x in Gameworld.Player.inventory.items)
             {
                 ShowItemGUI02(panel01.Position, x, itemShowOffset);
                 itemShowOffset += 100;
@@ -134,9 +134,9 @@ namespace SkoleProjekt_GodtNavn
             {
                 for (int i = 0; i < slot_Inventory.Length; i++)
                 {
-                    slot_Inventory[i].item = Gameworld.player.inventory.items[i];
+                    slot_Inventory[i].item = Gameworld.Player.inventory.items[i];
                 }
-                goldText.Text = $"Gold: {Gameworld.player.gold}";
+                goldText.Text = $"Gold: {Gameworld.Player.gold}";
             }
         }
 

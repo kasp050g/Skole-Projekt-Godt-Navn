@@ -18,9 +18,10 @@ namespace SkoleProjekt_GodtNavn
         public override void Initialize()
         {
             base.Initialize();
-            sprite = Gameworld.spriteContainer.soleSprite["Background1"];
+            sprite = Gameworld.spriteContainer.soleSprite["Background2"];
             transform.scale = 5;
             transform.position = new Vector2(-2400, -1500);
+            layerDepth = 0.1f;
         }
         public override void LoadContent(ContentManager content)
         {

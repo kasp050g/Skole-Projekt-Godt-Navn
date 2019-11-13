@@ -23,6 +23,8 @@ namespace SkoleProjekt_GodtNavn
 
         public Vector2 screenSize;
 
+        public Facing facing = Facing.Down;
+
         #region Animate Value's
         public Texture2D[] sprites;
         protected float fps = 10;

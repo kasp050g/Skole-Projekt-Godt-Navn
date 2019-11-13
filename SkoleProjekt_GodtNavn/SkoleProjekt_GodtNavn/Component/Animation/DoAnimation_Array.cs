@@ -88,9 +88,9 @@ namespace SkoleProjekt_GodtNavn
 
             if (!isDead)
             {
-            currentSprite = currentSprites[currentIndex];
+                currentSprite = currentSprites[currentIndex];
             }
-            else if (currentIndex < currentSprites.Length -1)
+            else if (currentIndex < currentSprites.Length - 1)
             {
                 currentSprite = currentSprites[currentIndex];
             }

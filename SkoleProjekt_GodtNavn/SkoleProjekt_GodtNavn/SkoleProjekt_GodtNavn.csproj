@@ -72,6 +72,7 @@
     <Compile Include="Component\Transform.cs" />
     <Compile Include="Component\World\World.cs" />
     <Compile Include="Enemy\Enemy.cs" />
+    <Compile Include="Enemy\Goblin.cs" />
     <Compile Include="Gameworld.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Program.cs" />
@@ -86,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Texture\Background\Background1.png" />
+    <Content Include="Content\Texture\Background\Background2.png" />
     <Content Include="Content\Texture\Component\CollisionTexture.png" />
     <Content Include="Content\Texture\Enemy\Bat\Enemy_Bat_sheet.png" />
     <Content Include="Content\Texture\Enemy\Beetle\Enemy_Beetle_Sheet.png" />

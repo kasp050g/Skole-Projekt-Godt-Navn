@@ -54,7 +54,7 @@ namespace SkoleProjekt_GodtNavn
 
         public float moveSpeed = 5;
 
-        Facing facing = Facing.Down;
+
 
         public override Rectangle rectangle
         {

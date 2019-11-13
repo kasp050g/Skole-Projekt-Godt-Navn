@@ -30,7 +30,7 @@ namespace SkoleProjekt_GodtNavn
         static private List<GUI_Component> uiList = new List<GUI_Component>();
         public static Vector2 ScreenSize { get; private set; }
         public Camera camera = new Camera();
-        public static Player player = new Player();
+        public static Player Player = new Player();
         public static SpriteContainer spriteContainer = new SpriteContainer();
 
         public Gameworld()
@@ -89,7 +89,7 @@ namespace SkoleProjekt_GodtNavn
             MakeWorld();
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
-            gameObjects.Add(player);
+            gameObjects.Add(Player);
             foreach (GameObject go in gameObjects)
             {
                 go.Initialize();
@@ -104,13 +104,13 @@ namespace SkoleProjekt_GodtNavn
         protected override void LoadContent()
         {
             // UI Inventory
-            player.GUI_Inventory.LoadContent(Content);
-            player.GUI_Inventory.GUI_Setup();
+            Player.GUI_Inventory.LoadContent(Content);
+            Player.GUI_Inventory.GUI_Setup();
             // UI Equipment
-            player.GUI_Equipment.LoadContent(Content);
-            player.GUI_Equipment.GUI_Setup();
+            Player.GUI_Equipment.LoadContent(Content);
+            Player.GUI_Equipment.GUI_Setup();
             // Player UI
-            player.healthAndMana.GUI_Setup();
+            Player.healthAndMana.GUI_Setup();
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -129,6 +129,11 @@ namespace SkoleProjekt_GodtNavn
         {
             World world = new World();
             gameObjects.Add(world);
+
+            // Enemy's
+            Goblin goblin01 = new Goblin();
+            goblin01.transform.position = new Vector2(300, 300);
+            gameObjects.Add(goblin01);
         }
 
         /// <summary>
@@ -165,7 +170,7 @@ namespace SkoleProjekt_GodtNavn
                 ui.Update(gameTime);
             }
 
-            camera.Follow(player);
+            camera.Follow(Player);
 
             base.Update(gameTime);
 
