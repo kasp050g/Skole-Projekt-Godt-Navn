@@ -20,6 +20,36 @@
 /processorParam:TextureFormat=Compressed
 /build:Font/NormalFont.spritefont
 
+#begin Sound/Song/Song_Adventure.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Song/Song_Adventure.wav
+
+#begin Sound/SoundEffect/Enemy/SoundEffect_Goblin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SoundEffect/Enemy/SoundEffect_Goblin.wav
+
+#begin Sound/SoundEffect/Player/SoundEffect_Hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SoundEffect/Player/SoundEffect_Hit.wav
+
+#begin Sound/SoundEffect/Player/SoundEffect_level_up.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SoundEffect/Player/SoundEffect_level_up.wav
+
+#begin Sound/SoundEffect/Player/SoundEffect_sword_swing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SoundEffect/Player/SoundEffect_sword_swing.wav
+
 #begin Texture/Background/Background1.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -14,11 +14,13 @@ namespace SkoleProjekt_GodtNavn
 
         private int xpAmount;
 
-        private float maxAggroRange = 1000;
+        private float maxAggroRange = 450;
 
         public float meleeRange = 90;
 
         bool isMelee = true;
+        public int meleeDamage = 10;
+        public float meleeAttackSpeed = 2f;
 
         public bool isAttack = false;
 
@@ -139,10 +141,14 @@ namespace SkoleProjekt_GodtNavn
             {
                                
                 velocity = new Vector2(0, 0);
-                if (deltaTime > 2.0f)
+                if (deltaTime > meleeAttackSpeed)
                 {
                     isAttack = true;
-                    Gameworld.Player.TakeDamage(10);
+                }
+                if (deltaTime > (meleeAttackSpeed + 1.0f))
+                {
+                    if(Math.Abs(distanceX) < meleeRange + 5 && Math.Abs(distanceY) < meleeRange + 5)
+                    Gameworld.Player.TakeDamage(meleeDamage);
                     deltaTime = 0.0f;
                 }
             }

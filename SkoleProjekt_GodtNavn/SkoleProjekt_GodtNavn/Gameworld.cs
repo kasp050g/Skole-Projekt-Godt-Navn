@@ -32,6 +32,7 @@ namespace SkoleProjekt_GodtNavn
         public Camera camera = new Camera();
         public static Player Player = new Player();
         public static SpriteContainer spriteContainer = new SpriteContainer();
+        public static AudioPlayer audioPlayer = new AudioPlayer();
 
         public Gameworld()
         {
@@ -86,6 +87,7 @@ namespace SkoleProjekt_GodtNavn
         protected override void Initialize()
         {
             spriteContainer.LoadContent(Content);
+            audioPlayer.LoadContent(Content);
             MakeWorld();
             // TODO: Add your initialization logic here
             IsMouseVisible = true;
@@ -127,6 +129,7 @@ namespace SkoleProjekt_GodtNavn
 
         public void MakeWorld()
         {
+            audioPlayer.Song_Play("Song_Adventure");
             World world = new World();
             gameObjects.Add(world);
 

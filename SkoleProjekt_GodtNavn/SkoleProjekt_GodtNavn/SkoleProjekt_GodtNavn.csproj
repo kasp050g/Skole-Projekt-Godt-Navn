@@ -86,6 +86,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Sound\Song\Song_Adventure.wav" />
+    <Content Include="Content\Sound\SoundEffect\Enemy\SoundEffect_Goblin.wav" />
+    <Content Include="Content\Sound\SoundEffect\Player\SoundEffect_Hit.wav" />
+    <Content Include="Content\Sound\SoundEffect\Player\SoundEffect_level_up.wav" />
+    <Content Include="Content\Sound\SoundEffect\Player\SoundEffect_sword_swing.wav" />
     <Content Include="Content\Texture\Background\Background1.png" />
     <Content Include="Content\Texture\Background\Background2.png" />
     <Content Include="Content\Texture\Component\CollisionTexture.png" />
