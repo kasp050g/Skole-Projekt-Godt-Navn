@@ -55,6 +55,54 @@ namespace SkoleProjekt_GodtNavn
 
         Facing facing = Facing.Down;
 
+        public override Rectangle rectangle
+        {
+            get
+            {
+                return new Rectangle(
+                    0,
+                    0,
+                    sprite.Width,
+                    sprite.Height
+                    );
+            }
+        }
+
+        //public override Rectangle CollisionBox
+        //{
+        //    get
+        //    {
+        //        return new Rectangle(
+        //            (int)transform.position.X - (int)(origin.X * transform.scale) + 0,
+        //            (int)transform.position.Y - (int)(origin.Y * transform.scale) + 30,
+        //            (int)(250 * transform.scale),
+        //            (int)(350 * transform.scale)
+        //            );
+        //    }
+        //}
+
+        //private int RetrunOriginPositionFixOnCollisionBox()
+        //{
+        //    switch (facing)
+        //    {
+        //        case Facing.Up:
+        //            return 25;
+                   
+        //        case Facing.Down:
+        //            return 40;
+                    
+        //        case Facing.Left:
+        //            return 40;
+                    
+        //        case Facing.Rigth:
+        //            return 5;
+                    
+        //        default:
+        //            return 0;
+                    
+        //    }
+        //}
+
         public override void Initialize()
         {
             base.Initialize();
@@ -118,7 +166,7 @@ namespace SkoleProjekt_GodtNavn
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("Texture/Player/tmp");
-            this.origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
+            this.origin = new Vector2(100, 100);
             layerDepth = 0.5f;
         }
 
@@ -195,7 +243,10 @@ namespace SkoleProjekt_GodtNavn
 
         public void HandleInput()
         {
-            MoveInput();
+            if (!isAttacking)
+            {
+                MoveInput();
+            }
             UI_Input();
 
         }
