@@ -10,11 +10,6 @@ namespace SkoleProjekt_GodtNavn
     {
         public Item[] items = new Item[20];
 
-        public void SetUp()
-        {
-
-        }
-
         public void AddItem(Item item)
         {
             for (int i = 0; i < items.Length; i++)
@@ -26,12 +21,6 @@ namespace SkoleProjekt_GodtNavn
                 }                
             }
         }
-
-        public void GetItem()
-        {
-            // Donno how to do for now.
-        }
-
         public void SellItem(Item item)
         {
             for (int i = 0; i < items.Length; i++)
