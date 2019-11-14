@@ -64,6 +64,7 @@
     <Compile Include="Component\GUI Component\GUI_Panel.cs" />
     <Compile Include="Component\GUI Component\GUI_ShowItemInfo.cs" />
     <Compile Include="Component\GUI Component\GUI_Slot_Inventory.cs" />
+    <Compile Include="Component\GUI Component\GUI_Spell_Bar.cs" />
     <Compile Include="Component\GUI World\GUI_Font_World.cs" />
     <Compile Include="Component\GUI World\GUI_Panel_World.cs" />
     <Compile Include="Component\Inventory\Equipment.cs" />
@@ -350,6 +351,13 @@
     <Content Include="Content\Texture\UI\Quest log\slider_bar.png" />
     <Content Include="Content\Texture\UI\Quest log\text_frame_1.png" />
     <Content Include="Content\Texture\UI\Quest log\text_frame_2.png" />
+    <Content Include="Content\Texture\UI\SpellBar\fire_1.png" />
+    <Content Include="Content\Texture\UI\SpellBar\freeze_1.png" />
+    <Content Include="Content\Texture\UI\SpellBar\lightning_1.png" />
+    <Content Include="Content\Texture\UI\SpellBar\sword_3.png" />
+    <Content Include="Content\Texture\UI\SpellBar\XP_Bar_1.png" />
+    <Content Include="Content\Texture\UI\SpellBar\XP_Bar_2.png" />
+    <Content Include="Content\Texture\UI\SpellBar\XP_Bar_3.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

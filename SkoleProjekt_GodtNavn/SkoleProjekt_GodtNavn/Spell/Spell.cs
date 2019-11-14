@@ -24,6 +24,7 @@ namespace SkoleProjekt_GodtNavn
 
         private int speed = 500;
 
+        private float spellLiveTimer = 8f;
         public Spell(Facing facing, int mana, bool isPlayer)
         {
             facingCaster = facing;
@@ -48,6 +49,12 @@ namespace SkoleProjekt_GodtNavn
         public override void Update(GameTime gameTime)
         {
             Move(gameTime);
+
+            spellLiveTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (spellLiveTimer < 0)
+            {
+                Gameworld.Destroy(this);
+            }
         }
 
         public override void OnCollision(GameObject other)
@@ -71,10 +78,10 @@ namespace SkoleProjekt_GodtNavn
             get
             {
                 return new Rectangle(
-                    (int)transform.position.X - (int)(0) + 0,
-                    (int)transform.position.Y - (int)(0) + 0,
-                    (int)(100),
-                    (int)(100)
+                    (int)transform.position.X - (int)(0) + 25,
+                    (int)transform.position.Y - (int)(0) + 25,
+                    (int)(50),
+                    (int)(50)
                     );
             }
         }

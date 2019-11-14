@@ -23,6 +23,9 @@ namespace SkoleProjekt_GodtNavn
         GUI_Font_World _Font;
         GUI_Panel_World _Panel;
 
+        List<GameObject> showLootIcon = new List<GameObject>();
+        GUI_Font_World _Font_Loot;
+        GUI_Panel_World _Panel_Loot;
         public override void Initialize()
         {
             base.Initialize();
@@ -54,6 +57,31 @@ namespace SkoleProjekt_GodtNavn
                 ShowGUI = true
             };
             Gameworld.Instatiate(_Font);
+
+
+            _Panel_Loot = new GUI_Panel_World(Gameworld.spriteContainer.soleSprite["empty_slot"])
+            {
+                Position = new Vector2(transform.position.X + 40, transform.position.Y - 35),
+                Origin = GUI_OriginPosition.BottomMid,
+                Scale = new Vector2(0.5f, 0.5f),
+                layerDepth = 0.18f,
+                ShowGUI = true
+            };
+            _Panel_Loot.SetOrigin();
+            showLootIcon.Add(_Panel_Loot);
+            Gameworld.Instatiate(_Panel_Loot);
+
+            _Font_Loot = new GUI_Font_World(spriteFont, Color.White)
+            {
+                Position = new Vector2(_Panel_Loot.Position.X -10 , _Panel_Loot.Position.Y - 45),
+                Text = $"F",
+                FontScale = new Vector2(0.9f, 0.9f),
+                layerDepth = 0.19f,
+                fontColor = Color.White,
+                ShowGUI = true
+            };
+            showLootIcon.Add(_Font_Loot);
+            Gameworld.Instatiate(_Font_Loot);
         }
 
         public LootDrop(Vector2 dropPosition)
@@ -74,16 +102,37 @@ namespace SkoleProjekt_GodtNavn
 
         public override void OnCollision(GameObject other)
         {
-            
+
+            if (other is Player)
+            {
+                for (int i = 0; i < showLootIcon.Count; i++)
+                {
+                    if(showLootIcon[i] is GUI_Font_World)
+                    (showLootIcon[i] as GUI_Font_World).ShowGUI = true;
+
+                    if (showLootIcon[i] is GUI_Panel_World)
+                        (showLootIcon[i] as GUI_Panel_World).ShowGUI = true;
+                }
+            }
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            
+            for (int i = 0; i < showLootIcon.Count; i++)
+            {
+                if (showLootIcon[i] is GUI_Font_World)
+                    (showLootIcon[i] as GUI_Font_World).ShowGUI = false;
+
+                if (showLootIcon[i] is GUI_Panel_World)
+                    (showLootIcon[i] as GUI_Panel_World).ShowGUI = false;
+            }
         }
 
         public void Destroy()
         {
+            Gameworld.Destroy(_Panel_Loot);
+            Gameworld.Destroy(_Font_Loot);
             Gameworld.Destroy(_Panel);
             Gameworld.Destroy(_Font);
             Gameworld.Destroy(this);

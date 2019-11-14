@@ -68,7 +68,11 @@ namespace SkoleProjekt_GodtNavn
             }
             foreach (GameObject go in gameObjectsToBeDelete)
             {
-                enemies.Remove(go);
+                goblinTotem.Remove(go);
+            }
+            foreach (GameObject go in gameObjectsToBeDelete)
+            {
+                golemTotem.Remove(go);
             }
             gameObjectsToBeDelete.Clear();
         }
@@ -122,6 +126,8 @@ namespace SkoleProjekt_GodtNavn
             Player.GUI_Equipment.GUI_Setup();
             // Player UI
             Player.healthAndMana.GUI_Setup();
+            // Spell Bar UI
+            Player.gui_Spell_Bar.SetUp();
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -142,36 +148,79 @@ namespace SkoleProjekt_GodtNavn
             World world = new World();
             gameObjects.Add(world);
 
-            //SetEnemys();
+            SetEnemys();
         }
 
-        List<GameObject> enemies = new List<GameObject>();
+        List<GameObject> goblinTotem = new List<GameObject>();
         Goblin goblinTest;
+
+        List<GameObject> golemTotem = new List<GameObject>();
+        Golem golemTest;
 
         public void ReloadEnemy()
         {
-            if(enemies.Count <= 0)
+            if(goblinTotem.Count <= 0)
             {
                 goblinTest = new Goblin();
-                goblinTest.health.currentValue = 5;
-                goblinTest.transform.position = new Vector2(300, 300);
+                goblinTest.health.currentValue = 10 * Player.level;
+                goblinTest.health.maxValue = 10 * Player.level;
+                goblinTest.transform.position = new Vector2(4123, 700);
                 goblinTest.deleteOnDeath = true;
-                enemies.Add(goblinTest);
+                goblinTotem.Add(goblinTest);
                 Instatiate(goblinTest);
+            }
+
+            if (golemTotem.Count <= 0)
+            {
+                golemTest = new Golem();
+                golemTest.transform.scale = 2;
+                golemTest.isMelee = false;
+                golemTest.health.currentValue = 20 * Player.level;
+                golemTest.health.maxValue = 20 * Player.level;
+                golemTest.transform.position = new Vector2(7826, -528);
+                golemTest.deleteOnDeath = true;
+                golemTotem.Add(golemTest);
+                Instatiate(golemTest);
             }
         }
         public void SetEnemys()
         {
             // Enemy's
-            goblinTest.health.currentValue = 5;
-            goblinTest.transform.position = new Vector2(300, 300);
-            gameObjects.Add(goblinTest);
+            #region Spwan Goblins
+
+            List<Vector2> tmp_Vector = new List<Vector2>();
+
+            for (int i = 1; i < 10; i++)
+            {
+                tmp_Vector.Add(new Vector2(1000 * i, 500));
+                tmp_Vector.Add(new Vector2(1000 * i, -500));
+            }
+
+
+            for (int i = 0; i < tmp_Vector.Count; i++)
+            {
+                Goblin goblin01 = new Goblin();
+                goblin01.health.currentValue = 15;
+                goblin01.health.maxValue = 15;
+                goblin01.transform.scale = 2;
+                goblin01.transform.position = tmp_Vector[i];
+                gameObjects.Add(goblin01);
+            }
+
+            #endregion
+
 
             Golem golem01 = new Golem();
-            golem01.health.currentValue = 5;
+            golem01.health.currentValue = 500;
+            golem01.health.maxValue = 500;
             golem01.isMelee = false;
-            golem01.meleeRange = 500;
-            golem01.transform.position = new Vector2(300, 100);
+            golem01.meleeRange = 300;
+            golem01.spellRange = 700;
+            golem01.maxAggroRange = 1200;
+            golem01.transform.scale = 4;
+            golem01.isBoss = true;
+            golem01.color = Color.Pink;
+            golem01.transform.position = new Vector2(11000, 30);
             gameObjects.Add(golem01);
         }
 
@@ -237,7 +286,7 @@ namespace SkoleProjekt_GodtNavn
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: camera.Transform);
 
-            ShowGameObjectList();
+            
 
             // Draw all Gameobjects
             foreach (GameObject go in gameObjects)
@@ -251,9 +300,10 @@ namespace SkoleProjekt_GodtNavn
 
 
             spriteBatch.End();
-
+            
             // UI
             spriteBatch.Begin(SpriteSortMode.FrontToBack);
+            ShowGameObjectList();
             foreach (GUI_Component ui in uiList)
             {
                 ui.Draw(gameTime, spriteBatch);
@@ -284,11 +334,11 @@ namespace SkoleProjekt_GodtNavn
 #if DEBUG
             // Draw GameObject List
             int ySpace = 30;
-            spriteBatch.DrawString(font, "GameObject List:", new Vector2(10, 10), Color.Black, 0, new Vector2(0, 0), 1, SpriteEffects.None, 1);
+            spriteBatch.DrawString(font, "GameObject List:", new Vector2(10, 10), Color.Black, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 1);
 
             foreach (GameObject go in gameObjects)
             {
-                spriteBatch.DrawString(font, go.transform.position.ToString(), new Vector2(10, ySpace), Color.Black);
+                spriteBatch.DrawString(font, go.transform.position.ToString(), new Vector2(10, ySpace), Color.Black, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 1);
                 ySpace += 20;
             }
 #endif

@@ -94,6 +94,17 @@ namespace SkoleProjekt_GodtNavn
             AddSoleSprite(content.Load<Texture2D>("Texture/UI/Player UI/Circle white _ 4 timer"), "CircleWhite4");
 
 
+            // Spell Bar
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/SpellBar/fire_1"), "fire_1");
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/SpellBar/freeze_1"), "freeze_1");
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/SpellBar/lightning_1"), "lightning_1");
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/SpellBar/sword_3"), "sword_3");
+
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/SpellBar/XP_Bar_1"), "XP_Bar_1");
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/SpellBar/XP_Bar_2"), "XP_Bar_2");
+            AddSoleSprite(content.Load<Texture2D>("Texture/UI/SpellBar/XP_Bar_3"), "XP_Bar_3");
+
+
             /// ---Player Image---
             List<Texture2D> tmpList = new List<Texture2D>();
             #region Walk

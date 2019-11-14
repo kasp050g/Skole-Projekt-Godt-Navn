@@ -29,16 +29,17 @@ namespace SkoleProjekt_GodtNavn
         public GUI_Inventory GUI_Inventory = new GUI_Inventory();
         public GUI_Equipment GUI_Equipment = new GUI_Equipment();
         public GUI_HealthAndMana healthAndMana = new GUI_HealthAndMana();
+        public GUI_Spell_Bar gui_Spell_Bar = new GUI_Spell_Bar();
         private bool canOpenUI;
 
-        public int level = 5;
+        public int level = 1;
         public int gold = 0;
         public bool isSell = false;
         public bool isAttacking = false;
 
         #region --- Player Stats ---
         // XP
-        public int maxXP = 100;
+        public int maxXP = 50;
         public int currentXP = 0;
         // Health And Mana
 
@@ -160,6 +161,7 @@ namespace SkoleProjekt_GodtNavn
         }
         public override void Update(GameTime gameTime)
         {
+            gui_Spell_Bar.Update_UI();
             HandleInput();
             UpdatePlayerStats();
             GUI_Equipment.UpdateGUI03();
@@ -269,6 +271,7 @@ namespace SkoleProjekt_GodtNavn
                 maxXP = (int)(maxXP * 1.25f);
                 currentXP = 0;
                 level += 1;
+                UpdatePlayerStatOnLevelUp();
             }
         }
 
@@ -452,6 +455,7 @@ namespace SkoleProjekt_GodtNavn
                     CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
                 }
 
+
                 if (isAttacking == false)
                 {
                     attackZone.canDamage = false;
@@ -524,7 +528,23 @@ namespace SkoleProjekt_GodtNavn
                 canOpenUI = false;
             }
 
-            if (keyState.IsKeyUp(Keys.I) && keyState.IsKeyUp(Keys.P) && keyState.IsKeyUp(Keys.L) && keyState.IsKeyUp(Keys.K))
+            if (keyState.IsKeyDown(Keys.H) && canOpenUI == true)
+            {
+                canOpenUI = false;
+                for (int i = 0; i < inventory.items.Length; i++)
+                {
+                    if (inventory.items[i] != null)
+                        if (inventory.items[i].itemType == ItemType.Consumable)
+                        {
+                            health.currentValue += 50;
+                            mana.currentValue += 50;
+                            inventory.items[i] = null;
+                            break;
+                        }
+                }
+            }
+
+            if (keyState.IsKeyUp(Keys.I) && keyState.IsKeyUp(Keys.P) && keyState.IsKeyUp(Keys.L) && keyState.IsKeyUp(Keys.K) && keyState.IsKeyUp(Keys.H))
             {
                 canOpenUI = true;
             }

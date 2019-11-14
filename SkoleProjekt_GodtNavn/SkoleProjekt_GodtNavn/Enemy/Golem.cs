@@ -89,10 +89,8 @@ namespace SkoleProjekt_GodtNavn
         public bool doDeathAnimationOneTime = true;
         public Golem()
         {
-            health.maxValue = 20;
-            health.currentValue = 20;
-            meleeRange = 80;
-            xpAmount = 200;
+
+           
         }
         public Golem(int _health, Color _color, float _scale)
         {
@@ -117,8 +115,9 @@ namespace SkoleProjekt_GodtNavn
             doAnimation.SetAnimation(animationContainer_Sheet_Walk, facing);
             layerDepth = 0.2f;
             speed = 120f;
-            transform.scale = 2f;
+
             bloodColor = Color.CornflowerBlue;
+            origin = new Vector2(golem_Walk.Width / 7 / 2, golem_Walk.Height / 5 / 2);
         }
 
         public override void Update(GameTime gameTime)
@@ -138,6 +137,15 @@ namespace SkoleProjekt_GodtNavn
                 doDeathAnimationOneTime = doAnimation.Animate(gameTime, facing);
             }
             SetImagePosition();
+
+            if (deleteOnDeath == true && isAlive == false)
+            {
+                deleteTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (deleteTimer < 0)
+                {
+                    Gameworld.Destroy(this);
+                }
+            }
         }
 
         public void SetImagePosition()
@@ -209,10 +217,10 @@ namespace SkoleProjekt_GodtNavn
             get
             {
                 return new Rectangle(
-                    (int)transform.position.X - (int)(origin.X * transform.scale) +10,
-                    (int)transform.position.Y - (int)(origin.Y * transform.scale),
-                    (int)(sprite.Width / 7 * transform.scale - 60),
-                    (int)(sprite.Height / 4 * transform.scale - 75)
+                    (int)transform.position.X - (int)(origin.X * transform.scale) + (int)(15 * transform.scale),
+                    (int)transform.position.Y - (int)(origin.Y * transform.scale) + (int)(16.25f * transform.scale),
+                    (int)(sprite.Width / 7 * transform.scale - (40 * transform.scale)),
+                    (int)(sprite.Height / 4 * transform.scale - (37.5f * transform.scale))
                     );
             }
         }

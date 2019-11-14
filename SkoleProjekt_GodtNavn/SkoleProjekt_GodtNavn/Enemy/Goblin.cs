@@ -80,10 +80,8 @@ namespace SkoleProjekt_GodtNavn
         public bool doDeathAnimationOneTime = true;
         public Goblin()
         {
-            health.maxValue = 20;
-            health.currentValue = 20;
-            meleeRange = 80;
-            xpAmount = 200;
+
+
         }
         public Goblin(int _health,Color _color,float _scale)
         {

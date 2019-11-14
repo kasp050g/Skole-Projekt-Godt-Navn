@@ -13,17 +13,19 @@ namespace SkoleProjekt_GodtNavn
     {
         private float deltaTime;
 
-        public int xpAmount = 10;
+        public int xpAmount = 15;
 
-        private float maxAggroRange = 850;
+        public float maxAggroRange = 850;
 
-        public float meleeRange = 90;
+        public float meleeRange = 80;
+        public float spellRange = 700;
 
         public bool isMelee = true;
         public int meleeDamage = 10;
         public float meleeAttackSpeed = 2f;
 
         public bool isAttack = false;
+        public bool isBoss = false;
 
         Vector2 enemyBlockMove = new Vector2(0, 0);
 
@@ -141,7 +143,7 @@ namespace SkoleProjekt_GodtNavn
                     }
                 }
 
-                if ((Math.Abs(distanceX) < maxAggroRange && Math.Abs(distanceY) < maxAggroRange) && (Math.Abs(distanceX) > meleeRange || Math.Abs(distanceY) > meleeRange))
+                if ((Math.Abs(distanceX) < maxAggroRange && Math.Abs(distanceY) < maxAggroRange) && MoveCloser(distanceX, distanceY))
                 {
                     if (transform.position.X != player.transform.position.X)
                     {
@@ -177,6 +179,18 @@ namespace SkoleProjekt_GodtNavn
             }
         }
 
+        public bool MoveCloser(float distanceX,float distanceY)
+        {
+            
+            if (isBoss == true)
+            {
+                return true;
+            }
+
+
+            return (isMelee ? (Math.Abs(distanceX) > meleeRange || Math.Abs(distanceY) > meleeRange) : (Math.Abs(distanceX) > spellRange || Math.Abs(distanceY) > spellRange));
+        }
+
         private void AttackMeleePlayer(GameTime gameTime)
         {
             int distanceX = (int)(Gameworld.Player.transform.position.X - transform.position.X);
@@ -207,7 +221,7 @@ namespace SkoleProjekt_GodtNavn
             bool positiveX = distanceX > 0;
             bool positiveY = distanceY > 0;
 
-            if (Math.Abs(distanceX) < meleeRange + 5 && Math.Abs(distanceY) < meleeRange + 5 && isAttack == false)
+            if (Math.Abs(distanceX) < spellRange + 5 && Math.Abs(distanceY) < spellRange + 5 && isAttack == false)
             {
 
                 velocity = new Vector2(0, 0);
@@ -215,22 +229,53 @@ namespace SkoleProjekt_GodtNavn
                 {
                     isAttack = true;
                 }
-                if (deltaTime > (meleeAttackSpeed + 1.0f))
+                if (deltaTime > (meleeAttackSpeed + 0.5f))
                 {
                     int spellDamage = 10;
                     Texture2D image = Gameworld.spriteContainer.soleSprite["fire_"];
-                    CastSpell(spellDamage, image, new Vector2(50, 50));
+
+
+                    if (isBoss == true)
+                    {
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Down, new Vector2(-100, 0));
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Down, new Vector2(0, 0));
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Down, new Vector2(+100, 0));
+
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Up, new Vector2(-100, 0));
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Up, new Vector2(0, 0));
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Up, new Vector2(+100, 0));
+
+
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Rigth, new Vector2(0, -200));
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Rigth, new Vector2(0, 0));
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Rigth, new Vector2(0, +200));
+
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Left, new Vector2(0, -200));
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Left, new Vector2(0, 0));
+                        CastSpell(spellDamage, image, new Vector2(50, 50), Facing.Left, new Vector2(0, +200));
+
+                        if (Math.Abs(distanceX) < meleeRange + 5 && Math.Abs(distanceY) < meleeRange + 5 )
+                        {
+                            if (Math.Abs(distanceX) < meleeRange + 5 && Math.Abs(distanceY) < meleeRange + 5)
+                                Gameworld.Player.TakeDamage(meleeDamage);
+                        }
+                    }
+                    else
+                    {
+                        CastSpell(spellDamage, image, new Vector2(50, 50), facing, new Vector2(0, 0));
+                    }
+
                     deltaTime = 0.0f;
                 }
             }
         }
 
-        void CastSpell(int spellDamage, Texture2D image, Vector2 imageOffSet)
+        void CastSpell(int spellDamage, Texture2D image, Vector2 imageOffSet, Facing _facing, Vector2 spawnPosition)
         {
-            Spell spell = new Spell(facing, 0, spellDamage, false);
+            Spell spell = new Spell(_facing, 0, spellDamage, false);
             spell.sprite = image;
             Vector2 positionOffSet = SpellPositionOffset();
-            spell.transform.position = new Vector2(transform.position.X, transform.position.Y) + positionOffSet;
+            spell.transform.position = new Vector2(transform.position.X + spawnPosition.X, transform.position.Y + spawnPosition.Y) + positionOffSet;
             spell.layerDepth = 0.7f;
             spell.spritePositionOffset = imageOffSet;
             spell.color = Color.LightCoral;

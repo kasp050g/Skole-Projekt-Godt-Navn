@@ -13,6 +13,7 @@ namespace SkoleProjekt_GodtNavn
         #region Fields
 
         private Texture2D sprite;
+        
         private Color defaultColor = Color.White;
         private Vector2 origin { get; set; }
         #endregion
@@ -26,6 +27,7 @@ namespace SkoleProjekt_GodtNavn
         public Vector2 Position { get; set; }
         public GUI_OriginPosition Origin { get; set; }
         public Vector2 Scale { get; set; }
+        public Color color = Color.White;
         public Rectangle Rectangle
         {
             get
@@ -36,6 +38,7 @@ namespace SkoleProjekt_GodtNavn
                     sprite.Width,
                     sprite.Height);
             }
+            set { }
         }
 
         #endregion
@@ -56,7 +59,7 @@ namespace SkoleProjekt_GodtNavn
         {
             if (ShowGUI == true)
             {
-                spriteBatch.Draw(sprite, Position, null, Color.White, 0f, origin, Scale, SpriteEffects.None, layerDepth);
+                spriteBatch.Draw(sprite, Position, null, color, 0f, origin, Scale, SpriteEffects.None, layerDepth);
             }
         }
 
