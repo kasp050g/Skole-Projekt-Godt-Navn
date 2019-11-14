@@ -129,7 +129,7 @@ namespace SkoleProjekt_GodtNavn
             // Fire Icon
             ui_Icon_Fire = new GUI_Panel(sprite_Icon_Fire)
             {
-                Position = new Vector2(ui_SpellBar.Position.X - 350, ui_SpellBar.Position.Y - 40),
+                Position = new Vector2(ui_SpellBar.Position.X - 110, ui_SpellBar.Position.Y - 40),
                 Origin = GUI_OriginPosition.BottomMid,
                 Scale = new Vector2(1.3f, 1.3f),
                 layerDepth = 0.8f,
@@ -141,7 +141,7 @@ namespace SkoleProjekt_GodtNavn
             // Ice Icon
             ui_Icon_Ice = new GUI_Panel(sprite_Icon_Ice)
             {
-                Position = new Vector2(ui_SpellBar.Position.X - 230, ui_SpellBar.Position.Y - 40),
+                Position = new Vector2(ui_SpellBar.Position.X - 350, ui_SpellBar.Position.Y - 40),
                 Origin = GUI_OriginPosition.BottomMid,
                 Scale = new Vector2(1.3f, 1.3f),
                 layerDepth = 0.8f,
@@ -153,7 +153,7 @@ namespace SkoleProjekt_GodtNavn
             // Lightning Icon
             ui_Icon_Lightning = new GUI_Panel(sprite_Icon_Lightning)
             {
-                Position = new Vector2(ui_SpellBar.Position.X - 110, ui_SpellBar.Position.Y - 40),
+                Position = new Vector2(ui_SpellBar.Position.X - 230, ui_SpellBar.Position.Y - 40),
                 Origin = GUI_OriginPosition.BottomMid,
                 Scale = new Vector2(1.3f, 1.3f),
                 layerDepth = 0.8f,

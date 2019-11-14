@@ -182,7 +182,7 @@ namespace SkoleProjekt_GodtNavn
         public bool MoveCloser(float distanceX,float distanceY)
         {
             
-            if (isBoss == true)
+            if (isBoss == true && (Math.Abs(distanceX) > 10 || Math.Abs(distanceY) > 10))
             {
                 return true;
             }

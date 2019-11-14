@@ -23,7 +23,7 @@ namespace SkoleProjekt_GodtNavn
         private SpriteFont font;
         private Texture2D sprite;
         private Color hoverColor = Color.Gray;
-        private Color defaultColor = Color.White;
+        public Color defaultColor = Color.White;
         private Color fontColor = Color.Black;
 
         #endregion
@@ -118,6 +118,17 @@ namespace SkoleProjekt_GodtNavn
                         Click?.Invoke(this, new EventArgs());
                     }
                 }
+            }
+
+            if(Gameworld.Player.isSell == true)
+            {
+                defaultColor = Color.Yellow;
+                hoverColor = Color.LightGoldenrodYellow;
+            }
+            else
+            {
+                defaultColor = Color.White;
+                hoverColor = Color.Gray;
             }
         }
 

@@ -25,6 +25,8 @@ namespace SkoleProjekt_GodtNavn
         Texture2D itemSlot;
         Texture2D itemSlotFram;
 
+        Texture2D sellButton;
+
         GUI_Font goldText;
 
         private int itemShowOffset = 0;
@@ -38,12 +40,16 @@ namespace SkoleProjekt_GodtNavn
             panel = Gameworld.spriteContainer.soleSprite["quest_log"];
             itemSlot = Gameworld.spriteContainer.soleSprite["empty_slot"];
             itemSlotFram = Gameworld.spriteContainer.soleSprite["epmtyFrame"];
+
+            sellButton = Gameworld.spriteContainer.soleSprite["arrow_down"];
             // Load in Font
             spriteFont = content.Load<SpriteFont>("Font/NormalFont");
         }
 
         public void GUI_Setup()
         {
+
+
             var panel01 = new GUI_Panel(panel)
             {
                 Position = new Vector2(Gameworld.ScreenSize.X - 50, 150),
@@ -53,6 +59,19 @@ namespace SkoleProjekt_GodtNavn
             };
             panel01.SetOrigin();
             gui_inventory.Add(panel01);
+
+            // Sell Button
+            GUI_Button _button = new GUI_Button(sellButton, spriteFont)
+            {
+                Position = new Vector2(panel01.Position.X - 500, panel01.Position.Y + 40),
+                Origin = GUI_OriginPosition.TopRigth,
+                ButtonScale = new Vector2(1.5f, 1.5f),
+                layerDepth = 0.9f,
+                defaultColor = Color.Yellow,
+                Text = "",
+            };
+            _button.Click += Sell_Click;
+            gui_inventory.Add(_button);
 
             // Title
             var panelTitle01 = new GUI_Font(spriteFont)
@@ -119,6 +138,11 @@ namespace SkoleProjekt_GodtNavn
             Gameworld.backgroundColour = new Color(random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
         }
 
+        private void Sell_Click(object sender, System.EventArgs e)
+        {
+            Gameworld.Player.isSell = !Gameworld.Player.isSell;
+        }
+
         public void UpdateGUI()
         {
             foreach (GUI_Component x in gui_inventory)
@@ -183,7 +207,7 @@ namespace SkoleProjekt_GodtNavn
             //    FontScale = new Vector2(0.5f, 0.5f),
             //    ButtonScale = new Vector2(1, 1)
             //};
-            //randomButton01.Click += RandomButton_Click;
+            //
             //gui_inventory.Add(randomButton01);
         }
     }

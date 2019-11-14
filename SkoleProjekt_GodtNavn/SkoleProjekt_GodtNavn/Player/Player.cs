@@ -535,11 +535,11 @@ namespace SkoleProjekt_GodtNavn
                 inventory.AddItem(tmpItem);
             }
 
-            if (keyState.IsKeyDown(Keys.K) && canOpenUI == true)
-            {
-                isSell = !isSell;
-                canOpenUI = false;
-            }
+            //if (keyState.IsKeyDown(Keys.K) && canOpenUI == true)
+            //{
+            //    isSell = !isSell;
+            //    canOpenUI = false;
+            //}
 
             if (keyState.IsKeyDown(Keys.H) && canOpenUI == true)
             {
