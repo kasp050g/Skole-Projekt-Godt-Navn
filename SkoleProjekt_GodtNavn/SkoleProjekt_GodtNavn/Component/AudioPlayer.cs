@@ -25,6 +25,7 @@ namespace SkoleProjekt_GodtNavn
 
             // Sound Effects
             AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Enemy/SoundEffect_Goblin"), "SoundEffect_Goblin");
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Enemy/golem_death"), "golem_death");
 
             AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/SoundEffect_Hit"), "SoundEffect_Hit");
             AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/SoundEffect_level_up"), "SoundEffect_level_up");

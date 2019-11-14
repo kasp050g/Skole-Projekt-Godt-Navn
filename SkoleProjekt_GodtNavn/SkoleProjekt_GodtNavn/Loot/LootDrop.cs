@@ -30,6 +30,7 @@ namespace SkoleProjekt_GodtNavn
             spriteFont = Gameworld.spriteContainer.spriteFont;
             panelImage = Gameworld.spriteContainer.soleSprite["frame_1"];
             item.RandomStats();
+            sprite = item.itemSprite;
             layerDepth = 0.15f;
 
             _Panel = new GUI_Panel_World(panelImage)
@@ -45,7 +46,7 @@ namespace SkoleProjekt_GodtNavn
 
             _Font = new GUI_Font_World(spriteFont, Color.White)
             {
-                Position = new Vector2(_Panel.Position.X -70, _Panel.Position.Y - 27),
+                Position = new Vector2(_Panel.Position.X -105, _Panel.Position.Y - 27),
                 Text = $"{item.rarity} {item.itemType}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.17f,
@@ -67,7 +68,7 @@ namespace SkoleProjekt_GodtNavn
 
         public override void LoadContent(ContentManager content)
         {
-            sprite = Gameworld.spriteContainer.soleSprite["bag"];
+            //sprite = Gameworld.spriteContainer.soleSprite["bag"];
             
         }
 

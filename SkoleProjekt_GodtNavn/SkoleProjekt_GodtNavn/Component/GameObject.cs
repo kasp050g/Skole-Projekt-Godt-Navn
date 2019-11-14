@@ -24,7 +24,7 @@ namespace SkoleProjekt_GodtNavn
         public Vector2 spritePositionOffset = new Vector2(0, 0);
 
         public Vector2 screenSize;
-
+        public Vector2 velocity;
         public Facing facing = Facing.Down;
 
         #region Animate Value's

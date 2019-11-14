@@ -66,6 +66,10 @@ namespace SkoleProjekt_GodtNavn
             {
                 gameObjects.Remove(go);
             }
+            foreach (GameObject go in gameObjectsToBeDelete)
+            {
+                enemies.Remove(go);
+            }
             gameObjectsToBeDelete.Clear();
         }
 
@@ -138,10 +142,37 @@ namespace SkoleProjekt_GodtNavn
             World world = new World();
             gameObjects.Add(world);
 
+            //SetEnemys();
+        }
+
+        List<GameObject> enemies = new List<GameObject>();
+        Goblin goblinTest;
+
+        public void ReloadEnemy()
+        {
+            if(enemies.Count <= 0)
+            {
+                goblinTest = new Goblin();
+                goblinTest.health.currentValue = 5;
+                goblinTest.transform.position = new Vector2(300, 300);
+                goblinTest.deleteOnDeath = true;
+                enemies.Add(goblinTest);
+                Instatiate(goblinTest);
+            }
+        }
+        public void SetEnemys()
+        {
             // Enemy's
-            Goblin goblin01 = new Goblin();
-            goblin01.transform.position = new Vector2(300, 300);
-            gameObjects.Add(goblin01);
+            goblinTest.health.currentValue = 5;
+            goblinTest.transform.position = new Vector2(300, 300);
+            gameObjects.Add(goblinTest);
+
+            Golem golem01 = new Golem();
+            golem01.health.currentValue = 5;
+            golem01.isMelee = false;
+            golem01.meleeRange = 500;
+            golem01.transform.position = new Vector2(300, 100);
+            gameObjects.Add(golem01);
         }
 
         /// <summary>
@@ -167,7 +198,7 @@ namespace SkoleProjekt_GodtNavn
             //var random = new Random();
             //backgroundColour = new Color(random.Next(0, 255), random.Next(0, 255), random.Next(0, 255));
 
-
+            
             // TODO: Add your update logic here
             audioPlayer.allSound(gameTime);
             foreach (GameObject go in gameObjects)
@@ -192,6 +223,7 @@ namespace SkoleProjekt_GodtNavn
 
             CallDestroy();
             CallInstatiate();
+            ReloadEnemy();
         }
 
         /// <summary>

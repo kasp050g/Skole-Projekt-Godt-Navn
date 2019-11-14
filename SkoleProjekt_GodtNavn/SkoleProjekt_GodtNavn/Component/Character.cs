@@ -10,7 +10,7 @@ namespace SkoleProjekt_GodtNavn
     public abstract class Character : GameObject
     {
         public float speed = 250;
-        public Vector2 velocity;
+        
         public bool isAlive = true;
         public Stat health = new Stat();
         public Color bloodColor = Color.White;

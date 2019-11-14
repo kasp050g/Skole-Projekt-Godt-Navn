@@ -25,11 +25,17 @@ namespace SkoleProjekt_GodtNavn
             AddSpriteSheet(content.Load<Texture2D>("Texture/Enemy/Goblin/Enemy_Goblin_Sheet"), "Enemy_Goblin_Sheet");
             AddSpriteSheet(content.Load<Texture2D>("Texture/Enemy/Golem/Enemy_Golem_Walk_Sheet"), "Enemy_Golem_Walk_Sheet");
             AddSpriteSheet(content.Load<Texture2D>("Texture/Enemy/Golem/Enemy_Golem_Attack_Sheet"), "Enemy_Golem_Attack_Sheet");
+            AddSpriteSheet(content.Load<Texture2D>("Texture/Enemy/Golem/Enemy_Golem_Die_Sheet"), "Enemy_Golem_Die_Sheet");
             // Effect
             AddSpriteSheet(content.Load<Texture2D>("Texture/Effect/bloodBoom"), "bloodBoom");
 
             // Font
             spriteFont = content.Load<SpriteFont>("Font/NormalFont");
+
+            // Spell
+            AddSoleSprite(content.Load<Texture2D>("Texture/Spell/fire_"), "fire_");
+            AddSoleSprite(content.Load<Texture2D>("Texture/Spell/ice"), "ice");
+            AddSoleSprite(content.Load<Texture2D>("Texture/Spell/lightning"), "lightning");
 
             // BackGround
             AddSoleSprite(content.Load<Texture2D>("Texture/Background/Background1"), "Background1");

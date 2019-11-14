@@ -195,7 +195,7 @@ namespace SkoleProjekt_GodtNavn
             switch (facing)
             {
                 case Facing.Up:
-                    attackZone.transform.position = transform.position + (new Vector2(-10,-40));
+                    attackZone.transform.position = transform.position + (new Vector2(-10, -40));
                     attackZone.CollisionBoxSize = (new Vector2(120, 70));
                     break;
                 case Facing.Down:
@@ -213,7 +213,7 @@ namespace SkoleProjekt_GodtNavn
                 default:
                     break;
             }
-            
+
         }
 
         public void UpdatePlayerStats()
@@ -275,11 +275,18 @@ namespace SkoleProjekt_GodtNavn
         public override void OnCollision(GameObject other)
         {
             KeyboardState keyState = Keyboard.GetState();
-            if (other is LootDrop && keyState.IsKeyDown(Keys.B))
+            if (other is LootDrop && keyState.IsKeyDown(Keys.F))
             {
-                LootDrop tmp = (other as LootDrop);
-                inventory.AddItem(tmp.item);
-                tmp.Destroy();
+                for (int i = 0; i < inventory.items.Length; i++)
+                {
+                    if(inventory.items[i] == null)
+                    {
+                        LootDrop tmp = (other as LootDrop);
+                        inventory.AddItem(tmp.item);
+                        tmp.Destroy();
+                        break;
+                    }
+                }
             }
         }
 
@@ -313,11 +320,11 @@ namespace SkoleProjekt_GodtNavn
                     break;
 
                 case Facing.Down:
-                    if(doAnimation_Array.animationContainer == animation_attack)
+                    if (doAnimation_Array.animationContainer == animation_attack)
                     {
                         spritePositionOffset = new Vector2(-33, -20);
                     }
-                    if(doAnimation_Array.animationContainer == animation_walk)
+                    if (doAnimation_Array.animationContainer == animation_walk)
                     {
                         spritePositionOffset = new Vector2(0, 0);
                     }
@@ -411,33 +418,78 @@ namespace SkoleProjekt_GodtNavn
         {
             KeyboardState keyState = Keyboard.GetState();
 
-            if(isAttacking == false)
+            if (isAttacking == false)
             {
                 if (keyState.IsKeyDown(Keys.Space))
                 {
                     attackZone.ClearAttackList();
                     isAttacking = true;
                     doAnimation_Array.SetAnimation(animation_attack, facing);
-                    Gameworld.audioPlayer.SoundEffect_Play("SoundEffect_sword_swing",0.5f);
+                    Gameworld.audioPlayer.SoundEffect_Play("SoundEffect_sword_swing", 0.5f);
                     attackZone.canDamage = true;
                     attackZone.damage = weaponDamage;
                 }
 
                 if (keyState.IsKeyDown(Keys.E))
                 {
-                    isAttacking = true;
-                    doAnimation_Array.SetAnimation(animation_cast, facing);
+                    int spellDamage = 1 + (strength * 1);
+                    int manaCost = 5;
+                    Texture2D image = Gameworld.spriteContainer.soleSprite["fire_"]; 
+                    CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
+                }
+                if (keyState.IsKeyDown(Keys.W))
+                {
+                    int spellDamage = 1 + (agility * 1);
+                    int manaCost = 5;
+                    Texture2D image = Gameworld.spriteContainer.soleSprite["lightning"];
+                    CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
                 }
                 if (keyState.IsKeyDown(Keys.Q))
                 {
-                    isAttacking = true;
-                    doAnimation_Array.SetAnimation(animation_cast, facing);
+                    int spellDamage = 1 + (intelligence * 1);
+                    int manaCost = 5;
+                    Texture2D image = Gameworld.spriteContainer.soleSprite["ice"];
+                    CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
                 }
 
                 if (isAttacking == false)
                 {
                     attackZone.canDamage = false;
                 }
+            }
+        }
+
+        public void CastSpell(int spellDamage , int manaCost,Texture2D image,Vector2 imageOffSet)
+        {
+            if (mana.currentValue >= manaCost)
+            {
+                mana.currentValue -= manaCost;
+                Spell spell = new Spell(facing, manaCost, spellDamage, true);
+                spell.sprite = image;
+                Vector2 positionOffSet = SpellPositionOffset();
+                spell.transform.position = new Vector2(transform.position.X, transform.position.Y) + positionOffSet;
+                spell.layerDepth = 0.7f;
+                spell.spritePositionOffset = imageOffSet;
+                isAttacking = true;
+                doAnimation_Array.SetAnimation(animation_cast, facing);
+                Gameworld.Instatiate(spell);
+            }
+        }
+
+        public Vector2 SpellPositionOffset()
+        {
+            switch (facing)
+            {
+                case Facing.Up:
+                    return new Vector2(0, -50);
+                case Facing.Down:
+                    return new Vector2(0, 50);
+                case Facing.Left:
+                    return new Vector2(-50, 0);
+                case Facing.Rigth:
+                    return new Vector2(50, 0);
+                default:
+                    return new Vector2(0, 0);
             }
         }
 
@@ -487,20 +539,20 @@ namespace SkoleProjekt_GodtNavn
             if (isAttacking == false)
             {
                 // if we move, move player and play run Animate
-                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.Up))
+                if ( keyState.IsKeyDown(Keys.Up))
                 {
                     velocity += new Vector2(0, -1);
 
                     facing = Facing.Up;
                 }
-                if (keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.Down))
+                if ( keyState.IsKeyDown(Keys.Down))
                 {
                     velocity += new Vector2(0, 1);
 
                     facing = Facing.Down;
                 }
 
-                if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.Left))
+                if ( keyState.IsKeyDown(Keys.Left))
                 {
                     velocity += new Vector2(-1, 0);
                     // dont play if we move Up or Down
@@ -510,7 +562,7 @@ namespace SkoleProjekt_GodtNavn
                     }
                     facing = Facing.Left;
                 }
-                if (keyState.IsKeyDown(Keys.D) || keyState.IsKeyDown(Keys.Right))
+                if ( keyState.IsKeyDown(Keys.Right))
                 {
                     velocity += new Vector2(1, 0);
                     // dont play if we move Up or Down
@@ -519,6 +571,15 @@ namespace SkoleProjekt_GodtNavn
 
                     }
                     facing = Facing.Rigth;
+                }
+
+                if (keyState.IsKeyDown(Keys.LeftShift))
+                {
+                    speed = 250 * 4;
+                }
+                else
+                {
+                    speed = 250;
                 }
 
                 if (velocity != Vector2.Zero)
