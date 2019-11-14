@@ -224,7 +224,7 @@ namespace SkoleProjekt_GodtNavn
             UpdatePlayerStat(mana);
 
             armor = 0;
-            weaponDamage = 2;
+            weaponDamage = 4;
 
             strength = 1;
             agility = 1;
@@ -435,21 +435,21 @@ namespace SkoleProjekt_GodtNavn
 
                 if (keyState.IsKeyDown(Keys.E))
                 {
-                    int spellDamage = 1 + (strength * 1);
+                    int spellDamage = 10 + (strength * 1);
                     int manaCost = 5;
                     Texture2D image = Gameworld.spriteContainer.soleSprite["fire_"]; 
                     CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
                 }
                 if (keyState.IsKeyDown(Keys.W))
                 {
-                    int spellDamage = 1 + (agility * 1);
+                    int spellDamage = 5 + (int)(agility * 1.5f);
                     int manaCost = 5;
                     Texture2D image = Gameworld.spriteContainer.soleSprite["lightning"];
                     CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
                 }
                 if (keyState.IsKeyDown(Keys.Q))
                 {
-                    int spellDamage = 1 + (intelligence * 1);
+                    int spellDamage = 1 + (intelligence * 2);
                     int manaCost = 5;
                     Texture2D image = Gameworld.spriteContainer.soleSprite["ice"];
                     CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
@@ -477,6 +477,19 @@ namespace SkoleProjekt_GodtNavn
                 isAttacking = true;
                 doAnimation_Array.SetAnimation(animation_cast, facing);
                 Gameworld.Instatiate(spell);
+
+                if (image == Gameworld.spriteContainer.soleSprite["ice"])
+                {
+                    Gameworld.audioPlayer.SoundEffect_Play("ice_spell", 0f);
+                }
+                if (image == Gameworld.spriteContainer.soleSprite["lightning"])
+                {
+                    Gameworld.audioPlayer.SoundEffect_Play("thunderbolt", 0f);
+                }
+                if (image == Gameworld.spriteContainer.soleSprite["fire_"])
+                {
+                    Gameworld.audioPlayer.SoundEffect_Play("fireball", 0f);
+                }
             }
         }
 
@@ -539,6 +552,7 @@ namespace SkoleProjekt_GodtNavn
                             health.currentValue += 50;
                             mana.currentValue += 50;
                             inventory.items[i] = null;
+                            Gameworld.audioPlayer.SoundEffect_Play("potion_sound", 0f);
                             break;
                         }
                 }

@@ -38,6 +38,30 @@
 /processorParam:Quality=Best
 /build:Sound/SoundEffect/Enemy/SoundEffect_Goblin.wav
 
+#begin Sound/SoundEffect/Player/death_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SoundEffect/Player/death_sound.wav
+
+#begin Sound/SoundEffect/Player/fireball.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SoundEffect/Player/fireball.wav
+
+#begin Sound/SoundEffect/Player/ice_spell.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SoundEffect/Player/ice_spell.wav
+
+#begin Sound/SoundEffect/Player/potion_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SoundEffect/Player/potion_sound.wav
+
 #begin Sound/SoundEffect/Player/SoundEffect_Hit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -55,6 +79,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sound/SoundEffect/Player/SoundEffect_sword_swing.wav
+
+#begin Sound/SoundEffect/Player/thunderbolt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/SoundEffect/Player/thunderbolt.wav
 
 #begin Texture/Background/Background1.png
 /importer:TextureImporter

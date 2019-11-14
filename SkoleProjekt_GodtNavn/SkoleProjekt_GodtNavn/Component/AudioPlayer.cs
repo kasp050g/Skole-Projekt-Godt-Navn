@@ -30,6 +30,13 @@ namespace SkoleProjekt_GodtNavn
             AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/SoundEffect_Hit"), "SoundEffect_Hit");
             AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/SoundEffect_level_up"), "SoundEffect_level_up");
             AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/SoundEffect_sword_swing"), "SoundEffect_sword_swing");
+
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/fireball"), "fireball");
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/ice_spell"), "ice_spell");
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/thunderbolt"), "thunderbolt");
+
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/potion_sound"), "potion_sound");
+            AddSoundEffects(content.Load<SoundEffect>("Sound/SoundEffect/Player/death_sound"), "death_sound");
         }
 
         private void AddSoundEffects(SoundEffect soundEffect, string name)
