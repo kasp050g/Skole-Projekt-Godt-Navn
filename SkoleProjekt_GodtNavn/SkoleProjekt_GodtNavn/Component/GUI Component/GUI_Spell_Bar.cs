@@ -260,7 +260,7 @@ namespace SkoleProjekt_GodtNavn
             ui_XP_Bar_02.Rectangle = new Rectangle(
                     (int)ui_XP_Bar_02.Position.X,
                     (int)ui_XP_Bar_02.Position.Y,
-                    ui_XP_Bar_02.Sprite.Width * (Gameworld.Player.currentXP / Gameworld.Player.maxXP),
+                    ui_XP_Bar_02.Sprite.Width * (Gameworld.Player.CurrentXP / Gameworld.Player.MaxXP),
                     ui_XP_Bar_02.Sprite.Height - 1);
 
             HowManyPot();
@@ -272,10 +272,10 @@ namespace SkoleProjekt_GodtNavn
         public void HowManyPot()
         {
             int tmp = 0;
-            for (int i = 0; i < Gameworld.Player.inventory.items.Length; i++)
+            for (int i = 0; i < Gameworld.Player.Inventory.items.Length; i++)
             {
-                if (Gameworld.Player.inventory.items[i] != null)
-                    if (Gameworld.Player.inventory.items[i].itemType == ItemType.Consumable)
+                if (Gameworld.Player.Inventory.items[i] != null)
+                    if (Gameworld.Player.Inventory.items[i].itemType == ItemType.Consumable)
                     {
                         tmp += 1;
                     }

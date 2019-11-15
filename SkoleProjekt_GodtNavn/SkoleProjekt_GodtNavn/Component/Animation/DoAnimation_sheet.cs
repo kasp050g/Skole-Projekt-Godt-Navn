@@ -58,7 +58,7 @@ namespace SkoleProjekt_GodtNavn
                         currentRow = animationContainer_Sheet.row_Left;
                         currentEnd = animationContainer_Sheet.end_Left;
                         break;
-                    case Facing.Rigth:
+                    case Facing.Right:
                         timerElapsed = animationContainer_Sheet.start_Right / fps;
                         currentStart = animationContainer_Sheet.start_Right;
                         currentRow = animationContainer_Sheet.row_Right;
@@ -125,7 +125,7 @@ namespace SkoleProjekt_GodtNavn
                         currentRow = animationContainer.row_Left;
                         currentEnd = animationContainer.end_Left;
                         break;
-                    case Facing.Rigth:
+                    case Facing.Right:
                         timerElapsed = animationContainer.start_Right / fps;
                         currentStart = animationContainer.start_Right;
                         currentRow = animationContainer.row_Right;

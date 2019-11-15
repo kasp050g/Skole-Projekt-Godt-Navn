@@ -16,15 +16,15 @@ namespace SkoleProjekt_GodtNavn
         public BloodEffect(GameObject myPosition,Color bloddColor)
         {
             this.myPosition = myPosition;
-            this.color = bloddColor;
+            this.Color = bloddColor;
         }
 
         public override void Initialize()
         {
             base.Initialize();
-            sprite = Gameworld.spriteContainer.spriteSheet["bloodBoom"];
-            transform.scale = 0.3f;
-            layerDepth = 1f;
+            Sprite = Gameworld.spriteContainer.spriteSheet["bloodBoom"];
+            Transform.Scale = 0.3f;
+            LayerDepth = 1f;
             fps = 20f;
         }
 
@@ -50,10 +50,10 @@ namespace SkoleProjekt_GodtNavn
             {
                 return new Rectangle(
 
-                    (sprite.Width + 0) / 4 * (currentIndex - (4 * currentRow)),
-                    (sprite.Height + 0) / 4 * currentRow,
-                    sprite.Width / 4,
-                    sprite.Height / 4
+                    (Sprite.Width + 0) / 4 * (currentIndex - (4 * currentRow)),
+                    (Sprite.Height + 0) / 4 * currentRow,
+                    Sprite.Width / 4,
+                    Sprite.Height / 4
                     );
             }
         }
@@ -71,7 +71,7 @@ namespace SkoleProjekt_GodtNavn
             }
         }
 
-        public override void Animate(GameTime gameTime)
+        protected override void Animate(GameTime gameTime)
         {
             // Adds time that has passed since last update.
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -109,7 +109,11 @@ namespace SkoleProjekt_GodtNavn
 
         private void UpdatePosition()
         {
-            transform.position = myPosition.transform.position + new Vector2(-20,-20);
+            Transform.Position = myPosition.Transform.Position + new Vector2(-20,-20);
+        }
+
+        public override void Awake()
+        {
         }
     }
 }

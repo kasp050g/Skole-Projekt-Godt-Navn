@@ -77,7 +77,7 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 50, panel01.Position.Y + 50),
                 Scale = new Vector2(1.0f, 1.0f),
-                item = Gameworld.Player.equipment.helmet
+                item = Gameworld.Player.Equipment.helmet
             };
             gui_equipment.Add(EB_Hemlet);
 
@@ -87,7 +87,7 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 50, panel01.Position.Y + 150),
                 Scale = new Vector2(1.0f, 1.0f),
-                item = Gameworld.Player.equipment.chest
+                item = Gameworld.Player.Equipment.chest
             };
             gui_equipment.Add(EB_Chest);
 
@@ -97,7 +97,7 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 50, panel01.Position.Y + 250),
                 Scale = new Vector2(1.0f, 1.0f),
-                item = Gameworld.Player.equipment.leg
+                item = Gameworld.Player.Equipment.leg
             };
             gui_equipment.Add(EB_Leg);
 
@@ -107,7 +107,7 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 500, panel01.Position.Y + 50),
                 Scale = new Vector2(1.0f, 1.0f),
-                item = Gameworld.Player.equipment.gloves
+                item = Gameworld.Player.Equipment.gloves
             };
             gui_equipment.Add(EB_Gloves);
 
@@ -117,7 +117,7 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 500, panel01.Position.Y + 150),
                 Scale = new Vector2(1.0f, 1.0f),
-                item = Gameworld.Player.equipment.boots
+                item = Gameworld.Player.Equipment.boots
             };
             gui_equipment.Add(EB_Boots);
 
@@ -127,7 +127,7 @@ namespace SkoleProjekt_GodtNavn
             {
                 Position = new Vector2(panel01.Position.X + 500, panel01.Position.Y + 250),
                 Scale = new Vector2(1.0f, 1.0f),
-                item = Gameworld.Player.equipment.weapon
+                item = Gameworld.Player.Equipment.weapon
             };
             gui_equipment.Add(EB_Weapon);
 
@@ -136,7 +136,7 @@ namespace SkoleProjekt_GodtNavn
             showHealth = new GUI_Font(spriteFont,Color.IndianRed)
             {
                 Position = new Vector2(panel01.Position.X + 40, panel01.Position.Y + 380),
-                Text = $"Health: {Gameworld.Player.health.currentValue}/{Gameworld.Player.health.maxValue}",
+                Text = $"Health: {Gameworld.Player.Health.currentValue}/{Gameworld.Player.Health.maxValue}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
             };
@@ -145,7 +145,7 @@ namespace SkoleProjekt_GodtNavn
             showMana = new GUI_Font(spriteFont, Color.DodgerBlue)
             {
                 Position = new Vector2(panel01.Position.X + 40, panel01.Position.Y + 410),
-                Text = $"Mana: {Gameworld.Player.mana.currentValue}/{Gameworld.Player.mana.maxValue}",
+                Text = $"Mana: {Gameworld.Player.Mana.currentValue}/{Gameworld.Player.Mana.maxValue}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
             };
@@ -155,7 +155,7 @@ namespace SkoleProjekt_GodtNavn
             showArmor = new GUI_Font(spriteFont, Color.DimGray)
             {
                 Position = new Vector2(panel01.Position.X + 40, panel01.Position.Y + 440),
-                Text = $"Armor: {Gameworld.Player.armor}/{Gameworld.Player.armor / (Gameworld.Player.level * 10 * 100)}",
+                Text = $"Armor: {Gameworld.Player.Armor}/{Gameworld.Player.Armor / (Gameworld.Player.Level * 10 * 100)}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
             };
@@ -164,7 +164,7 @@ namespace SkoleProjekt_GodtNavn
             showWeaponDamage = new GUI_Font(spriteFont, Color.DimGray)
             {
                 Position = new Vector2(panel01.Position.X + 40, panel01.Position.Y + 470),
-                Text = $"Weapon Damage: {Gameworld.Player.weaponDamage}",
+                Text = $"Weapon Damage: {Gameworld.Player.WeaponDamage}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
             };
@@ -174,7 +174,7 @@ namespace SkoleProjekt_GodtNavn
             showLevel = new GUI_Font(spriteFont, Color.White)
             {
                 Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 380),
-                Text = $"Health: {Gameworld.Player.health.currentValue}/{Gameworld.Player.health.maxValue}",
+                Text = $"Health: {Gameworld.Player.Health.currentValue}/{Gameworld.Player.Health.maxValue}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
             };
@@ -183,7 +183,7 @@ namespace SkoleProjekt_GodtNavn
             showXP = new GUI_Font(spriteFont, Color.White)
             {
                 Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 410),
-                Text = $"Mana: {Gameworld.Player.mana.currentValue}/{Gameworld.Player.mana.maxValue}",
+                Text = $"Mana: {Gameworld.Player.Mana.currentValue}/{Gameworld.Player.Mana.maxValue}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
             };
@@ -193,7 +193,7 @@ namespace SkoleProjekt_GodtNavn
             showStrength = new GUI_Font(spriteFont, Color.OrangeRed)
             {
                 Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 440),
-                Text = $"Strength: {Gameworld.Player.strength}",
+                Text = $"Strength: {Gameworld.Player.Strength}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
             };
@@ -202,7 +202,7 @@ namespace SkoleProjekt_GodtNavn
             showAgility = new GUI_Font(spriteFont, Color.LightGreen)
             {
                 Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 470),
-                Text = $"Agility: {Gameworld.Player.agility}",
+                Text = $"Agility: {Gameworld.Player.Agility}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
             };
@@ -211,7 +211,7 @@ namespace SkoleProjekt_GodtNavn
             showIntelligence = new GUI_Font(spriteFont, Color.BlueViolet)
             {
                 Position = new Vector2(panel01.Position.X + 400, panel01.Position.Y + 500),
-                Text = $"Intelligence: {Gameworld.Player.intelligence}",
+                Text = $"Intelligence: {Gameworld.Player.Intelligence}",
                 FontScale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.9f
             };
@@ -249,12 +249,12 @@ namespace SkoleProjekt_GodtNavn
         }
         public void UpdateGUI02()
         {
-            EB_Hemlet.item = Gameworld.Player.equipment.helmet;
-            EB_Chest.item = Gameworld.Player.equipment.chest;
-            EB_Leg.item = Gameworld.Player.equipment.leg;
-            EB_Gloves.item = Gameworld.Player.equipment.gloves;
-            EB_Boots.item = Gameworld.Player.equipment.boots;
-            EB_Weapon.item = Gameworld.Player.equipment.weapon;
+            EB_Hemlet.item = Gameworld.Player.Equipment.helmet;
+            EB_Chest.item = Gameworld.Player.Equipment.chest;
+            EB_Leg.item = Gameworld.Player.Equipment.leg;
+            EB_Gloves.item = Gameworld.Player.Equipment.gloves;
+            EB_Boots.item = Gameworld.Player.Equipment.boots;
+            EB_Weapon.item = Gameworld.Player.Equipment.weapon;
 
             UpdateGUI03();
         }
@@ -263,18 +263,18 @@ namespace SkoleProjekt_GodtNavn
         {
             if (ShowGUI == true)
             {
-                showLevel.Text = $"Level: {Gameworld.Player.level}";
-                showXP.Text = $"XP: {Gameworld.Player.currentXP}/{Gameworld.Player.maxXP}";
+                showLevel.Text = $"Level: {Gameworld.Player.Level}";
+                showXP.Text = $"XP: {Gameworld.Player.CurrentXP}/{Gameworld.Player.MaxXP}";
 
-                showHealth.Text = $"Health: {Gameworld.Player.health.currentValue}/{Gameworld.Player.health.maxValue}";
-                showMana.Text = $"Mana: {Gameworld.Player.mana.currentValue}/{Gameworld.Player.mana.maxValue}";
+                showHealth.Text = $"Health: {Gameworld.Player.Health.currentValue}/{Gameworld.Player.Health.maxValue}";
+                showMana.Text = $"Mana: {Gameworld.Player.Mana.currentValue}/{Gameworld.Player.Mana.maxValue}";
 
-                showArmor.Text = $"Armor: {(int)Gameworld.Player.armor} / {(Gameworld.Player.armor) / (float)(Gameworld.Player.level * 10) * 100}%";
-                showWeaponDamage.Text = $"Weapon Damage: {Gameworld.Player.weaponDamage}";
+                showArmor.Text = $"Armor: {(int)Gameworld.Player.Armor} / {(Gameworld.Player.Armor) / (float)(Gameworld.Player.Level * 10) * 100}%";
+                showWeaponDamage.Text = $"Weapon Damage: {Gameworld.Player.WeaponDamage}";
 
-                showStrength.Text = $"Strength: {Gameworld.Player.strength}";
-                showAgility.Text = $"Agility: {Gameworld.Player.agility}";
-                showIntelligence.Text = $"Intelligence: {Gameworld.Player.intelligence}";
+                showStrength.Text = $"Strength: {Gameworld.Player.Strength}";
+                showAgility.Text = $"Agility: {Gameworld.Player.Agility}";
+                showIntelligence.Text = $"Intelligence: {Gameworld.Player.Intelligence}";
             }
         }
     }

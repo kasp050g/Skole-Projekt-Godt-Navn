@@ -38,7 +38,7 @@ namespace SkoleProjekt_GodtNavn
             {
                 if(item == items[i])
                 {
-                    Gameworld.Player.gold += items[i].goldValue;
+                    Gameworld.Player.Gold += items[i].goldValue;
                     items[i] = null;
                 }
             }

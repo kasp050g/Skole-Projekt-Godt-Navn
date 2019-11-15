@@ -120,13 +120,13 @@ namespace SkoleProjekt_GodtNavn
                         Click?.Invoke(this, new EventArgs());
                         if (item != null)
                         {
-                            if(Gameworld.Player.isSell == true)
+                            if(Gameworld.Player.IsSell == true)
                             {
-                                Gameworld.Player.inventory.SellItem(item);
+                                Gameworld.Player.Inventory.SellItem(item);
                             }
                             else
                             {
-                                Gameworld.Player.equipment.EquipItem(item);                                
+                                Gameworld.Player.Equipment.EquipItem(item);                                
                             }
                             Gameworld.Player.GUI_Inventory.UpdateGUI01();
                             Gameworld.Player.GUI_Equipment.UpdateGUI02();

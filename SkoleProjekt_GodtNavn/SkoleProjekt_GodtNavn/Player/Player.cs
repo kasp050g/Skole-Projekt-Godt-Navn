@@ -15,47 +15,55 @@ namespace SkoleProjekt_GodtNavn
     public class Player : Character
     {
         // Animation
-        AnimationContainer_Array animation_walk;
-        AnimationContainer_Array animation_attack;
-        AnimationContainer_Array animation_cast;
-        AnimationContainer_Array animation_idle;
-        AnimationContainer_Array animation_death;
+        private AnimationContainer_Array animation_walk;
+        private AnimationContainer_Array animation_attack;
+        private AnimationContainer_Array animation_cast;
+        private AnimationContainer_Array animation_idle;
+        private AnimationContainer_Array animation_death;
 
-        DoAnimation_Array doAnimation_Array = new DoAnimation_Array(10);
+        private DoAnimation_Array doAnimation_Array = new DoAnimation_Array(10);
         private bool playDeadAnimationOnes = true;
 
-        public Inventory inventory = new Inventory();
-        public Equipment equipment = new Equipment();
-        public GUI_Inventory GUI_Inventory = new GUI_Inventory();
-        public GUI_Equipment GUI_Equipment = new GUI_Equipment();
-        public GUI_HealthAndMana healthAndMana = new GUI_HealthAndMana();
-        public GUI_Spell_Bar gui_Spell_Bar = new GUI_Spell_Bar();
+        public Inventory Inventory { get; set; } = new Inventory();
+        public Equipment Equipment { get; set; } = new Equipment();
+        public GUI_Inventory GUI_Inventory { get; set; } = new GUI_Inventory();
+        public GUI_Equipment GUI_Equipment { get; set; } = new GUI_Equipment();
+        public GUI_HealthAndMana HealthAndMana { get; set; } = new GUI_HealthAndMana();
+        public GUI_Spell_Bar GUI_Spell_Bar { get; set; } = new GUI_Spell_Bar();
         private bool canOpenUI;
 
-        public int level = 1;
-        public int gold = 0;
-        public bool isSell = false;
-        public bool isAttacking = false;
+        /// <summary>
+        /// Defines the Player's Level
+        /// </summary>
+        public int Level { get; set; } = 1;
+
+        /// <summary>
+        /// Defines the amount of gold the Player has.
+        /// </summary>
+        public int Gold { get; set; } = 0;
+        public bool IsSell { get; set; } = false;
+        private bool isAttacking = false;
 
         #region --- Player Stats ---
         // XP
-        public int maxXP = 50;
-        public int currentXP = 0;
+        public int MaxXP { get; set; } = 50;
+        public int CurrentXP { get; set; } = 0;
         // Health And Mana
 
-        public Stat mana = new Stat();
-        public float armor;
-        public int weaponDamage;
+        public Stat Mana { get; set; } = new Stat();
+        public float Armor { get; set; }
+        public int WeaponDamage { get; set; }
         // Strength Agility Intelligence
-        public int strength;
-        public int agility;
-        public int intelligence;
+        public int Strength { get; set; }
+        public int Agility { get; set; }
+        public int Intelligence { get; set; }
 
         #endregion
 
-        public float moveSpeed = 5;
-
-        PlayerAttackZone attackZone = new PlayerAttackZone();
+        /// <summary>
+        /// Defines the attack zone the Player's attacks register.
+        /// </summary>
+        private PlayerAttackZone attackZone = new PlayerAttackZone();
 
         public override Rectangle rectangle
         {
@@ -64,33 +72,38 @@ namespace SkoleProjekt_GodtNavn
                 return new Rectangle(
                     0,
                     0,
-                    sprite.Width,
-                    sprite.Height
+                    Sprite.Width,
+                    Sprite.Height
                     );
             }
         }
 
+        /// <summary>
+        /// Player's collision box.
+        /// </summary>
         public override Rectangle CollisionBox
         {
             get
             {
                 return new Rectangle(
-                    (int)transform.position.X - (int)(0) + 20,
-                    (int)transform.position.Y - (int)(0) + 30,
-                    (int)(350 * transform.scale),
-                    (int)(350 * transform.scale)
+                    (int)Transform.Position.X - (int)(0) + 20,
+                    (int)Transform.Position.Y - (int)(0) + 30,
+                    (int)(350 * Transform.Scale),
+                    (int)(350 * Transform.Scale)
                     );
             }
         }
 
-
+        /// <summary>
+        /// Player's initialization.
+        /// </summary>
         public override void Initialize()
         {
             base.Initialize();
-            transform.scale = 0.2f;
+            Transform.Scale = 0.2f;
             canOpenUI = true;
             attackZone.canDamage = isAttacking;
-            attackZone.sprite = Gameworld.spriteContainer.soleSprite["CollisionTexture"];
+            attackZone.Sprite = Gameworld.spriteContainer.soleSprite["CollisionTexture"];
             Gameworld.Instatiate(attackZone);
 
 
@@ -141,43 +154,56 @@ namespace SkoleProjekt_GodtNavn
 
             #region Set Up player stats
             // level up stats
-            health.baseValue = 100;
-            mana.baseValue = 25;
+            Health.baseValue = 100;
+            Mana.baseValue = 25;
 
             // level up stats
-            health.levelValue = 10;
-            mana.levelValue = 5;
+            Health.levelValue = 10;
+            Mana.levelValue = 5;
 
             UpdatePlayerStatOnLevelUp();
 
             #endregion
         }
 
+        /// <summary>
+        /// Player's content to load.
+        /// </summary>
+        /// <param name="content"></param>
         public override void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>("Texture/Player/tmp");
-            this.origin = new Vector2(sprite.Width / 2, sprite.Height / 2);
-            layerDepth = 0.5f;
+            Sprite = content.Load<Texture2D>("Texture/Player/tmp");
+            this.origin = new Vector2(Sprite.Width / 2, Sprite.Height / 2);
+            LayerDepth = 0.5f;
         }
+
+        /// <summary>
+        /// Player's update.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            gui_Spell_Bar.Update_UI();
+            GUI_Spell_Bar.Update_UI();
             HandleInput();
             UpdatePlayerStats();
             GUI_Equipment.UpdateGUI03();
             GUI_Inventory.UpdateGUI01();
             Move(gameTime);
             isAttacking = doAnimation_Array.Animate(gameTime, facing);
-            sprite = doAnimation_Array.currentSprite;
+            Sprite = doAnimation_Array.currentSprite;
             ImagePositionSet();
             SetPositionOfAttackZone();
         }
 
+        /// <summary>
+        /// When the player takes damage, includes armor calculations.
+        /// </summary>
+        /// <param name="damage"></param>
         public override void TakeDamage(int damage)
         {
-            if (isAlive)
+            if (IsAlive)
             {
-                isAlive = health.LowerValueBool(ArmorPercentCalculation(damage));
+                IsAlive = Health.LowerValueBool(ArmorPercentCalculation(damage));
                 BloodEffect bloodEffect = new BloodEffect(this, bloodColor);
                 bloodEffect.Initialize();
                 Gameworld.Instatiate(bloodEffect);
@@ -185,31 +211,39 @@ namespace SkoleProjekt_GodtNavn
             }
         }
 
+        /// <summary>
+        /// Calcuates the damage reduction from armor.
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <returns></returns>
         public int ArmorPercentCalculation(int damage)
         {
-            float armorPercent = armor / level * 10;
+            float armorPercent = Armor / Level * 10;
             int newDamage = (int)(damage * (armorPercent / 100));
             return damage - newDamage;
         }
 
+        /// <summary>
+        /// Creates an attack zone, where the player's hits get registered.
+        /// </summary>
         public void SetPositionOfAttackZone()
         {
             switch (facing)
             {
                 case Facing.Up:
-                    attackZone.transform.position = transform.position + (new Vector2(-10, -40));
+                    attackZone.Transform.Position = Transform.Position + (new Vector2(-10, -40));
                     attackZone.CollisionBoxSize = (new Vector2(120, 70));
                     break;
                 case Facing.Down:
-                    attackZone.transform.position = transform.position + (new Vector2(0, 100));
+                    attackZone.Transform.Position = Transform.Position + (new Vector2(0, 100));
                     attackZone.CollisionBoxSize = (new Vector2(120, 70));
                     break;
                 case Facing.Left:
-                    attackZone.transform.position = transform.position + (new Vector2(-50, 0));
+                    attackZone.Transform.Position = Transform.Position + (new Vector2(-50, 0));
                     attackZone.CollisionBoxSize = (new Vector2(70, 120));
                     break;
-                case Facing.Rigth:
-                    attackZone.transform.position = transform.position + (new Vector2(90, 0));
+                case Facing.Right:
+                    attackZone.Transform.Position = Transform.Position + (new Vector2(90, 0));
                     attackZone.CollisionBoxSize = (new Vector2(70, 120));
                     break;
                 default:
@@ -218,74 +252,88 @@ namespace SkoleProjekt_GodtNavn
 
         }
 
+        /// <summary>
+        /// Updates the stats on the player, based on equipment.
+        /// </summary>
         public void UpdatePlayerStats()
         {
-            UpdatePlayerStat(health);
-            UpdatePlayerStat(mana);
+            UpdatePlayerStat(Health);
+            UpdatePlayerStat(Mana);
 
-            armor = 0;
-            weaponDamage = 4;
+            Armor = 0;
+            WeaponDamage = 4;
 
-            strength = 1;
-            agility = 1;
-            intelligence = 1;
+            Strength = 1;
+            Agility = 1;
+            Intelligence = 1;
 
-            List<Item> tmp = equipment.RetrunEquipItems();
+            List<Item> tmp = Equipment.ReturnEquipItems();
 
-            foreach (Item x in equipment.RetrunEquipItems())
+            // Updates the player's stats based on what equipment the player has.
+            foreach (Item x in Equipment.ReturnEquipItems())
             {
                 if (x != null)
                 {
-                    health.maxValue += x.health;
-                    mana.maxValue += x.mana;
+                    Health.maxValue += x.health;
+                    Mana.maxValue += x.mana;
 
-                    armor += x.armor;
-                    weaponDamage += x.weaponDamage;
+                    Armor += x.armor;
+                    WeaponDamage += x.weaponDamage;
 
-                    strength += x.strength;
-                    agility += x.agility;
-                    intelligence += x.intelligence;
+                    Strength += x.strength;
+                    Agility += x.agility;
+                    Intelligence += x.intelligence;
                 }
             }
 
-            health.AddValue(0);
-            mana.AddValue(0);
-        }
-        public void UpdatePlayerStat(Stat stat)
-        {
-            stat.maxValue = stat.baseValue + stat.levelValue * level;
+            Health.AddValue(0);
+            Mana.AddValue(0);
         }
 
+        public void UpdatePlayerStat(Stat stat)
+        {
+            stat.maxValue = stat.baseValue + stat.levelValue * Level;
+        }
+
+        /// <summary>
+        /// Updates the player's stats based on level.
+        /// </summary>
+        /// <param name="stat"></param>
         public void UpdatePlayerStatOnLevelUp()
         {
             UpdatePlayerStats();
-            health.currentValue = health.maxValue;
-            mana.currentValue = mana.maxValue;
+            Health.currentValue = Health.maxValue;
+            Mana.currentValue = Mana.maxValue;
         }
 
+        /// <summary>
+        /// Calculates how the player gains xp, how much xp the player needs to level up and what happens when the player levels up.
+        /// </summary>
+        /// <param name="newXP"></param>
         public void GetXP(int newXP)
         {
-            currentXP += newXP;
-            if (currentXP >= maxXP)
+            CurrentXP += newXP;
+            if (CurrentXP >= MaxXP)
             {
-                maxXP = (int)(maxXP * 1.25f);
-                currentXP = 0;
-                level += 1;
+                MaxXP = (int)(MaxXP * 1.25f);
+                CurrentXP = 0;
+                Level += 1;
                 UpdatePlayerStatOnLevelUp();
             }
         }
 
         public override void OnCollision(GameObject other)
         {
+            // Checks if the player is holding down the F key, and if the object the player is colliding with is a dropped item. If true then pick it up.
             KeyboardState keyState = Keyboard.GetState();
             if (other is LootDrop && keyState.IsKeyDown(Keys.F))
             {
-                for (int i = 0; i < inventory.items.Length; i++)
+                for (int i = 0; i < Inventory.items.Length; i++)
                 {
-                    if(inventory.items[i] == null)
+                    if(Inventory.items[i] == null)
                     {
                         LootDrop tmp = (other as LootDrop);
-                        inventory.AddItem(tmp.item);
+                        Inventory.AddItem(tmp.item);
                         tmp.Destroy();
                         break;
                     }
@@ -302,92 +350,92 @@ namespace SkoleProjekt_GodtNavn
                 case Facing.Up:
                     if (doAnimation_Array.animationContainer == animation_attack)
                     {
-                        spritePositionOffset = new Vector2(10, -20);
+                        SpritePositionOffset = new Vector2(10, -20);
                     }
                     if (doAnimation_Array.animationContainer == animation_walk)
                     {
-                        spritePositionOffset = new Vector2(10, 0);
+                        SpritePositionOffset = new Vector2(10, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_idle)
                     {
-                        spritePositionOffset = new Vector2(10, 0);
+                        SpritePositionOffset = new Vector2(10, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_cast)
                     {
-                        spritePositionOffset = new Vector2(-3, 0);
+                        SpritePositionOffset = new Vector2(-3, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_death)
                     {
-                        spritePositionOffset = new Vector2(-10, -20);
+                        SpritePositionOffset = new Vector2(-10, -20);
                     }
                     break;
 
                 case Facing.Down:
                     if (doAnimation_Array.animationContainer == animation_attack)
                     {
-                        spritePositionOffset = new Vector2(-33, -20);
+                        SpritePositionOffset = new Vector2(-33, -20);
                     }
                     if (doAnimation_Array.animationContainer == animation_walk)
                     {
-                        spritePositionOffset = new Vector2(0, 0);
+                        SpritePositionOffset = new Vector2(0, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_idle)
                     {
-                        spritePositionOffset = new Vector2(0, 0);
+                        SpritePositionOffset = new Vector2(0, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_cast)
                     {
-                        spritePositionOffset = new Vector2(+2, -5);
+                        SpritePositionOffset = new Vector2(+2, -5);
                     }
                     if (doAnimation_Array.animationContainer == animation_death)
                     {
-                        spritePositionOffset = new Vector2(-30, -10);
+                        SpritePositionOffset = new Vector2(-30, -10);
                     }
                     break;
 
                 case Facing.Left:
                     if (doAnimation_Array.animationContainer == animation_attack)
                     {
-                        spritePositionOffset = new Vector2(-10, -5);
+                        SpritePositionOffset = new Vector2(-10, -5);
                     }
                     if (doAnimation_Array.animationContainer == animation_walk)
                     {
-                        spritePositionOffset = new Vector2(0, 0);
+                        SpritePositionOffset = new Vector2(0, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_idle)
                     {
-                        spritePositionOffset = new Vector2(0, 0);
+                        SpritePositionOffset = new Vector2(0, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_cast)
                     {
-                        spritePositionOffset = new Vector2(0, 0);
+                        SpritePositionOffset = new Vector2(0, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_death)
                     {
-                        spritePositionOffset = new Vector2(-10, 0);
+                        SpritePositionOffset = new Vector2(-10, 0);
                     }
                     break;
 
-                case Facing.Rigth:
+                case Facing.Right:
                     if (doAnimation_Array.animationContainer == animation_attack)
                     {
-                        spritePositionOffset = new Vector2(-20, -5);
+                        SpritePositionOffset = new Vector2(-20, -5);
                     }
                     if (doAnimation_Array.animationContainer == animation_walk)
                     {
-                        spritePositionOffset = new Vector2(30, 0);
+                        SpritePositionOffset = new Vector2(30, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_idle)
                     {
-                        spritePositionOffset = new Vector2(30, 0);
+                        SpritePositionOffset = new Vector2(30, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_cast)
                     {
-                        spritePositionOffset = new Vector2(20, 0);
+                        SpritePositionOffset = new Vector2(20, 0);
                     }
                     if (doAnimation_Array.animationContainer == animation_death)
                     {
-                        spritePositionOffset = new Vector2(-15, 0);
+                        SpritePositionOffset = new Vector2(-15, 0);
                     }
                     break;
 
@@ -397,9 +445,12 @@ namespace SkoleProjekt_GodtNavn
             }
         }
 
+        /// <summary>
+        /// Handles the player's input.
+        /// </summary>
         public void HandleInput()
         {
-            if (isAlive)
+            if (IsAlive)
             {
                 MoveInput();
                 UI_Input();
@@ -430,26 +481,26 @@ namespace SkoleProjekt_GodtNavn
                     doAnimation_Array.SetAnimation(animation_attack, facing);
                     Gameworld.audioPlayer.SoundEffect_Play("SoundEffect_sword_swing", 0.5f);
                     attackZone.canDamage = true;
-                    attackZone.damage = weaponDamage;
+                    attackZone.damage = WeaponDamage;
                 }
 
                 if (keyState.IsKeyDown(Keys.E))
                 {
-                    int spellDamage = 10 + (strength * 1);
+                    int spellDamage = 10 + (Strength * 1);
                     int manaCost = 5;
                     Texture2D image = Gameworld.spriteContainer.soleSprite["fire_"]; 
                     CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
                 }
                 if (keyState.IsKeyDown(Keys.W))
                 {
-                    int spellDamage = 5 + (int)(agility * 1.5f);
+                    int spellDamage = 5 + (int)(Agility * 1.5f);
                     int manaCost = 5;
                     Texture2D image = Gameworld.spriteContainer.soleSprite["lightning"];
                     CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
                 }
                 if (keyState.IsKeyDown(Keys.Q))
                 {
-                    int spellDamage = 1 + (intelligence * 2);
+                    int spellDamage = 1 + (Intelligence * 2);
                     int manaCost = 5;
                     Texture2D image = Gameworld.spriteContainer.soleSprite["ice"];
                     CastSpell(spellDamage, manaCost, image, new Vector2(50, 50));
@@ -465,15 +516,15 @@ namespace SkoleProjekt_GodtNavn
 
         public void CastSpell(int spellDamage , int manaCost,Texture2D image,Vector2 imageOffSet)
         {
-            if (mana.currentValue >= manaCost)
+            if (Mana.currentValue >= manaCost)
             {
-                mana.currentValue -= manaCost;
+                Mana.currentValue -= manaCost;
                 Spell spell = new Spell(facing, manaCost, spellDamage, true);
-                spell.sprite = image;
+                spell.Sprite = image;
                 Vector2 positionOffSet = SpellPositionOffset();
-                spell.transform.position = new Vector2(transform.position.X, transform.position.Y) + positionOffSet;
-                spell.layerDepth = 0.7f;
-                spell.spritePositionOffset = imageOffSet;
+                spell.Transform.Position = new Vector2(Transform.Position.X, Transform.Position.Y) + positionOffSet;
+                spell.LayerDepth = 0.7f;
+                spell.SpritePositionOffset = imageOffSet;
                 isAttacking = true;
                 doAnimation_Array.SetAnimation(animation_cast, facing);
                 Gameworld.Instatiate(spell);
@@ -503,7 +554,7 @@ namespace SkoleProjekt_GodtNavn
                     return new Vector2(0, 50);
                 case Facing.Left:
                     return new Vector2(-50, 0);
-                case Facing.Rigth:
+                case Facing.Right:
                     return new Vector2(50, 0);
                 default:
                     return new Vector2(0, 0);
@@ -532,26 +583,26 @@ namespace SkoleProjekt_GodtNavn
             {
                 Item tmpItem = new Item();
                 tmpItem.RandomStats();
-                inventory.AddItem(tmpItem);
+                Inventory.AddItem(tmpItem);
             }
 
             if (keyState.IsKeyDown(Keys.K) && canOpenUI == true)
             {
-                isSell = !isSell;
+                IsSell = !IsSell;
                 canOpenUI = false;
             }
 
             if (keyState.IsKeyDown(Keys.H) && canOpenUI == true)
             {
                 canOpenUI = false;
-                for (int i = 0; i < inventory.items.Length; i++)
+                for (int i = 0; i < Inventory.items.Length; i++)
                 {
-                    if (inventory.items[i] != null)
-                        if (inventory.items[i].itemType == ItemType.Consumable)
+                    if (Inventory.items[i] != null)
+                        if (Inventory.items[i].itemType == ItemType.Consumable)
                         {
-                            health.currentValue += 50;
-                            mana.currentValue += 50;
-                            inventory.items[i] = null;
+                            Health.currentValue += 50;
+                            Mana.currentValue += 50;
+                            Inventory.items[i] = null;
                             Gameworld.audioPlayer.SoundEffect_Play("potion_sound", 0f);
                             break;
                         }
@@ -604,7 +655,7 @@ namespace SkoleProjekt_GodtNavn
                     {
 
                     }
-                    facing = Facing.Rigth;
+                    facing = Facing.Right;
                 }
 
                 if (keyState.IsKeyDown(Keys.LeftShift))
@@ -626,6 +677,10 @@ namespace SkoleProjekt_GodtNavn
                     doAnimation_Array.SetAnimation(animation_idle, facing);
                 }
             }
+        }
+
+        public override void Awake()
+        {
         }
     }
 }

@@ -85,28 +85,28 @@ namespace SkoleProjekt_GodtNavn
         }
         public Goblin(int _health,Color _color,float _scale)
         {
-            health.maxValue = _health;
-            health.currentValue = _health;
-            color = _color;
-            transform.scale = _scale;
+            Health.maxValue = _health;
+            Health.currentValue = _health;
+            Color = _color;
+            Transform.Scale = _scale;
         }
 
 
         public override void Initialize()
         {
             base.Initialize();
-            sprite = Gameworld.spriteContainer.spriteSheet["Enemy_Goblin_Sheet"];
+            Sprite = Gameworld.spriteContainer.spriteSheet["Enemy_Goblin_Sheet"];
             doAnimation.SetAnimation(animationContainer_Sheet_Walk, facing);
-            layerDepth = 0.2f;
+            LayerDepth = 0.2f;
             speed = 120f;
-            transform.scale = 2f;
+            Transform.Scale = 2f;
             bloodColor = Color.CornflowerBlue;
         }
 
         public override void Update(GameTime gameTime)
         {
 
-            if (isAlive)
+            if (IsAlive)
             {
                 base.Update(gameTime);
                 AnimationState();
@@ -120,7 +120,7 @@ namespace SkoleProjekt_GodtNavn
                 doDeathAnimationOneTime = doAnimation.Animate(gameTime, facing);
             }
 
-            if (deleteOnDeath == true && isAlive == false)
+            if (deleteOnDeath == true && IsAlive == false)
             {
                 deleteTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (deleteTimer < 0)
@@ -132,7 +132,7 @@ namespace SkoleProjekt_GodtNavn
 
         public void AnimationState()
         {
-            if (isAlive)
+            if (IsAlive)
             {
                 if (isAttack == true)
                 {
@@ -156,17 +156,17 @@ namespace SkoleProjekt_GodtNavn
             {
                 return new Rectangle(
 
-                    (sprite.Width + 20) / 11 * doAnimation.currentIndex,
-                    (sprite.Height + 2) / 5 * doAnimation.currentRow,
-                    sprite.Width / 11,
-                    sprite.Height / 5
+                    (Sprite.Width + 20) / 11 * doAnimation.currentIndex,
+                    (Sprite.Height + 2) / 5 * doAnimation.currentRow,
+                    Sprite.Width / 11,
+                    Sprite.Height / 5
                     );
             }
         }
         public void NewOriginPoint()
         {
-            int Xposition = (sprite.Width / 11 / 2) + doAnimation.animationContainer.spriteWidthOffset;
-            int Yposition = (sprite.Height / 5 / 2) + doAnimation.animationContainer.spriteHeightOffset;
+            int Xposition = (Sprite.Width / 11 / 2) + doAnimation.animationContainer.spriteWidthOffset;
+            int Yposition = (Sprite.Height / 5 / 2) + doAnimation.animationContainer.spriteHeightOffset;
             origin = new Vector2(Xposition, Yposition);
         }
 
@@ -175,10 +175,10 @@ namespace SkoleProjekt_GodtNavn
             get
             {
                 return new Rectangle(
-                    (int)transform.position.X - (int)(origin.X * transform.scale) + 30,
-                    (int)transform.position.Y - (int)(origin.Y * transform.scale) + 10,
-                    (int)(sprite.Width / 11 * transform.scale - 60),
-                    (int)(sprite.Height / 5 * transform.scale - 20)
+                    (int)Transform.Position.X - (int)(origin.X * Transform.Scale) + 30,
+                    (int)Transform.Position.Y - (int)(origin.Y * Transform.Scale) + 10,
+                    (int)(Sprite.Width / 11 * Transform.Scale - 60),
+                    (int)(Sprite.Height / 5 * Transform.Scale - 20)
                     );
             }
         }
@@ -187,6 +187,10 @@ namespace SkoleProjekt_GodtNavn
         {
             base.Death(player);
             Gameworld.audioPlayer.SoundEffect_Play("SoundEffect_Goblin", 0.1f);
+        }
+
+        public override void Awake()
+        {
         }
     }
 }

@@ -94,10 +94,10 @@ namespace SkoleProjekt_GodtNavn
         }
         public Golem(int _health, Color _color, float _scale)
         {
-            health.maxValue = _health;
-            health.currentValue = _health;
-            color = _color;
-            transform.scale = _scale;
+            Health.maxValue = _health;
+            Health.currentValue = _health;
+            Color = _color;
+            Transform.Scale = _scale;
         }
 
 
@@ -108,12 +108,12 @@ namespace SkoleProjekt_GodtNavn
             golem_Attack = Gameworld.spriteContainer.spriteSheet["Enemy_Golem_Attack_Sheet"];
             golem_Death = Gameworld.spriteContainer.spriteSheet["Enemy_Golem_Die_Sheet"];
 
-            spritePositionOffset = new Vector2(0, -70);
+            SpritePositionOffset = new Vector2(0, -70);
 
-            sprite = golem_Walk;
+            Sprite = golem_Walk;
 
             doAnimation.SetAnimation(animationContainer_Sheet_Walk, facing);
-            layerDepth = 0.2f;
+            LayerDepth = 0.2f;
             speed = 120f;
 
             bloodColor = Color.CornflowerBlue;
@@ -123,7 +123,7 @@ namespace SkoleProjekt_GodtNavn
         public override void Update(GameTime gameTime)
         {
 
-            if (isAlive)
+            if (IsAlive)
             {
                 base.Update(gameTime);
                 AnimationState();
@@ -138,7 +138,7 @@ namespace SkoleProjekt_GodtNavn
             }
             SetImagePosition();
 
-            if (deleteOnDeath == true && isAlive == false)
+            if (deleteOnDeath == true && IsAlive == false)
             {
                 deleteTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (deleteTimer < 0)
@@ -153,16 +153,16 @@ namespace SkoleProjekt_GodtNavn
             switch (facing)
             {
                 case Facing.Up:
-                    spritePositionOffset = new Vector2(-20, -70);
+                    SpritePositionOffset = new Vector2(-20, -70);
                     break;
                 case Facing.Down:
-                    spritePositionOffset = new Vector2(-20, -70);
+                    SpritePositionOffset = new Vector2(-20, -70);
                     break;
                 case Facing.Left:
-                    spritePositionOffset = new Vector2(-30, -70);
+                    SpritePositionOffset = new Vector2(-30, -70);
                     break;
-                case Facing.Rigth:
-                    spritePositionOffset = new Vector2(10, -70);
+                case Facing.Right:
+                    SpritePositionOffset = new Vector2(10, -70);
                     break;
                 default:
                     break;
@@ -171,22 +171,22 @@ namespace SkoleProjekt_GodtNavn
 
         public void AnimationState()
         {
-            if (isAlive)
+            if (IsAlive)
             {
                 if (isAttack == true)
                 {
-                    sprite = golem_Attack;
+                    Sprite = golem_Attack;
                     doAnimation.SetAnimation(animationContainer_Sheet_Attack, facing);
                 }
                 else
                 {
-                    sprite = golem_Walk;
+                    Sprite = golem_Walk;
                     doAnimation.SetAnimation(animationContainer_Sheet_Walk, facing);
                 }
             }
             else
             {
-                sprite = golem_Death;
+                Sprite = golem_Death;
                 doAnimation.SetAnimation(animationContainer_Sheet_Death, facing);
             }
 
@@ -198,17 +198,17 @@ namespace SkoleProjekt_GodtNavn
             {
                 return new Rectangle(
 
-                    (sprite.Width + 0) / 7 * doAnimation.currentIndex,
-                    (sprite.Height + 0) / 4 * doAnimation.currentRow,
-                    sprite.Width / 7,
-                    sprite.Height / 4
+                    (Sprite.Width + 0) / 7 * doAnimation.currentIndex,
+                    (Sprite.Height + 0) / 4 * doAnimation.currentRow,
+                    Sprite.Width / 7,
+                    Sprite.Height / 4
                     );
             }
         }
         public void NewOriginPoint()
         {
-            int Xposition = (sprite.Width / 7 / 2) + doAnimation.animationContainer.spriteWidthOffset;
-            int Yposition = (sprite.Height / 4 / 2) + doAnimation.animationContainer.spriteHeightOffset;
+            int Xposition = (Sprite.Width / 7 / 2) + doAnimation.animationContainer.spriteWidthOffset;
+            int Yposition = (Sprite.Height / 4 / 2) + doAnimation.animationContainer.spriteHeightOffset;
             origin = new Vector2(Xposition, Yposition);
         }
 
@@ -217,10 +217,10 @@ namespace SkoleProjekt_GodtNavn
             get
             {
                 return new Rectangle(
-                    (int)transform.position.X - (int)(origin.X * transform.scale) + (int)(15 * transform.scale),
-                    (int)transform.position.Y - (int)(origin.Y * transform.scale) + (int)(16.25f * transform.scale),
-                    (int)(sprite.Width / 7 * transform.scale - (40 * transform.scale)),
-                    (int)(sprite.Height / 4 * transform.scale - (37.5f * transform.scale))
+                    (int)Transform.Position.X - (int)(origin.X * Transform.Scale) + (int)(15 * Transform.Scale),
+                    (int)Transform.Position.Y - (int)(origin.Y * Transform.Scale) + (int)(16.25f * Transform.Scale),
+                    (int)(Sprite.Width / 7 * Transform.Scale - (40 * Transform.Scale)),
+                    (int)(Sprite.Height / 4 * Transform.Scale - (37.5f * Transform.Scale))
                     );
             }
         }
@@ -229,6 +229,10 @@ namespace SkoleProjekt_GodtNavn
         {
             base.Death(player);
             Gameworld.audioPlayer.SoundEffect_Play("golem_death", 0.1f);
+        }
+
+        public override void Awake()
+        {;
         }
     }
 }

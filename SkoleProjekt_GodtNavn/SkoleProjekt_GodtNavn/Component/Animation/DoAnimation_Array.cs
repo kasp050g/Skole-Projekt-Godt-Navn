@@ -55,7 +55,7 @@ namespace SkoleProjekt_GodtNavn
                     case Facing.Left:
                         currentSprites = animationContainer.left.ToArray();
                         break;
-                    case Facing.Rigth:
+                    case Facing.Right:
                         currentSprites = animationContainer.rigth.ToArray();
                         break;
                     default:
@@ -125,7 +125,7 @@ namespace SkoleProjekt_GodtNavn
                     case Facing.Left:
                         currentSprites = animationContainer.left.ToArray();
                         break;
-                    case Facing.Rigth:
+                    case Facing.Right:
                         currentSprites = animationContainer.rigth.ToArray();
                         break;
                     default:

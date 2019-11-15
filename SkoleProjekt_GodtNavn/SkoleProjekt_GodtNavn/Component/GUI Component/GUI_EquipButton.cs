@@ -130,7 +130,7 @@ namespace SkoleProjekt_GodtNavn
                         Click?.Invoke(this, new EventArgs());
                         if (item != null)
                         {
-                            Gameworld.Player.equipment.UnEquipItem(item);
+                            Gameworld.Player.Equipment.UnEquipItem(item);
                             Gameworld.Player.GUI_Inventory.UpdateGUI01();
                             Gameworld.Player.GUI_Equipment.UpdateGUI02();
                             showItemInfo.item = null;

@@ -144,6 +144,10 @@ namespace SkoleProjekt_GodtNavn
             
         }
 
+        public override void Awake()
+        {
+        }
+
         #endregion
     }
 }

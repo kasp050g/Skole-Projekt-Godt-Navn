@@ -33,12 +33,12 @@ namespace SkoleProjekt_GodtNavn
             spriteFont = Gameworld.spriteContainer.spriteFont;
             panelImage = Gameworld.spriteContainer.soleSprite["frame_1"];
             item.RandomStats();
-            sprite = item.itemSprite;
-            layerDepth = 0.15f;
+            Sprite = item.itemSprite;
+            LayerDepth = 0.15f;
 
             _Panel = new GUI_Panel_World(panelImage)
             {
-                Position = new Vector2(transform.position.X + 50, transform.position.Y),
+                Position = new Vector2(Transform.Position.X + 50, Transform.Position.Y),
                 Origin = GUI_OriginPosition.BottomMid,
                 Scale = new Vector2(0.5f, 0.05f),
                 layerDepth = 0.16f,
@@ -61,7 +61,7 @@ namespace SkoleProjekt_GodtNavn
 
             _Panel_Loot = new GUI_Panel_World(Gameworld.spriteContainer.soleSprite["empty_slot"])
             {
-                Position = new Vector2(transform.position.X + 40, transform.position.Y - 35),
+                Position = new Vector2(Transform.Position.X + 40, Transform.Position.Y - 35),
                 Origin = GUI_OriginPosition.BottomMid,
                 Scale = new Vector2(0.5f, 0.5f),
                 layerDepth = 0.18f,
@@ -86,12 +86,12 @@ namespace SkoleProjekt_GodtNavn
 
         public LootDrop(Vector2 dropPosition)
         {
-            transform.position = dropPosition;
+            Transform.Position = dropPosition;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, transform.position + spritePositionOffset, rectangle, color, transform.rotation, origin, transform.scale, SpriteEffects.None, layerDepth);
+            spriteBatch.Draw(Sprite, Transform.Position + SpritePositionOffset, rectangle, Color, Transform.Rotation, origin, Transform.Scale, SpriteEffects.None, LayerDepth);
         }
 
         public override void LoadContent(ContentManager content)
@@ -136,6 +136,10 @@ namespace SkoleProjekt_GodtNavn
             Gameworld.Destroy(_Panel);
             Gameworld.Destroy(_Font);
             Gameworld.Destroy(this);
+        }
+
+        public override void Awake()
+        {
         }
     }
 }

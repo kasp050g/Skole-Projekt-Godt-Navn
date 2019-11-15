@@ -30,7 +30,7 @@ namespace SkoleProjekt_GodtNavn
         private int playerLevel;
         public void RandomStats()
         {
-            playerLevel = Gameworld.Player.level;
+            playerLevel = Gameworld.Player.Level;
             Array itemValues = Enum.GetValues(typeof(ItemType));
             itemType = (ItemType)itemValues.GetValue(random.Next(itemValues.Length));
             AddSprite(itemType);

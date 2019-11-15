@@ -9,8 +9,8 @@ namespace SkoleProjekt_GodtNavn
 {
     public class Transform
     {
-        public Vector2 position { get; set; }
-        public float rotation = 0;
-        public float scale = 1;
+        public Vector2 Position { get; set; }
+        public float Rotation { get; set; } = 0;
+        public float Scale { get; set; } = 1;
     }
 }

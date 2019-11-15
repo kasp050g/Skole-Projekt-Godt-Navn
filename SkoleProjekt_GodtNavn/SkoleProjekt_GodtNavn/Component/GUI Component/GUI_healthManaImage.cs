@@ -38,7 +38,7 @@ namespace SkoleProjekt_GodtNavn
                     (sprite.Width) / 2 ,
                     (sprite.Height) / 2,
                     sprite.Width / 2,
-                    (int)(sprite.Height / 2 * (trueHealth_falseMana == true ? (Gameworld.Player.health.currentValue / Gameworld.Player.health.maxValue) : (Gameworld.Player.mana.currentValue / Gameworld.Player.mana.maxValue)))
+                    (int)(sprite.Height / 2 * (trueHealth_falseMana == true ? (Gameworld.Player.Health.currentValue / Gameworld.Player.Health.maxValue) : (Gameworld.Player.Mana.currentValue / Gameworld.Player.Mana.maxValue)))
                     );
             }
         }

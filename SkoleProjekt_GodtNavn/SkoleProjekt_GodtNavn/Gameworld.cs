@@ -125,9 +125,9 @@ namespace SkoleProjekt_GodtNavn
             Player.GUI_Equipment.LoadContent(Content);
             Player.GUI_Equipment.GUI_Setup();
             // Player UI
-            Player.healthAndMana.GUI_Setup();
+            Player.HealthAndMana.GUI_Setup();
             // Spell Bar UI
-            Player.gui_Spell_Bar.SetUp();
+            Player.GUI_Spell_Bar.SetUp();
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -162,9 +162,9 @@ namespace SkoleProjekt_GodtNavn
             if(goblinTotem.Count <= 0)
             {
                 goblinTest = new Goblin();
-                goblinTest.health.currentValue = 10 * Player.level;
-                goblinTest.health.maxValue = 10 * Player.level;
-                goblinTest.transform.position = new Vector2(4123, 700);
+                goblinTest.Health.currentValue = 10 * Player.Level;
+                goblinTest.Health.maxValue = 10 * Player.Level;
+                goblinTest.Transform.Position = new Vector2(4123, 700);
                 goblinTest.deleteOnDeath = true;
                 goblinTotem.Add(goblinTest);
                 Instatiate(goblinTest);
@@ -173,11 +173,11 @@ namespace SkoleProjekt_GodtNavn
             if (golemTotem.Count <= 0)
             {
                 golemTest = new Golem();
-                golemTest.transform.scale = 2;
-                golemTest.isMelee = false;
-                golemTest.health.currentValue = 20 * Player.level;
-                golemTest.health.maxValue = 20 * Player.level;
-                golemTest.transform.position = new Vector2(7826, -528);
+                golemTest.Transform.Scale = 2;
+                golemTest.IsMelee = false;
+                golemTest.Health.currentValue = 20 * Player.Level;
+                golemTest.Health.maxValue = 20 * Player.Level;
+                golemTest.Transform.Position = new Vector2(7826, -528);
                 golemTest.deleteOnDeath = true;
                 golemTotem.Add(golemTest);
                 Instatiate(golemTest);
@@ -200,10 +200,10 @@ namespace SkoleProjekt_GodtNavn
             for (int i = 0; i < tmp_Vector.Count; i++)
             {
                 Goblin goblin01 = new Goblin();
-                goblin01.health.currentValue = 15;
-                goblin01.health.maxValue = 15;
-                goblin01.transform.scale = 2;
-                goblin01.transform.position = tmp_Vector[i];
+                goblin01.Health.currentValue = 15;
+                goblin01.Health.maxValue = 15;
+                goblin01.Transform.Scale = 2;
+                goblin01.Transform.Position = tmp_Vector[i];
                 gameObjects.Add(goblin01);
             }
 
@@ -211,16 +211,16 @@ namespace SkoleProjekt_GodtNavn
 
 
             Golem golem01 = new Golem();
-            golem01.health.currentValue = 500;
-            golem01.health.maxValue = 500;
-            golem01.isMelee = false;
-            golem01.meleeRange = 300;
-            golem01.spellRange = 700;
-            golem01.maxAggroRange = 1200;
-            golem01.transform.scale = 4;
-            golem01.isBoss = true;
-            golem01.color = Color.Pink;
-            golem01.transform.position = new Vector2(11000, 30);
+            golem01.Health.currentValue = 500;
+            golem01.Health.maxValue = 500;
+            golem01.IsMelee = false;
+            golem01.MeleeRange = 300;
+            golem01.SpellRange = 700;
+            golem01.MaxAggroRange = 1200;
+            golem01.Transform.Scale = 4;
+            golem01.IsBoss = true;
+            golem01.Color = Color.Pink;
+            golem01.Transform.Position = new Vector2(11000, 30);
             gameObjects.Add(golem01);
         }
 
@@ -338,7 +338,7 @@ namespace SkoleProjekt_GodtNavn
 
             foreach (GameObject go in gameObjects)
             {
-                spriteBatch.DrawString(font, go.transform.position.ToString(), new Vector2(10, ySpace), Color.Black, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(font, go.Transform.Position.ToString(), new Vector2(10, ySpace), Color.Black, 0, new Vector2(0, 0), 0.5f, SpriteEffects.None, 1);
                 ySpace += 20;
             }
 #endif

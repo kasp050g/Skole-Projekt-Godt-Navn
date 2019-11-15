@@ -11,6 +11,6 @@ namespace SkoleProjekt_GodtNavn
         Up,
         Down,
         Left,
-        Rigth
+        Right
     }
 }
